@@ -12,8 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
-import com.wandrell.tabletop.punkapocalyptic.service.FileService;
 
 public final class MainPaneController {
 

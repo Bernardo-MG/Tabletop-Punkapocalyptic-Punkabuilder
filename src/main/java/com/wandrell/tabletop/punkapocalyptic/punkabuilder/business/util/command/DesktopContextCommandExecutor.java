@@ -6,14 +6,12 @@ import com.wandrell.pattern.command.ReturnCommand;
 import com.wandrell.pattern.repository.Repository;
 import com.wandrell.pattern.service.application.ApplicationInfoService;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.view.ViewService;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.tag.service.ViewServiceAware;
-import com.wandrell.tabletop.punkapocalyptic.service.FileService;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
-import com.wandrell.tabletop.punkapocalyptic.util.command.ContextCommandExecutor;
-import com.wandrell.tabletop.punkapocalyptic.util.command.DefaultContextCommandExecutor;
 
 public class DesktopContextCommandExecutor implements ContextCommandExecutor {
 

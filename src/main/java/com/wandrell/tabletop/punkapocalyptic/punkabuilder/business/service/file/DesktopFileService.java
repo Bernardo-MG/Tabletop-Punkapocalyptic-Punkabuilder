@@ -20,18 +20,17 @@ import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.tabletop.punkapocalyptic.conf.ReportConf;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.DynamicReportsFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildGangReportTitleCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildRulesSubreportCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildUnitArmorSubreportCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildUnitAttributesSubreportCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildUnitEquipmentSubreportCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildUnitMutationSubreportCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildUnitReportTitleCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.BuildUnitWeaponSubreportCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.GetFileToPrintGangOnDesktopCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.command.PrintDynamicReportToPDF;
 import com.wandrell.tabletop.punkapocalyptic.report.expression.CurrentObjectDatasourceExpression;
-import com.wandrell.tabletop.punkapocalyptic.service.FileService;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildGangReportTitleCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildRulesSubreportCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildUnitArmorSubreportCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildUnitAttributesSubreportCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildUnitEquipmentSubreportCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildUnitMutationSubreportCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildUnitReportTitleCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.BuildUnitWeaponSubreportCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.GetFileToPrintGangOnDesktopCommand;
-import com.wandrell.tabletop.punkapocalyptic.service.file.command.PrintDynamicReportToPDF;
 
 public final class DesktopFileService implements FileService {
 
