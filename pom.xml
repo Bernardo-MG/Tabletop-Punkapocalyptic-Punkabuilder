@@ -22,11 +22,63 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git://git.code.sf.net/p/punkabuilder/code punkabuilder-code</connection>
-		<developerConnection>scm:git:ssh://git.code.sf.net/p/punkabuilder/code</developerConnection>
+		<connection>scm:git:https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder.git</connection>
+		<developerConnection>scm:git:https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder.git</developerConnection>
 		<tag>head</tag>
-		<url>https://sourceforge.net/projects/punkabuilder/</url>
+		<url>https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder</url>
 	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder/issues</url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.org/Bernardo-MGTabletop-Punkapocalyptic-Punkabuilder</url>
+		<notifiers />
+	</ciManagement>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>wandrell-releases</id>
+			<name>Wandrell releases repository</name>
+			<url>https://api.bintray.com/maven/bernardo-mg/maven/tabletop-core</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>wandrell-snapshots</id>
+			<name>Wandrell snapshots repository</name>
+			<url>ftp://maven.wandrell.com</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<site>
+					<id>wandrell-site</id>
+					<name>Wandrell Maven sites</name>
+					<url>ftp://docs.wandrell.com/tabletop-punkapocalyptic-punkabuilder</url>
+				</site>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>development</id>
+			<distributionManagement>
+				<site>
+					<id>wandrell-site-development</id>
+					<name>Wandrell Development Maven sites</name>
+					<url>ftp://docs.wandrell.com/tabletop-punkapocalyptic-punkabuilder</url>
+				</site>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
 	<organization>
 		<name />
