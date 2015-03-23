@@ -25,21 +25,21 @@ Requires JDK 8.
 All other dependencies are handled through Maven, and noted in the included POM file.
 
 ### Getting the code
-The code can be found at the Sourceforge [project page][].
+The code can be found at the GitHub [project page][].
 
 To acquire it through Git use the following clone URI:
 
-`git clone ssh://wandrell@git.code.sf.net/p/punkabuilder/code punkabuilder-code`
+`git clone https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder.git`
 
 ## Continuous integration
 The continuous integration information can be found at the [project CI page][] based on Travis CI.
 
 ## License
-The project is released under the [MIT License][].
+The project is released under version 2.0 of the [Apache License][].
 
+[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
 [Javadoc page]: http://docs.wandrell.com/maven/tabletop-punkapocalyptic-desktop/apidocs
 [Maven site]: http://docs.wandrell.com/maven/tabletop-punkapocalyptic-desktop
-[MIT License]: http://www.opensource.org/licenses/mit-license.php
 [project CI page]: https://travis-ci.org/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder
 [project issues page]: https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder/issues
-[project page]: https://sourceforge.net/projects/punkabuilder/
+[project page]: https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder
