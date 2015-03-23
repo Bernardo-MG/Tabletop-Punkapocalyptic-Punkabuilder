@@ -40,6 +40,6 @@ The project is released under the [MIT License][].
 [Javadoc page]: http://docs.wandrell.com/maven/tabletop-punkapocalyptic-desktop/apidocs
 [Maven site]: http://docs.wandrell.com/maven/tabletop-punkapocalyptic-desktop
 [MIT License]: http://www.opensource.org/licenses/mit-license.php
-[project CI page]: https://
-[project issues page]: https://
+[project CI page]: https://travis-ci.org/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder
+[project issues page]: https://github.com/Bernardo-MG/Tabletop-Punkapocalyptic-Punkabuilder/issues
 [project page]: https://sourceforge.net/projects/punkabuilder/
