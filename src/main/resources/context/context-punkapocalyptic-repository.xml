@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- GENERAL REPOSITORIES -->
+
+	<bean id="armorRepo" class="${data.repository.armor.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="enhancementRepo" class="${data.repository.enhancement.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="equipmentRepo" class="${data.repository.equipment.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="factionRepo" class="${data.repository.faction.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="mutationRepo" class="${data.repository.mutation.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="ruleRepo" class="${data.repository.rule.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="unitRepo" class="${data.repository.unit.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="weaponRepo" class="${data.repository.weapon.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+	
+	<!-- AVAILABILITY REPOSITORIES -->
+
+	<bean id="factionUnitRepo" class="${data.repository.ava.unit.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="unitArmorRepo" class="${data.repository.ava.armor.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="unitEquipmentRepo" class="${data.repository.ava.equipment.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="unitMutationRepo" class="${data.repository.ava.mutation.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="unitWeaponRepo" class="${data.repository.ava.weapon.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+	<bean id="factionViewRepo" class="${data.repository.view.faction.class}">
+		<constructor-arg>
+			<set />
+		</constructor-arg>
+	</bean>
+
+</beans>

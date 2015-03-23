@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- APPLICATION SERVICES -->
+
+	<bean id="applicationInfoService" class="${service.application.info.class}">
+		<constructor-arg ref="applicationProperties" />
+	</bean>
+
+	<bean id="applicationProperties" class="com.wandrell.util.FileUtils"
+		factory-method="getProperties">
+		<constructor-arg ref="applicationStream" />
+	</bean>
+
+	<bean id="applicationStream" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathInputStream">
+		<constructor-arg value="${service.application.info.properties}" />
+	</bean>
+
+	<!-- FILE SERVICE -->
+
+	<bean id="fileService" class="${service.file.class}">
+		<constructor-arg ref="commandExecutor" />
+		<constructor-arg ref="fileProperties" />
+	</bean>
+
+	<bean id="fileProperties" class="com.wandrell.util.FileUtils"
+		factory-method="getProperties">
+		<constructor-arg ref="fileStream" />
+	</bean>
+
+	<bean id="fileStream" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathInputStream">
+		<constructor-arg value="${service.file.properties}" />
+	</bean>
+
+	<!-- RULESET SERVICE -->
+
+	<bean id="rulesetService" class="${service.ruleset.class}">
+		<constructor-arg ref="commandExecutor" />
+		<constructor-arg ref="rulesetProperties" />
+	</bean>
+
+	<bean id="rulesetProperties" class="com.wandrell.util.FileUtils"
+		factory-method="getProperties">
+		<constructor-arg ref="rulesetStream" />
+	</bean>
+
+	<bean id="rulesetStream" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathInputStream">
+		<constructor-arg value="${service.ruleset.config.properties}" />
+	</bean>
+
+	<!-- LOCALIZATION SERVICES -->
+
+	<bean id="localizationService" class="${service.localization.class}">
+		<constructor-arg ref="commandExecutor" />
+		<constructor-arg ref="messageBundle" />
+		<constructor-arg ref="viewBundle" />
+		<constructor-arg ref="reportBundle" />
+	</bean>
+
+	<!-- VIEW SERVICES -->
+
+	<bean id="viewService" class="${service.view.class}">
+		<constructor-arg ref="commandExecutor" />
+	</bean>
+
+	<!-- DATA SERVICES -->
+
+	<bean id="modelService" class="${service.model.class}">
+		<constructor-arg ref="commandExecutor" />
+	</bean>
+
+</beans>

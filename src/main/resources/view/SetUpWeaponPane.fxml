@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<HBox>
+			<!-- WEAPON OPTION -->
+			<Label text="%weapon" />
+			<ComboBox fx:id="weaponCombo" />
+		</HBox>
+		<Separator orientation="HORIZONTAL" />
+		<HBox>
+			<!-- WEAPON INFO -->
+			<children>
+				<GridPane hgap="4" vgap="4">
+					<columnConstraints>
+						<ColumnConstraints />
+						<ColumnConstraints />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints />
+						<RowConstraints />
+						<RowConstraints />
+					</rowConstraints>
+					<children>
+						<!-- COMBAT -->
+						<Label text="%combat" />
+						<Label fx:id="combatLabel" text="0" GridPane.columnIndex="1" />
+						<!-- STRENGTH -->
+						<Label text="%strength" GridPane.rowIndex="1" />
+						<Label fx:id="strengthLabel" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="1" />
+						<!-- PENETRATION -->
+						<Label text="%penetration" GridPane.rowIndex="2" />
+						<Label fx:id="penetrationLabel" text="0"
+							GridPane.columnIndex="1" GridPane.rowIndex="2" />
+					</children>
+				</GridPane>
+				<Separator orientation="VERTICAL" />
+				<GridPane hgap="4" vgap="4">
+					<columnConstraints>
+						<ColumnConstraints />
+						<ColumnConstraints halignment="center" />
+						<ColumnConstraints halignment="center" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints />
+						<RowConstraints />
+						<RowConstraints />
+						<RowConstraints />
+					</rowConstraints>
+					<children>
+						<!-- DISTANCE -->
+						<Label text="%distance" />
+						<Label text="%cm" GridPane.columnIndex="1" />
+						<Label text="%inches" GridPane.columnIndex="2" />
+						<Label text="%distance.short" GridPane.rowIndex="1" />
+						<Label fx:id="cmShortLabel" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="1" />
+						<Label fx:id="inchShortLabel" text="0" GridPane.columnIndex="2"
+							GridPane.rowIndex="1" />
+						<Label text="%distance.medium" GridPane.rowIndex="2" />
+						<Label fx:id="cmMediumLabel" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="2" />
+						<Label fx:id="inchMediumLabel" text="0"
+							GridPane.columnIndex="2" GridPane.rowIndex="2" />
+						<Label text="%distance.long" GridPane.rowIndex="3" />
+						<Label fx:id="cmLongLabel" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="3" />
+						<Label fx:id="inchLongLabel" text="0" GridPane.columnIndex="2"
+							GridPane.rowIndex="3" />
+					</children>
+				</GridPane>
+			</children>
+		</HBox>
+		<Separator orientation="HORIZONTAL" />
+		<VBox>
+			<!-- RULES -->
+			<children>
+				<Label text="%rules.special" />
+				<ListView fx:id="specialRulesList" minHeight="20"
+					maxHeight="50.0" maxWidth="150.0" />
+			</children>
+		</VBox>
+		<Separator orientation="HORIZONTAL" />
+		<!-- ENHANCEMENTS -->
+		<VBox fx:id="enhancementPane" />
+		<Button fx:id="pickButton" text="%pick" />
+	</children>
+</VBox>

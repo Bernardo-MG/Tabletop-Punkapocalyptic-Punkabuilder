@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unit_rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="validation/punkapocalyptic-model-unit-rule.xsd">
+	<unit_rule>
+		<unit>addler</unit>
+		<rules>
+			<rule>pack</rule>
+			<rule>mong</rule>
+		</rules>
+	</unit_rule>
+	<unit_rule>
+		<unit>mongrelmorph</unit>
+		<rules>
+			<rule>beast</rule>
+			<rule>swift</rule>
+		</rules>
+	</unit_rule>
+	<unit_rule>
+		<unit>pit_beast</unit>
+		<rules>
+			<rule>berserk</rule>
+		</rules>
+	</unit_rule>
+</unit_rules>

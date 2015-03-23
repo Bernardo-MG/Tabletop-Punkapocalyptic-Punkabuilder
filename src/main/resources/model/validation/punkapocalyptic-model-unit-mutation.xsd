@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="unit_mutations">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="unit_mutation" type="mutation" />
+			</xs:sequence>
+		</xs:complexType>
+		<xs:unique name="uniqueData">
+			<xs:selector xpath="unit" />
+			<xs:field xpath="." />
+		</xs:unique>
+	</xs:element>
+
+	<xs:complexType name="mutation">
+		<xs:sequence>
+			<xs:element name="unit" type="xs:token" maxOccurs="1"
+				minOccurs="1" />
+			<xs:element name="max_mutations" type="xs:int" maxOccurs="1"
+				minOccurs="1" />
+			<xs:element name="white_list" type="mutationList"
+				maxOccurs="1" minOccurs="0" />
+			<xs:element name="initial" type="mutationList"
+				maxOccurs="1" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="mutationList">
+		<xs:sequence>
+			<xs:element name="mutation" type="xs:token" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

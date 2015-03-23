@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faction_views xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<faction_view>
+		<faction>gangers</faction>
+		<image>images/logo_gangers_small.jpg</image>
+	</faction_view>
+	<faction_view>
+		<faction>mutards</faction>
+		<image>images/logo_mutants_small.jpg</image>
+	</faction_view>
+</faction_views>

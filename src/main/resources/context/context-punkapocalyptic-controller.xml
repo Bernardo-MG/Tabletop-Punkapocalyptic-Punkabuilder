@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- MAIN PANE -->
+
+	<bean id="mainPaneController" class="${controller.main}">
+		<constructor-arg ref="fileService" />
+		<constructor-arg ref="gangBuilderManager" />
+		<property name="aboutDialog" ref="aboutDialog" />
+		<property name="rootLayout" ref="mainPane" />
+	</bean>
+
+	<!-- ABOUT -->
+
+	<bean id="aboutController" class="${controller.about}">
+		<constructor-arg ref="applicationInfoService" />
+	</bean>
+
+	<!-- FACTION SELECTION -->
+
+	<bean id="factionSelectionController" class="${controller.selection.faction}">
+		<constructor-arg ref="factionRepo" />
+		<constructor-arg ref="modelService" />
+		<constructor-arg ref="gangBuilderManager" />
+		<constructor-arg ref="gangCreationPane" />
+		<constructor-arg ref="mainPaneController" />
+		<constructor-arg ref="factionViewRepo" />
+	</bean>
+
+	<!-- GANG CREATION -->
+
+	<bean id="gangCreationController" class="${controller.creation.gang}">
+		<constructor-arg ref="gangBuilderManager" />
+		<property name="dialog" ref="setUpUnitDialog" />
+	</bean>
+
+	<bean id="setUpUnitController" class="${controller.creation.unit}">
+		<constructor-arg ref="viewService" />
+		<constructor-arg ref="gangBuilderManager" />
+		<constructor-arg ref="unitConfigManager" />
+		<property name="dialog" ref="setUpUnitDialog" />
+	</bean>
+
+	<bean id="setUpWeaponController" scope="prototype"
+		class="${controller.creation.weapon}">
+		<constructor-arg ref="unitConfigManager" />
+	</bean>
+
+</beans>

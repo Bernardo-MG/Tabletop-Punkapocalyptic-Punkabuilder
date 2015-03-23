@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="550.0" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<SplitPane dividerPositions="0.33" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="0.0">
+			<items>
+				<!-- UNITS SELECTION -->
+				<ListView fx:id="unitSelectionList" />
+				<VBox alignment="top_center">
+					<!-- CURRENT UNIT INFO -->
+					<children>
+						<HBox spacing="10">
+							<children>
+								<!-- UNIT NAME -->
+								<Label text="%name.unit" />
+								<Label fx:id="unitNameLabel" text="---" />
+							</children>
+						</HBox>
+						<Separator orientation="HORIZONTAL" />
+						<VBox>
+							<!-- ATTRIBUTES AND POINTS -->
+							<children>
+								<GridPane hgap="4" vgap="4">
+									<columnConstraints>
+										<ColumnConstraints halignment="center"
+											minWidth="20.0" prefWidth="50.0" />
+										<ColumnConstraints halignment="center"
+											minWidth="20.0" prefWidth="50.0" />
+										<ColumnConstraints halignment="center"
+											minWidth="20.0" prefWidth="50.0" />
+										<ColumnConstraints halignment="center"
+											minWidth="20.0" prefWidth="50.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+									</rowConstraints>
+									<children>
+										<!-- ACTIONS -->
+										<Label text="%actions" />
+										<Label fx:id="labelActions" text="0" GridPane.rowIndex="1" />
+										<!-- COMBAT -->
+										<Label text="%combat" GridPane.columnIndex="1" />
+										<Label fx:id="labelCombat" text="0"
+											GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<!-- PRECISION -->
+										<Label text="%precision" GridPane.columnIndex="2" />
+										<Label fx:id="labelPrecision" text="0"
+											GridPane.columnIndex="2" GridPane.rowIndex="1" />
+										<!-- AGILITY -->
+										<Label text="%agility" GridPane.columnIndex="3" />
+										<Label fx:id="labelAgility" text="0"
+											GridPane.columnIndex="3" GridPane.rowIndex="1" />
+										<!-- STRENGTH -->
+										<Label text="%strength" GridPane.columnIndex="4" />
+										<Label fx:id="labelStrength" text="0"
+											GridPane.columnIndex="4" GridPane.rowIndex="1" />
+										<!-- TOUGHNESS -->
+										<Label text="%toughness" GridPane.columnIndex="5" />
+										<Label fx:id="labelToughness" text="0"
+											GridPane.columnIndex="5" GridPane.rowIndex="1" />
+										<!-- TECH -->
+										<Label text="%tech" GridPane.columnIndex="6" />
+										<Label fx:id="labelTech" text="0" GridPane.columnIndex="6"
+											GridPane.rowIndex="1" />
+									</children>
+								</GridPane>
+								<Separator orientation="HORIZONTAL" />
+								<GridPane hgap="4" vgap="4">
+									<columnConstraints>
+										<ColumnConstraints />
+										<ColumnConstraints />
+										<ColumnConstraints />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+									</rowConstraints>
+									<children>
+										<!-- BASE POINTS -->
+										<Label text="%points.base" />
+										<Label fx:id="basePointsLabel" text="0"
+											GridPane.columnIndex="1" />
+										<!-- TOTAL POINTS -->
+										<Label text="%points.total" GridPane.columnIndex="2" />
+										<Label fx:id="totalPointsLabel" text="0"
+											GridPane.columnIndex="3" />
+									</children>
+								</GridPane>
+							</children>
+						</VBox>
+						<Separator orientation="HORIZONTAL" />
+						<HBox fx:id="armorBox">
+							<!-- ARMOR -->
+							<children>
+								<GridPane fx:id="armorPane" hgap="4" vgap="4">
+									<columnConstraints>
+										<ColumnConstraints />
+										<ColumnConstraints />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+										<RowConstraints />
+									</rowConstraints>
+									<children>
+										<!-- ARMOR -->
+										<Label text="%armor.name" />
+										<ComboBox fx:id="armorCombo" GridPane.columnIndex="1" />
+										<!-- PROTECTION -->
+										<Label text="%armor.protection" GridPane.rowIndex="1" />
+										<Label fx:id="armorProtectionLabel" text="0"
+											GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<!-- RULES -->
+										<Label text="%rules.special" GridPane.rowIndex="2" />
+										<ListView fx:id="armorSpecialRulesList" maxHeight="50.0"
+											maxWidth="150.0" minHeight="20" GridPane.columnSpan="2"
+											GridPane.rowIndex="3" />
+									</children>
+								</GridPane>
+							</children>
+						</HBox>
+						<Separator orientation="HORIZONTAL" />
+						<!-- GROUP -->
+						<HBox fx:id="groupBox">
+							<children>
+								<HBox fx:id="groupPane">
+									<children>
+										<Label minWidth="30.0" text="%size.group" />
+										<Button fx:id="decreaseGroupButton" minWidth="30.0"
+											onAction="#handleDecreaseGroupAction" text="-" />
+										<Label fx:id="groupSizeLabel" alignment="center"
+											minWidth="30.0" text="0" />
+										<Button fx:id="increaseGroupButton" minWidth="30.0"
+											onAction="#handleIncreaseGroupAction" text="+" />
+									</children>
+								</HBox>
+							</children>
+						</HBox>
+						<!-- EQUIPMENT -->
+						<VBox fx:id="equipmentPane" />
+						<Separator orientation="HORIZONTAL" />
+						<!-- WEAPONS -->
+						<HBox fx:id="weaponsPane" />
+						<Separator orientation="HORIZONTAL" />
+						<!-- MUTATIONS -->
+						<HBox fx:id="mutationsBox">
+							<children>
+								<VBox fx:id="mutationsPane">
+									<children>
+										<Label text="%mutations" />
+										<ComboBox fx:id="mutationCombo" GridPane.columnIndex="1" />
+										<Button fx:id="addMutationButton" onAction="#handleAddMutation"
+											text="%add.mutation" />
+										<ListView fx:id="mutationsList" minHeight="20"
+											maxHeight="50.0" maxWidth="150.0" />
+									</children>
+								</VBox>
+							</children>
+						</HBox>
+						<Separator orientation="HORIZONTAL" />
+						<!-- RULES -->
+						<HBox fx:id="rulesBox">
+							<children>
+								<VBox fx:id="rulesPane">
+									<children>
+										<Label text="%rules.special" />
+										<ListView fx:id="specialRulesList" minHeight="20"
+											maxHeight="50.0" maxWidth="150.0" />
+									</children>
+								</VBox>
+							</children>
+						</HBox>
+						<Separator orientation="HORIZONTAL" />
+						<!-- ERRORS -->
+						<ListView fx:id="errorsList" minHeight="20.0" prefHeight="50.0" />
+						<HBox>
+							<children>
+								<!-- PICK UNIT BUTTON -->
+								<Button onAction="#handlePickUnitAction" text="%add.unit" />
+								<!-- RESET UNIT BUTTON -->
+								<Button onAction="#handleResetUnitAction" text="%reset" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+			</items>
+		</SplitPane>
+	</children>
+</AnchorPane>

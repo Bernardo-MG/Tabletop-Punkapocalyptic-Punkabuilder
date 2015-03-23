@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- MESSAGE TEMPLATES -->
+
+	<bean id="tooManyUnitsMessage" factory-bean="localizationService"
+		factory-method="getMessageString">
+		<constructor-arg type="java.lang.String"
+			value="${localization.constant.message.tooManyUnits}" />
+	</bean>
+
+	<bean id="missingCompWeaponMessage" factory-bean="localizationService"
+		factory-method="getMessageString">
+		<constructor-arg type="java.lang.String"
+			value="${localization.constant.message.missingCompWeapon}" />
+	</bean>
+
+	<!-- VIEW -->
+
+	<bean id="newUnitLabel" factory-bean="localizationService"
+		factory-method="getViewString">
+		<constructor-arg type="java.lang.String"
+			value="${localization.constant.view.newUnit}" />
+	</bean>
+
+	<bean id="aboutLabel" factory-bean="localizationService"
+		factory-method="getViewString">
+		<constructor-arg type="java.lang.String"
+			value="${localization.constant.view.about}" />
+	</bean>
+
+	<!-- RESOURCE BUNDLES -->
+
+	<bean id="unitAttributeBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String"
+			value="${localization.file.unitAttribute}" />
+	</bean>
+
+	<bean id="weaponAttributeBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String"
+			value="${localization.file.weaponAttribute}" />
+	</bean>
+
+	<bean id="armorBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.armor}" />
+	</bean>
+
+	<bean id="weaponBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.weapon}" />
+	</bean>
+
+	<bean id="equipmentBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.equipment}" />
+	</bean>
+
+	<bean id="weaponEnhancementBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String"
+			value="${localization.file.weaponEnhancement}" />
+	</bean>
+
+	<bean id="specialRuleBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String"
+			value="${localization.file.specialRule}" />
+	</bean>
+
+	<bean id="unitNameBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.unitName}" />
+	</bean>
+
+	<bean id="factionNameBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String"
+			value="${localization.file.factionName}" />
+	</bean>
+
+	<bean id="mutationNameBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String"
+			value="${localization.file.mutationName}" />
+	</bean>
+
+	<bean id="messageBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.message}" />
+	</bean>
+
+	<bean id="reportBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.report}" />
+	</bean>
+
+	<bean id="viewBundle" class="java.util.ResourceBundle"
+		factory-method="getBundle">
+		<constructor-arg type="java.lang.String" value="${localization.file.view}" />
+	</bean>
+
+	<bean id="presentationMergedBundle" class="com.wandrell.util.localization.CompositeResourceBundle">
+		<constructor-arg>
+			<array>
+				<ref bean="unitAttributeBundle" />
+				<ref bean="viewBundle" />
+				<ref bean="weaponAttributeBundle" />
+			</array>
+		</constructor-arg>
+	</bean>
+
+</beans>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+	<!-- FXML LOADERS -->
+
+	<!-- MAIN PANE -->
+
+	<bean id="mainPaneLoader" class="javafx.fxml.FXMLLoader">
+		<constructor-arg ref="mainPaneURL" />
+		<constructor-arg ref="viewBundle" />
+		<property name="controller" ref="mainPaneController" />
+	</bean>
+
+	<!-- ABOUT -->
+
+	<bean id="aboutLoader" class="javafx.fxml.FXMLLoader">
+		<constructor-arg ref="aboutURL" />
+		<constructor-arg ref="presentationMergedBundle" />
+		<property name="controller" ref="aboutController" />
+	</bean>
+
+	<!-- FACTION SELECTION -->
+
+	<bean id="factionSelectionLoader" class="javafx.fxml.FXMLLoader">
+		<constructor-arg ref="factionSelectionURL" />
+		<constructor-arg ref="viewBundle" />
+		<property name="controller" ref="factionSelectionController" />
+	</bean>
+
+	<!-- GANG CREATION -->
+
+	<bean id="gangCreationLoader" class="javafx.fxml.FXMLLoader">
+		<constructor-arg ref="gangCreationURL" />
+		<constructor-arg ref="viewBundle" />
+		<property name="controller" ref="gangCreationController" />
+	</bean>
+
+	<bean id="setUpUnitLoader" class="javafx.fxml.FXMLLoader">
+		<constructor-arg ref="setUpUnitURL" />
+		<constructor-arg ref="presentationMergedBundle" />
+		<property name="controller" ref="setUpUnitController" />
+	</bean>
+
+	<bean id="setUpWeaponLoader" scope="prototype" class="javafx.fxml.FXMLLoader">
+		<constructor-arg ref="setUpWeaponURL" />
+		<constructor-arg ref="presentationMergedBundle" />
+		<property name="controller" ref="setUpWeaponController" />
+	</bean>
+
+	<!-- VIEW COMPONENTS -->
+
+	<!-- MAIN PANE -->
+
+	<bean id="mainPane" factory-bean="mainPaneLoader" factory-method="load" />
+
+	<!-- ABOUT -->
+
+	<bean id="aboutPane" factory-bean="aboutLoader" factory-method="load" />
+
+	<bean id="aboutDialog" class="${view.factory}" factory-method="getDialog"
+		depends-on="aboutController">
+		<constructor-arg type="javafx.scene.layout.Pane" ref="aboutPane" />
+		<property name="title" ref="aboutLabel" />
+	</bean>
+
+	<!-- FACTION SELECTION -->
+
+	<bean id="factionSelectionPane" factory-bean="factionSelectionLoader"
+		factory-method="load" />
+
+	<!-- GANG CREATION -->
+
+	<bean id="gangCreationPane" factory-bean="gangCreationLoader"
+		factory-method="load" />
+
+	<bean id="setUpUnitPane" factory-bean="setUpUnitLoader"
+		factory-method="load" />
+
+	<bean id="setUpUnitDialog" class="${view.factory}" factory-method="getDialog"
+		depends-on="setUpUnitController">
+		<constructor-arg type="javafx.scene.layout.Pane" ref="setUpUnitPane" />
+		<property name="title" ref="newUnitLabel" />
+	</bean>
+
+	<!-- FXML URLS -->
+
+	<!-- MAIN PANE -->
+
+	<bean id="mainPaneURL" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathURL">
+		<constructor-arg type="java.lang.String" value="${view.file.main}" />
+	</bean>
+
+	<!-- ABOUT -->
+
+	<bean id="aboutURL" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathURL">
+		<constructor-arg type="java.lang.String" value="${view.file.about}" />
+	</bean>
+
+	<!-- FACTION SELECTION -->
+
+	<bean id="factionSelectionURL" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathURL">
+		<constructor-arg type="java.lang.String" value="${view.file.selection.faction}" />
+	</bean>
+
+	<!-- GANG CREATION -->
+
+	<bean id="gangCreationURL" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathURL">
+		<constructor-arg type="java.lang.String" value="${view.file.gangCreation}" />
+	</bean>
+
+	<bean id="setUpUnitURL" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathURL">
+		<constructor-arg type="java.lang.String" value="${view.file.setUpUnit}" />
+	</bean>
+
+	<bean id="setUpWeaponURL" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathURL">
+		<constructor-arg type="java.lang.String" value="${view.file.setUpWeapon}" />
+	</bean>
+	
+</beans>

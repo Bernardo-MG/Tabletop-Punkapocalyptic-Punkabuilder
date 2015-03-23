@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- COMMAND EXECUTOR -->
+
+	<bean id="commandExecutor" class="${command.executor.punkapocalyptic.class}">
+		<constructor-arg ref="commandExecutorBase"/>
+		<property name="applicationInfoService" ref="applicationInfoService" />
+		<property name="fileService" ref="fileService" />
+		<property name="localizationService" ref="localizationService" />
+		<property name="rulesetService" ref="rulesetService" />
+		<property name="modelService" ref="modelService" />
+		<property name="viewService" ref="viewService" />
+		<property name="weaponRepository" ref="weaponRepo" />
+	</bean>
+
+	<bean id="commandExecutorBase" class="${command.executor.base.class}" />
+
+</beans>
