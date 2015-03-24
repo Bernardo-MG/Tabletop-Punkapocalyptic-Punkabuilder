@@ -9,7 +9,7 @@ before_install:
   - ./.scripts/create-maven-settings.sh
 install:
   - sudo apt-get update
-  - sudo apt-get -qq --force-yes install ia32-libs ia32-libs-multiarch
+  - sudo apt-get install ia32-libs ia32-libs-multiarch
 script:
   - mvn clean verify
 after_success:
