@@ -8,6 +8,7 @@ before_install:
   - chmod +x ./.scripts/deploy-site.sh
   - ./.scripts/create-maven-settings.sh
 install:
+  - sudo apt-get update
   - sudo apt-get -qq --force-yes install ia32-libs ia32-libs-multiarch
 script:
   - mvn clean verify
