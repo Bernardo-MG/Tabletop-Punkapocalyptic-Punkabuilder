@@ -7,6 +7,8 @@ before_install:
   - chmod +x ./.scripts/deploy.sh
   - chmod +x ./.scripts/deploy-site.sh
   - ./.scripts/create-maven-settings.sh
+install:
+  - apt-get install ia32-libs
 script:
   - mvn clean verify
 after_success:
