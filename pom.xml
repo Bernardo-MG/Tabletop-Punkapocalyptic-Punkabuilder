@@ -110,7 +110,7 @@
 		<java.version.target>${java.version.source}</java.version.target>
 		<java.version.minimum>1.8.0</java.version.minimum>
 		<!-- Manifest data -->
-		<manifest.name>com/wandrell/tabletop/punkapocalyptic/desktop</manifest.name>
+		<manifest.name>com/wandrell/tabletop/punkapocalyptic/punkabuilder</manifest.name>
 		<!-- Executable data -->
 		<execute.main.path>com.wandrell.tabletop.main.punkapocalyptic.desktop.Main</execute.main.path>
 		<!-- File names -->
