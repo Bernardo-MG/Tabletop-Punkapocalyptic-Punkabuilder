@@ -55,7 +55,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.re
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.UnitNameListCell;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class SetUpUnitController {
 
@@ -649,7 +649,7 @@ public final class SetUpUnitController {
 
     private final void loadGroupPane() {
         final ValueChangeListener countListener;
-        final EditableValueBox size;
+        final ValueBox size;
 
         if (getUnitConfigurationManager().isGrouped()) {
             if (getGroupedBox().getChildren().isEmpty()) {
@@ -767,7 +767,7 @@ public final class SetUpUnitController {
     }
 
     private final void setUnit(final Unit unit) {
-        final EditableValueBox group;
+        final ValueBox group;
 
         if (unit != getUnitConfigurationManager().getUnit()) {
             if (getUnit() != null) {

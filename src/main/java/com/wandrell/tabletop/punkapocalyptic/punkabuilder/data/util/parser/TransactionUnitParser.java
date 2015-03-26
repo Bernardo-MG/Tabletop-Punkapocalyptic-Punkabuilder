@@ -13,7 +13,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.GroupedUnitWrapper;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.RulesetServiceDerivedValuesBuilder;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
 
 public final class TransactionUnitParser implements
         Parser<Map<String, Object>, Unit> {
@@ -68,7 +68,7 @@ public final class TransactionUnitParser implements
                 });
 
         if (!filtered.isEmpty()) {
-            unit = new GroupedUnitWrapper(unit, new DefaultEditableValueBox(0));
+            unit = new GroupedUnitWrapper(unit, new DefaultValueBox(0));
         }
         return unit;
     }

@@ -27,8 +27,8 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.UnitChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.UnitNameTableCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.UnitValorationTableCell;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class GangCreationController {
 
@@ -225,7 +225,7 @@ public final class GangCreationController {
 
             @Override
             public final void gangChanged(final GangChangedEvent event) {
-                final EditableValueBox valueBox;
+                final ValueBox valueBox;
                 final Integer bullets;
 
                 if (event.getOldGang() != null) {
@@ -240,7 +240,7 @@ public final class GangCreationController {
 
                 bullets = getGangBuilderManager().getGang().getBullets();
 
-                valueBox = new DefaultEditableValueBox(bullets);
+                valueBox = new DefaultValueBox(bullets);
                 getBulletsHandler().setValueBox(valueBox);
 
                 valueBox.addValueChangeListener(new ValueChangeListener() {
