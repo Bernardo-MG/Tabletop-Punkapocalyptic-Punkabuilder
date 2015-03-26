@@ -800,9 +800,9 @@ public final class SetUpUnitController {
             if (getUnit() instanceof GroupedUnit) {
                 group = ((GroupedUnit) getUnit()).getGroupSize();
                 getDecreaseGroupButton().setDisable(
-                        group.getValue() == group.getLowerLimit());
+                        group.getValue() == groupSizeHandler.getLowerLimit());
                 getIncreaseGroupButton().setDisable(
-                        group.getValue() == group.getUpperLimit());
+                        group.getValue() == groupSizeHandler.getUpperLimit());
 
                 getGroupSizeHandler().setValueBox(group);
             }

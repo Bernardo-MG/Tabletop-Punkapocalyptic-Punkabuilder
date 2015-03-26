@@ -61,12 +61,7 @@
 
 	<!-- VALUE HANDLERS -->
 
-	<bean id="unitLimitValueBox"
-		class="com.wandrell.tabletop.valuebox.derived.DerivedValueBox">
-		<constructor-arg ref="unitLimitView" />
-	</bean>
-
-	<bean id="unitLimitView" class="${value.unitLimit.view.class}">
+	<bean id="unitLimitValueBox"  class="${value.unitLimit.class}">
 		<constructor-arg ref="rulesetService" />
 	</bean>
 

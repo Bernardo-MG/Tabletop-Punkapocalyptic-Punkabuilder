@@ -240,8 +240,7 @@ public final class GangCreationController {
 
                 bullets = getGangBuilderManager().getGang().getBullets();
 
-                valueBox = new DefaultEditableValueBox(bullets, 0,
-                        Integer.MAX_VALUE);
+                valueBox = new DefaultEditableValueBox(bullets);
                 getBulletsHandler().setValueBox(valueBox);
 
                 valueBox.addValueChangeListener(new ValueChangeListener() {

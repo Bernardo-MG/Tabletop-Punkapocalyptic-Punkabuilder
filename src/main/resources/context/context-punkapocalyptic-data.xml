@@ -28,8 +28,6 @@
 				<ref bean="readerModelFactionEquipment" />
 				<!-- Units -->
 				<ref bean="readerModelUnit" />
-				<!-- Unit special rules -->
-				<ref bean="readerModelUnitSpecialRule" />
 				<!-- Unit armors -->
 				<ref bean="readerModelUnitArmor" />
 				<!-- Unit weapons -->
@@ -191,12 +189,6 @@
 	<bean id="readerModelUnit" class="com.wandrell.util.ResourceUtils"
 		factory-method="getClassPathReader">
 		<constructor-arg type="java.lang.String" value="${model.conf.unit.file}" />
-	</bean>
-
-	<!-- Unit special rules readers -->
-	<bean id="readerModelUnitSpecialRule" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String" value="${model.conf.unit.rule.file}" />
 	</bean>
 
 	<!-- Unit armor readers -->

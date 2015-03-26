@@ -49,9 +49,8 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.model.ruleset
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.MessageBundleKey;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
-import com.wandrell.tabletop.punkapocalyptic.valuebox.derived.GangValorationDerivedValueViewPoint;
+import com.wandrell.tabletop.punkapocalyptic.valuebox.GangValorationValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
-import com.wandrell.tabletop.valuebox.derived.DerivedValueBox;
 
 public final class ModelFactory {
 
@@ -139,8 +138,7 @@ public final class ModelFactory {
 
             @Override
             public final ValueBox getValoration(final Gang gang) {
-                return new DerivedValueBox(
-                        new GangValorationDerivedValueViewPoint(gang, service));
+                return new GangValorationValueBox(gang, service);
             }
 
         };
