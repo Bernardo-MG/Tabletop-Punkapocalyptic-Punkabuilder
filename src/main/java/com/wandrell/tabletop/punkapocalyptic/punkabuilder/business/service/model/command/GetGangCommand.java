@@ -11,6 +11,7 @@ public final class GetGangCommand implements ReturnCommand<Gang>,
         RulesetServiceAware {
 
     private final Faction  faction;
+    private Gang           gang;
     private RulesetService service;
 
     public GetGangCommand(final Faction faction) {
@@ -20,8 +21,13 @@ public final class GetGangCommand implements ReturnCommand<Gang>,
     }
 
     @Override
-    public final Gang execute() {
-        return ModelFactory.getInstance().getGang(faction, getRulesetService());
+    public final void execute() {
+        gang = ModelFactory.getInstance().getGang(faction, getRulesetService());
+    }
+
+    @Override
+    public final Gang getResult() {
+        return gang;
     }
 
     @Override

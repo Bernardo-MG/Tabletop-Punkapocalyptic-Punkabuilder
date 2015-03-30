@@ -9,6 +9,7 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class GetUnitGangConstraintCommand implements
         ReturnCommand<Constraint>, LocalizationServiceAware {
 
+    private Constraint          constraint;
     private final String[]      context;
     private final String        name;
     private LocalizationService service;
@@ -24,9 +25,14 @@ public final class GetUnitGangConstraintCommand implements
     }
 
     @Override
-    public final Constraint execute() {
-        return ModelFactory.getInstance().getConstraint(name, unit,
+    public final void execute() {
+        constraint = ModelFactory.getInstance().getConstraint(name, unit,
                 getContext(), getLocalizationService());
+    }
+
+    @Override
+    public final Constraint getResult() {
+        return constraint;
     }
 
     @Override

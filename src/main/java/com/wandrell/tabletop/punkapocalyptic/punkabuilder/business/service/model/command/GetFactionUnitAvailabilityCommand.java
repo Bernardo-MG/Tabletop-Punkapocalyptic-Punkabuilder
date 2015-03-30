@@ -12,6 +12,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ModelFact
 public final class GetFactionUnitAvailabilityCommand implements
         ReturnCommand<FactionUnitAvailability> {
 
+    private FactionUnitAvailability      ava;
     private final Collection<Constraint> constraints;
     private final Faction                faction;
     private final Unit                   unit;
@@ -26,9 +27,14 @@ public final class GetFactionUnitAvailabilityCommand implements
     }
 
     @Override
-    public final FactionUnitAvailability execute() {
-        return ModelFactory.getInstance().getFactionUnitAvailability(faction,
+    public final void execute() {
+        ava = ModelFactory.getInstance().getFactionUnitAvailability(faction,
                 unit, constraints);
+    }
+
+    @Override
+    public final FactionUnitAvailability getResult() {
+        return ava;
     }
 
 }

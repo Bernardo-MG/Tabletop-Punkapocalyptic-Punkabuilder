@@ -17,14 +17,15 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class BuildUnitReportTitleCommand implements
         ReturnCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
 
-    private LocalizationService localizationService;
+    private ComponentBuilder<?, ?> builder;
+    private LocalizationService    localizationService;
 
     public BuildUnitReportTitleCommand() {
         super();
     }
 
     @Override
-    public final ComponentBuilder<?, ?> execute() {
+    public final void execute() {
         final ComponentBuilder<?, ?> unitName;
         final ComponentBuilder<?, ?> unitValoration;
         final DynamicReportsFactory factory;
@@ -38,8 +39,13 @@ public final class BuildUnitReportTitleCommand implements
         // Unit name
         unitName = Components.text(getUnitNameField(ReportConf.CURRENT));
 
-        return factory.getBorderedCellComponentThin(Components.verticalList(
+        builder = factory.getBorderedCellComponentThin(Components.verticalList(
                 unitName, unitValoration));
+    }
+
+    @Override
+    public final ComponentBuilder<?, ?> getResult() {
+        return builder;
     }
 
     @Override

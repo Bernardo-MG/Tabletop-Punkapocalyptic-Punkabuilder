@@ -10,6 +10,7 @@ public final class GetSpecialRuleCommand implements ReturnCommand<SpecialRule>,
         RulesetServiceAware {
 
     private final String   name;
+    private SpecialRule    rule;
     private RulesetService service;
 
     public GetSpecialRuleCommand(final String name) {
@@ -19,9 +20,14 @@ public final class GetSpecialRuleCommand implements ReturnCommand<SpecialRule>,
     }
 
     @Override
-    public final SpecialRule execute() {
-        return ModelFactory.getInstance().getSpecialRule(name,
+    public final void execute() {
+        rule = ModelFactory.getInstance().getSpecialRule(name,
                 getRulesetService());
+    }
+
+    @Override
+    public final SpecialRule getResult() {
+        return rule;
     }
 
     @Override

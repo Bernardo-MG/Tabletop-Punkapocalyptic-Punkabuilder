@@ -15,14 +15,15 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class BuildUnitAttributesSubreportCommand implements
         ReturnCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
 
-    private LocalizationService localizationService;
+    private ComponentBuilder<?, ?> builder;
+    private LocalizationService    localizationService;
 
     public BuildUnitAttributesSubreportCommand() {
         super();
     }
 
     @Override
-    public final ComponentBuilder<?, ?> execute() {
+    public final void execute() {
         final HorizontalListBuilder list;
         final DynamicReportsFactory factory;
 
@@ -88,7 +89,12 @@ public final class BuildUnitAttributesSubreportCommand implements
                         ReportConf.TECH)).setHorizontalAlignment(
                 HorizontalAlignment.CENTER)));
 
-        return list;
+        builder = list;
+    }
+
+    @Override
+    public final ComponentBuilder<?, ?> getResult() {
+        return builder;
     }
 
     @Override

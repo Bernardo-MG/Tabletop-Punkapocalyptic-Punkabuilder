@@ -13,6 +13,7 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class GetFileToPrintGangOnDesktopCommand implements
         ReturnCommand<File>, LocalizationServiceAware {
 
+    private File                file;
     private LocalizationService localizationService;
     private final Stage         stage;
 
@@ -23,7 +24,7 @@ public final class GetFileToPrintGangOnDesktopCommand implements
     }
 
     @Override
-    public final File execute() {
+    public final void execute() {
         final FileChooser fileChooser;
         final ExtensionFilter extFilter;
 
@@ -35,7 +36,12 @@ public final class GetFileToPrintGangOnDesktopCommand implements
         extFilter = new FileChooser.ExtensionFilter("PDF (*.pdf)", "*.pdf");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        return fileChooser.showSaveDialog(getStage());
+        file = fileChooser.showSaveDialog(getStage());
+    }
+
+    @Override
+    public final File getResult() {
+        return file;
     }
 
     @Override

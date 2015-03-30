@@ -23,6 +23,7 @@ public final class GetUnitCommand implements ReturnCommand<Unit>,
     private final Integer                 strength;
     private final Integer                 tech;
     private final Integer                 toughness;
+    private Unit                          unit;
 
     public GetUnitCommand(final String name, final Integer actions,
             final Integer agility, final Integer combat,
@@ -47,10 +48,15 @@ public final class GetUnitCommand implements ReturnCommand<Unit>,
     }
 
     @Override
-    public final Unit execute() {
-        return ModelFactory.getInstance().getUnit(name, actions, agility,
+    public final void execute() {
+        unit = ModelFactory.getInstance().getUnit(name, actions, agility,
                 combat, precision, strength, tech, toughness, cost, rules,
                 getRulesetService());
+    }
+
+    @Override
+    public final Unit getResult() {
+        return unit;
     }
 
     @Override

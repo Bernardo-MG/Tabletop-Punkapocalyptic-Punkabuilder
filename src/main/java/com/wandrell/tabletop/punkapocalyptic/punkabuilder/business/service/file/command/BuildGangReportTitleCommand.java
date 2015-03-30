@@ -34,6 +34,7 @@ public final class BuildGangReportTitleCommand implements
         FileServiceAware, LocalizationServiceAware, RulesetServiceAware {
 
     private ApplicationInfoService appInfoService;
+    private ComponentBuilder<?, ?> builder;
     private FileService            fileService;
     private LocalizationService    localizationService;
     private RulesetService         rulesetService;
@@ -43,7 +44,7 @@ public final class BuildGangReportTitleCommand implements
     }
 
     @Override
-    public final ComponentBuilder<?, ?> execute() {
+    public final void execute() {
         final ComponentBuilder<?, ?> brand;
         final VerticalListBuilder gangData;
         final DynamicReportsFactory factory;
@@ -73,10 +74,15 @@ public final class BuildGangReportTitleCommand implements
         // Bullets
         gangData.add(Components.text(getGangBulletsField(ReportConf.CURRENT)));
 
-        return Components.verticalList().add(
+        builder = Components.verticalList().add(
                 Components.horizontalList().add(brand,
                         Components.horizontalGap(5), gangData),
                 Components.line(), Components.verticalGap(10));
+    }
+
+    @Override
+    public final ComponentBuilder<?, ?> getResult() {
+        return builder;
     }
 
     @Override

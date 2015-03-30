@@ -31,22 +31,28 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class BuildUnitWeaponSubreportCommand implements
         ReturnCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
 
-    private LocalizationService localizationService;
+    private ComponentBuilder<?, ?> builder;
+    private LocalizationService    localizationService;
 
     public BuildUnitWeaponSubreportCommand() {
         super();
     }
 
     @Override
-    public final ComponentBuilder<?, ?> execute() {
+    public final void execute() {
         final SubreportBuilder subreport;
 
         subreport = createWeaponsSubreport();
         subreport.setDataSource(Expressions
                 .subDatasourceBeanCollection(ReportConf.WEAPONS));
 
-        return DynamicReportsFactory.getInstance()
+        builder = DynamicReportsFactory.getInstance()
                 .getBorderedCellComponentThin(subreport);
+    }
+
+    @Override
+    public final ComponentBuilder<?, ?> getResult() {
+        return builder;
     }
 
     @Override

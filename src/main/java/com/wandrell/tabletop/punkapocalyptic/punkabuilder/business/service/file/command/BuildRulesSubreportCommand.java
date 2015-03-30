@@ -20,22 +20,28 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class BuildRulesSubreportCommand implements
         ReturnCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
 
-    private LocalizationService localizationService;
+    private ComponentBuilder<?, ?> builder;
+    private LocalizationService    localizationService;
 
     public BuildRulesSubreportCommand() {
         super();
     }
 
     @Override
-    public final ComponentBuilder<?, ?> execute() {
+    public final void execute() {
         final SubreportBuilder subreport;
 
         subreport = getRulesSubreport();
         subreport.setDataSource(Expressions
                 .subDatasourceBeanCollection(ReportConf.SPECIAL_RULES));
 
-        return DynamicReportsFactory.getInstance()
+        builder = DynamicReportsFactory.getInstance()
                 .getBorderedCellComponentThin(subreport);
+    }
+
+    @Override
+    public final ComponentBuilder<?, ?> getResult() {
+        return builder;
     }
 
     @Override

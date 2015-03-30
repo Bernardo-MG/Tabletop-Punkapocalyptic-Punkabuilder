@@ -19,14 +19,15 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServic
 public final class BuildUnitArmorSubreportCommand implements
         ReturnCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
 
-    private LocalizationService localizationService;
+    private ComponentBuilder<?, ?> builder;
+    private LocalizationService    localizationService;
 
     public BuildUnitArmorSubreportCommand() {
         super();
     }
 
     @Override
-    public final ComponentBuilder<?, ?> execute() {
+    public final void execute() {
         final TextFieldBuilder<String> armorNameLabelText;
         final TextFieldBuilder<Armor> armorNameText;
         final TextFieldBuilder<Armor> armorArmorText;
@@ -37,7 +38,7 @@ public final class BuildUnitArmorSubreportCommand implements
 
         armorArmorText = Components.text(getArmorArmorField(ReportConf.ARMOR));
 
-        return DynamicReportsFactory.getInstance()
+        builder = DynamicReportsFactory.getInstance()
                 .getBorderedCellComponentThin(
                         Components
                                 .horizontalList(armorNameLabelText)
@@ -46,6 +47,11 @@ public final class BuildUnitArmorSubreportCommand implements
                                         Components.horizontalGap(10),
                                         armorNameText, armorArmorText)
                                         .setFixedWidth(300)));
+    }
+
+    @Override
+    public final ComponentBuilder<?, ?> getResult() {
+        return builder;
     }
 
     @Override

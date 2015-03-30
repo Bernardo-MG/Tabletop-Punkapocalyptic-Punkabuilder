@@ -10,6 +10,7 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.repository.WeaponRepositor
 public final class GetTwoHandedMeleeEquivalentCommand implements
         ReturnCommand<MeleeWeapon>, WeaponRepositoryAware {
 
+    private MeleeWeapon        weapon;
     private Repository<Weapon> weaponRepo;
 
     public GetTwoHandedMeleeEquivalentCommand() {
@@ -17,12 +18,17 @@ public final class GetTwoHandedMeleeEquivalentCommand implements
     }
 
     @Override
-    public final MeleeWeapon execute() {
-        return (MeleeWeapon) getUnitWeaponRepository()
+    public final void execute() {
+        weapon = (MeleeWeapon) getUnitWeaponRepository()
                 .getCollection(
                         w -> w.getName().equals(
                                 WeaponNameConf.IMPROVISED_WEAPON)).iterator()
                 .next();
+    }
+
+    @Override
+    public final MeleeWeapon getResult() {
+        return weapon;
     }
 
     @Override
