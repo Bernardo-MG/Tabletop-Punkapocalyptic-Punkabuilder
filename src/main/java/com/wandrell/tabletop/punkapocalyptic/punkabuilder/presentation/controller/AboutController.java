@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 
-import com.wandrell.pattern.service.application.ApplicationInfoService;
+import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class AboutController {
 
@@ -44,9 +44,11 @@ public final class AboutController {
     public final void initialize() {
         appNameLabel.setText(getApplicationInfoService().getApplicationName());
         versionLabel.setText(getApplicationInfoService().getVersion());
-        authorNameLabel.setText(getApplicationInfoService().getAuthor());
-        authorEmailLabel.setText(getApplicationInfoService().getAuthorEmail());
-        downloadLabel.setText(getApplicationInfoService().getDownloadURI()
+        authorNameLabel.setText(getApplicationInfoService().getAuthors()
+                .iterator().next().getName());
+        authorEmailLabel.setText(getApplicationInfoService().getAuthors()
+                .iterator().next().getEmail());
+        downloadLabel.setText(getApplicationInfoService().getProjectURI()
                 .toString());
     }
 

@@ -6,7 +6,6 @@ import com.wandrell.pattern.command.Command;
 import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.pattern.command.ReturnCommand;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.pattern.service.application.ApplicationInfoService;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
@@ -17,6 +16,7 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.ApplicationInfoSer
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServiceAware;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.ModelServiceAware;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.RulesetServiceAware;
+import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class DefaultContextCommandExecutor implements
         ContextCommandExecutor {

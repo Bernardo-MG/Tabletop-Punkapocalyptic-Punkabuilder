@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 import org.springframework.context.ApplicationContext;
 
-import com.wandrell.pattern.service.application.ApplicationInfoService;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.ContextConf;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.FactionSelectionController;
@@ -16,6 +15,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controlle
 import com.wandrell.util.ContextUtils;
 import com.wandrell.util.FileUtils;
 import com.wandrell.util.ResourceUtils;
+import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class ContextFactory {
 

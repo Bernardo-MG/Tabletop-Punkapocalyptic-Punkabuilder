@@ -9,7 +9,6 @@ import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
 import net.sf.dynamicreports.report.builder.style.Styles;
 
 import com.wandrell.pattern.command.ReturnCommand;
-import com.wandrell.pattern.service.application.ApplicationInfoService;
 import com.wandrell.tabletop.punkapocalyptic.conf.ReportConf;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.DynamicReportsFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
@@ -28,6 +27,7 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.service.ApplicationInfoSer
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServiceAware;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.RulesetServiceAware;
 import com.wandrell.util.ResourceUtils;
+import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class BuildGangReportTitleCommand implements
         ReturnCommand<ComponentBuilder<?, ?>>, ApplicationInfoServiceAware,
@@ -57,7 +57,7 @@ public final class BuildGangReportTitleCommand implements
         brand = factory.getTitleLabelComponent(imageStream,
                 getApplicationInfoService().getApplicationName(),
                 getApplicationInfoService().getVersion(),
-                getApplicationInfoService().getDownloadURI().toString());
+                getApplicationInfoService().getProjectURI().toString());
         brand.setStyle(Styles.style().setRightBorder(Styles.pen1Point()));
 
         gangData = Components.verticalList();
