@@ -1,12 +1,12 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command;
 
-import com.wandrell.pattern.command.ReturnCommand;
+import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.RulesetServiceAware;
 
-public final class GetSpecialRuleCommand implements ReturnCommand<SpecialRule>,
+public final class GetSpecialRuleCommand implements ResultCommand<SpecialRule>,
         RulesetServiceAware {
 
     private final String   name;

@@ -1,13 +1,13 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command;
 
-import com.wandrell.pattern.command.ReturnCommand;
+import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.tabletop.procedure.Constraint;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServiceAware;
 
 public final class GetUnitGangConstraintCommand implements
-        ReturnCommand<Constraint>, LocalizationServiceAware {
+        ResultCommand<Constraint>, LocalizationServiceAware {
 
     private Constraint          constraint;
     private final String[]      context;

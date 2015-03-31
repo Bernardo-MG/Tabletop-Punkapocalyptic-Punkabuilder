@@ -5,7 +5,7 @@ import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
 import net.sf.dynamicreports.report.builder.component.Components;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 
-import com.wandrell.pattern.command.ReturnCommand;
+import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.tabletop.punkapocalyptic.conf.ReportBundleConf;
 import com.wandrell.tabletop.punkapocalyptic.conf.ReportConf;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.DynamicReportsFactory;
@@ -17,7 +17,7 @@ import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.service.LocalizationServiceAware;
 
 public final class BuildUnitArmorSubreportCommand implements
-        ReturnCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
+        ResultCommand<ComponentBuilder<?, ?>>, LocalizationServiceAware {
 
     private ComponentBuilder<?, ?> builder;
     private LocalizationService    localizationService;

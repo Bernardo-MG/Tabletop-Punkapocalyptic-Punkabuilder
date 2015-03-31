@@ -8,7 +8,7 @@ import net.sf.dynamicreports.report.builder.component.Components;
 import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
 import net.sf.dynamicreports.report.builder.style.Styles;
 
-import com.wandrell.pattern.command.ReturnCommand;
+import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.tabletop.punkapocalyptic.conf.ReportConf;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.DynamicReportsFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
@@ -30,7 +30,7 @@ import com.wandrell.util.ResourceUtils;
 import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class BuildGangReportTitleCommand implements
-        ReturnCommand<ComponentBuilder<?, ?>>, ApplicationInfoServiceAware,
+        ResultCommand<ComponentBuilder<?, ?>>, ApplicationInfoServiceAware,
         FileServiceAware, LocalizationServiceAware, RulesetServiceAware {
 
     private ApplicationInfoService appInfoService;

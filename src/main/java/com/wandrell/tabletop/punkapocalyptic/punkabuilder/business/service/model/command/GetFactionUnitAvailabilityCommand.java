@@ -2,7 +2,7 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.mode
 
 import java.util.Collection;
 
-import com.wandrell.pattern.command.ReturnCommand;
+import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.tabletop.procedure.Constraint;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
@@ -10,7 +10,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ModelFactory;
 
 public final class GetFactionUnitAvailabilityCommand implements
-        ReturnCommand<FactionUnitAvailability> {
+        ResultCommand<FactionUnitAvailability> {
 
     private FactionUnitAvailability      ava;
     private final Collection<Constraint> constraints;

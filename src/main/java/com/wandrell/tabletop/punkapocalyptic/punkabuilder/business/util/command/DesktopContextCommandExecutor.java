@@ -2,7 +2,8 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.command
 
 import com.wandrell.pattern.command.Command;
 import com.wandrell.pattern.command.CommandExecutor;
-import com.wandrell.pattern.command.ReturnCommand;
+import com.wandrell.pattern.command.ResultCommand;
+import com.wandrell.pattern.command.UndoCommand;
 import com.wandrell.pattern.repository.Repository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
@@ -32,7 +33,7 @@ public class DesktopContextCommandExecutor implements ContextCommandExecutor {
     }
 
     @Override
-    public final <V> V execute(final ReturnCommand<V> command) {
+    public final <V> V execute(final ResultCommand<V> command) {
         setContext(command);
 
         return getBaseExecutor().execute(command);
@@ -71,6 +72,11 @@ public class DesktopContextCommandExecutor implements ContextCommandExecutor {
     @Override
     public final void setWeaponRepository(final Repository<Weapon> repository) {
         getBaseExecutor().setWeaponRepository(repository);
+    }
+
+    @Override
+    public final void undo(final UndoCommand command) {
+        getBaseExecutor().undo(command);
     }
 
     private final ContextCommandExecutor getBaseExecutor() {
