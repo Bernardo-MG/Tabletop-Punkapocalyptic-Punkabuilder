@@ -121,7 +121,6 @@
 		<aspectj.version>1.8.4</aspectj.version>
 		<controlsfx.version>8.0.6_20</controlsfx.version>
 		<dynamicreports.version>3.2.1</dynamicreports.version>
-		<jopt.version>4.6</jopt.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<spring.version>4.1.2.RELEASE</spring.version>
 		<tabletop.version>0.1.0-SNAPSHOT</tabletop.version>
@@ -178,12 +177,6 @@
 			<groupId>net.sourceforge.dynamicreports</groupId>
 			<artifactId>dynamicreports-core</artifactId>
 			<version>${dynamicreports.version}</version>
-		</dependency>
-		<dependency>
-			<!-- JOpt Simple -->
-			<groupId>net.sf.jopt-simple</groupId>
-			<artifactId>jopt-simple</artifactId>
-			<version>${jopt.version}</version>
 		</dependency>
 		<dependency>
 			<!-- SLF4J API -->
