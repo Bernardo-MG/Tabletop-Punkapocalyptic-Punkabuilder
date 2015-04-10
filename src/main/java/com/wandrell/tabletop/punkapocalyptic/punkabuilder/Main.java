@@ -1,71 +1,19 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import joptsimple.OptionException;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
 
-import org.apache.log4j.Logger;
-
-import com.wandrell.pattern.command.CommandExecutor;
-import com.wandrell.pattern.command.DefaultCommandExecutor;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.MainPaneController;
-import com.wandrell.util.CommandLineUtils;
-import com.wandrell.util.command.jopt.SetUpBasicOptionParserCommandsCommand;
 
 public final class Main extends Application {
 
     public static final void main(final String[] args) {
-        checkNotNull(args, "Received a null pointer as arguments");
-
-        // Loads line commands
-        if (parseCommandLine(args)) {
-            launch(args);
-        }
-    }
-
-    private static final Boolean parseCommandLine(final String[] args) {
-        final OptionParser parser;
-        final CommandExecutor executor;
-        final Boolean accepted;
-        OptionSet options;
-
-        executor = new DefaultCommandExecutor();
-        parser = new OptionParser();
-
-        executor.execute(new SetUpBasicOptionParserCommandsCommand(parser));
-
-        try {
-            options = parser.parse(args);
-        } catch (final OptionException ex) {
-            options = parser.parse("");
-            System.err.println(ex.getMessage());
-        }
-
-        // Checks if the help command was received
-        if (CommandLineUtils.readHelpCommand(System.out, options, parser)) {
-            accepted = false;
-        } else {
-            // Log file
-            if (!CommandLineUtils.readLog4JFileCommand(Logger.getRootLogger(),
-                    options)) {
-                // Console logging
-                CommandLineUtils.readLog4JConsoleLogCommand(
-                        Logger.getRootLogger(), options);
-            }
-
-            accepted = true;
-        }
-
-        return accepted;
+        launch(args);
     }
 
     @Override

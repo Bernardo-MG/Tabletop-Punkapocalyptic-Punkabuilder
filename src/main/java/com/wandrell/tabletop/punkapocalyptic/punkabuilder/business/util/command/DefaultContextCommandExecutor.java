@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.wandrell.pattern.command.Command;
 import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.pattern.command.ResultCommand;
-import com.wandrell.pattern.command.UndoCommand;
+import com.wandrell.pattern.command.UndoableCommand;
 import com.wandrell.pattern.repository.Repository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
@@ -97,7 +97,7 @@ public final class DefaultContextCommandExecutor implements
     }
 
     @Override
-    public final void undo(final UndoCommand command) {
+    public final void undo(final UndoableCommand command) {
         getBaseExecutor().undo(command);
     }
 
