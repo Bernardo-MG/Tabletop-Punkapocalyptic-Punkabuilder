@@ -1,10 +1,11 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.command;
 
+import com.google.common.base.Predicate;
 import com.wandrell.pattern.command.Command;
 import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.pattern.command.UndoableCommand;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.view.ViewService;
@@ -70,7 +71,8 @@ public class DesktopContextCommandExecutor implements ContextCommandExecutor {
     }
 
     @Override
-    public final void setWeaponRepository(final Repository<Weapon> repository) {
+    public final void setWeaponRepository(
+            final QueryableRepository<Weapon, Predicate<Weapon>> repository) {
         getBaseExecutor().setWeaponRepository(repository);
     }
 

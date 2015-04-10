@@ -10,7 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-import com.wandrell.pattern.repository.Repository;
+import com.google.common.base.Predicate;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
@@ -19,21 +20,22 @@ import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 
 public final class FactionSelectionController {
 
-    private final Repository<Faction>           factionRepo;
-    private final Repository<FactionViewConfig> factionViewRepo;
-    private final GangBuilderManager            gangBuilderManager;
-    private final Pane                          gangCreationPane;
-    private final MainPaneController            mainPaneController;
-    private final ModelService                  modelService;
+    private final QueryableRepository<Faction, Predicate<Faction>>                     factionRepo;
+    private final QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>> factionViewRepo;
+    private final GangBuilderManager                                                   gangBuilderManager;
+    private final Pane                                                                 gangCreationPane;
+    private final MainPaneController                                                   mainPaneController;
+    private final ModelService                                                         modelService;
     @FXML
-    private HBox                                selectionBox;
+    private HBox                                                                       selectionBox;
 
-    public FactionSelectionController(final Repository<Faction> factionRepo,
+    public FactionSelectionController(
+            final QueryableRepository<Faction, Predicate<Faction>> factionRepo,
             final ModelService modelService,
             final GangBuilderManager gangBuilderManager,
             final Pane gangCreationPane,
             final MainPaneController mainController,
-            final Repository<FactionViewConfig> factionViewRepo) {
+            final QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>> factionViewRepo) {
         super();
 
         checkNotNull(gangBuilderManager,
@@ -90,7 +92,8 @@ public final class FactionSelectionController {
         }
     }
 
-    private final Repository<Faction> getFactionRepository() {
+    private final QueryableRepository<Faction, Predicate<Faction>>
+            getFactionRepository() {
         return factionRepo;
     }
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultRangedWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
@@ -17,11 +17,11 @@ import com.wandrell.tabletop.punkapocalyptic.model.util.RangedValue;
 public final class TransactionRangedWeaponParser implements
         Parser<Map<String, Object>, Weapon> {
 
-    private final Repository<SpecialRule> rulesRepo;
-    private final MeleeWeapon             weaponMelee;
+    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo;
+    private final MeleeWeapon                                              weaponMelee;
 
     public TransactionRangedWeaponParser(
-            final Repository<SpecialRule> rulesRepo,
+            final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo,
             final MeleeWeapon weaponMelee) {
         super();
 

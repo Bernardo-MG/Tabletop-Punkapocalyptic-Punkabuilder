@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultArmor;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
@@ -13,9 +13,10 @@ import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 public final class TransactionArmorParser implements
         Parser<Map<String, Object>, Armor> {
 
-    private final Repository<SpecialRule> rulesRepo;
+    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo;
 
-    public TransactionArmorParser(final Repository<SpecialRule> rulesRepo) {
+    public TransactionArmorParser(
+            final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo) {
         super();
 
         this.rulesRepo = rulesRepo;

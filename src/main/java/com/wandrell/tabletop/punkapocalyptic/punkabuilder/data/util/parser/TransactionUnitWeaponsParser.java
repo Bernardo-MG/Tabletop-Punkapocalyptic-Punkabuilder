@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.procedure.Constraint;
 import com.wandrell.tabletop.punkapocalyptic.conf.ConstraintsConf;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitWeaponAvailability;
@@ -24,13 +24,14 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.constraint.UnitUpToHalfGa
 public final class TransactionUnitWeaponsParser implements
         Parser<Map<String, Object>, UnitWeaponAvailability> {
 
-    private final Repository<WeaponEnhancement> enhancementsRepo;
-    private final Repository<Unit>              unitsRepo;
-    private final Repository<Weapon>            weaponsRepo;
+    private final QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> enhancementsRepo;
+    private final QueryableRepository<Unit, Predicate<Unit>>                           unitsRepo;
+    private final QueryableRepository<Weapon, Predicate<Weapon>>                       weaponsRepo;
 
-    public TransactionUnitWeaponsParser(final Repository<Unit> unitsRepo,
-            final Repository<Weapon> weaponsRepo,
-            final Repository<WeaponEnhancement> enhancementsRepo) {
+    public TransactionUnitWeaponsParser(
+            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
+            final QueryableRepository<Weapon, Predicate<Weapon>> weaponsRepo,
+            final QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> enhancementsRepo) {
         super();
 
         this.unitsRepo = unitsRepo;

@@ -19,6 +19,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.pattern.repository.Repository;
 import com.wandrell.tabletop.punkapocalyptic.conf.WeaponNameConf;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
@@ -72,13 +73,13 @@ public final class DefaultDataBuilder implements
                                                                                         .instance();
     private Boolean                                            loaded           = false;
     private final ModelService                                 modelService;
-    private final Map<String, Repository<?>>                   repos;
+    private final Map<String, QueryableRepository<?, ?>>       repos;
     private final RulesetService                               rulesetService;
     private final Document                                     source;
     private final Map<String, Collection<Map<String, Object>>> transactionsData = new LinkedHashMap<>();
 
     public DefaultDataBuilder(final Collection<Reader> sources,
-            final Map<String, Repository<?>> repos,
+            final Map<String, QueryableRepository<?, ?>> repos,
             final Map<String, ResourceBundle> bundles,
             final RulesetService rulesetService, final ModelService modelService) {
         super();
@@ -191,18 +192,20 @@ public final class DefaultDataBuilder implements
     @SuppressWarnings("unchecked")
     private final void saveTransactions() {
         final MeleeWeapon defaultWeaponMelee;
-        final Repository<SpecialRule> ruleRepo;
-        final Repository<Unit> unitRepo;
+        final QueryableRepository<SpecialRule, Predicate<SpecialRule>> ruleRepo;
+        final QueryableRepository<Unit, Predicate<Unit>> unitRepo;
 
-        ruleRepo = (Repository<SpecialRule>) repos.get("rule");
-        unitRepo = (Repository<Unit>) repos.get("unit");
+        ruleRepo = (QueryableRepository<SpecialRule, Predicate<SpecialRule>>) repos
+                .get("rule");
+        unitRepo = (QueryableRepository<Unit, Predicate<Unit>>) repos
+                .get("unit");
 
         saveTransactions("faction", new TransactionFactionParser(modelService));
         saveTransactions("rule", new TransactionRuleParser());
         saveTransactions("weapon_melee", new TransactionMeleeWeaponParser(
                 ruleRepo));
 
-        defaultWeaponMelee = (MeleeWeapon) ((Repository<Weapon>) repos
+        defaultWeaponMelee = (MeleeWeapon) ((QueryableRepository<Weapon, Predicate<Weapon>>) repos
                 .get("weapon")).getCollection(new Predicate<Weapon>() {
 
             @Override
@@ -221,20 +224,43 @@ public final class DefaultDataBuilder implements
         saveTransactions("unit", new TransactionUnitParser(ruleRepo,
                 rulesetService));
 
-        saveTransactions("faction_unit", new TransactionFactionUnitsParser(
-                unitRepo, (Repository<Faction>) repos.get("faction")));
-        saveTransactions("unit_mutation", new TransactionUnitMutationsParser(
-                unitRepo, (Repository<Mutation>) repos.get("mutation")));
-        saveTransactions("unit_weapon", new TransactionUnitWeaponsParser(
-                unitRepo, (Repository<Weapon>) repos.get("weapon"),
-                (Repository<WeaponEnhancement>) repos.get("enhancement")));
-        saveTransactions("unit_armor", new TransactionUnitArmorsParser(
-                unitRepo, (Repository<Armor>) repos.get("armor")));
-        saveTransactions("unit_equipment", new TransactionUnitEquipmentParser(
-                unitRepo, (Repository<Equipment>) repos.get("equipment")));
+        saveTransactions(
+                "faction_unit",
+                new TransactionFactionUnitsParser(
+                        unitRepo,
+                        (QueryableRepository<Faction, Predicate<Faction>>) repos
+                                .get("faction")));
+        saveTransactions(
+                "unit_mutation",
+                new TransactionUnitMutationsParser(
+                        unitRepo,
+                        (QueryableRepository<Mutation, Predicate<Mutation>>) repos
+                                .get("mutation")));
+        saveTransactions(
+                "unit_weapon",
+                new TransactionUnitWeaponsParser(
+                        unitRepo,
+                        (QueryableRepository<Weapon, Predicate<Weapon>>) repos
+                                .get("weapon"),
+                        (QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>>) repos
+                                .get("enhancement")));
+        saveTransactions(
+                "unit_armor",
+                new TransactionUnitArmorsParser(unitRepo,
+                        (QueryableRepository<Armor, Predicate<Armor>>) repos
+                                .get("armor")));
+        saveTransactions(
+                "unit_equipment",
+                new TransactionUnitEquipmentParser(
+                        unitRepo,
+                        (QueryableRepository<Equipment, Predicate<Equipment>>) repos
+                                .get("equipment")));
 
-        saveTransactions("faction_view", new TransactionFactionViewParser(
-                (Repository<Faction>) repos.get("faction")));
+        saveTransactions(
+                "faction_view",
+                new TransactionFactionViewParser(
+                        (QueryableRepository<Faction, Predicate<Faction>>) repos
+                                .get("faction")));
     }
 
     @SuppressWarnings("unchecked")

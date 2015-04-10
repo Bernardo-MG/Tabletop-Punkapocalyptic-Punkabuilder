@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.procedure.Constraint;
 import com.wandrell.tabletop.punkapocalyptic.conf.ConstraintsConf;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultFactionUnitAvailability;
@@ -21,11 +21,12 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.constraint.UnitUpToHalfGa
 public final class TransactionFactionUnitsParser implements
         Parser<Map<String, Object>, FactionUnitAvailability> {
 
-    private final Repository<Faction> factionsRepo;
-    private final Repository<Unit>    unitsRepo;
+    private final QueryableRepository<Faction, Predicate<Faction>> factionsRepo;
+    private final QueryableRepository<Unit, Predicate<Unit>>       unitsRepo;
 
-    public TransactionFactionUnitsParser(final Repository<Unit> unitsRepo,
-            final Repository<Faction> factionsRepo) {
+    public TransactionFactionUnitsParser(
+            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
+            final QueryableRepository<Faction, Predicate<Faction>> factionsRepo) {
         super();
 
         this.unitsRepo = unitsRepo;

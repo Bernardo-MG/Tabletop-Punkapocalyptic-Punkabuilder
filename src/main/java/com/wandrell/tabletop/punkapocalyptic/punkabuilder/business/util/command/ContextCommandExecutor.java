@@ -1,7 +1,8 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.command;
 
+import com.google.common.base.Predicate;
 import com.wandrell.pattern.command.CommandExecutor;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
@@ -21,6 +22,7 @@ public interface ContextCommandExecutor extends CommandExecutor {
 
     public void setRulesetService(final RulesetService service);
 
-    public void setWeaponRepository(final Repository<Weapon> repository);
+    public void setWeaponRepository(
+            final QueryableRepository<Weapon, Predicate<Weapon>> repository);
 
 }

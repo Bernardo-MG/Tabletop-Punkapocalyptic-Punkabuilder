@@ -2,11 +2,12 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.command
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.base.Predicate;
 import com.wandrell.pattern.command.Command;
 import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.pattern.command.ResultCommand;
 import com.wandrell.pattern.command.UndoableCommand;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file.FileService;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
@@ -22,13 +23,13 @@ import com.wandrell.util.service.application.ApplicationInfoService;
 public final class DefaultContextCommandExecutor implements
         ContextCommandExecutor {
 
-    private final CommandExecutor  executor;
-    private ModelService           modelService;
-    private ApplicationInfoService serviceAppInfo;
-    private FileService            serviceFile;
-    private LocalizationService    serviceLoc;
-    private RulesetService         serviceRuleset;
-    private Repository<Weapon>     weaponRepository;
+    private final CommandExecutor                          executor;
+    private ModelService                                   modelService;
+    private ApplicationInfoService                         serviceAppInfo;
+    private FileService                                    serviceFile;
+    private LocalizationService                            serviceLoc;
+    private RulesetService                                 serviceRuleset;
+    private QueryableRepository<Weapon, Predicate<Weapon>> weaponRepository;
 
     public DefaultContextCommandExecutor(final CommandExecutor executor) {
         super();
@@ -92,7 +93,8 @@ public final class DefaultContextCommandExecutor implements
     }
 
     @Override
-    public final void setWeaponRepository(final Repository<Weapon> repository) {
+    public final void setWeaponRepository(
+            final QueryableRepository<Weapon, Predicate<Weapon>> repository) {
         weaponRepository = repository;
     }
 
@@ -125,7 +127,8 @@ public final class DefaultContextCommandExecutor implements
         return serviceRuleset;
     }
 
-    private final Repository<Weapon> getWeaponRepository() {
+    private final QueryableRepository<Weapon, Predicate<Weapon>>
+            getWeaponRepository() {
         return weaponRepository;
     }
 

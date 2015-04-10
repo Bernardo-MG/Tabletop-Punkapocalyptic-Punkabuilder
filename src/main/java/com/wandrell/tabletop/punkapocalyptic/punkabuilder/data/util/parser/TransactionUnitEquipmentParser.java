@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
@@ -14,11 +14,12 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 public final class TransactionUnitEquipmentParser implements
         Parser<Map<String, Object>, UnitEquipmentAvailability> {
 
-    private final Repository<Equipment> equipmentRepo;
-    private final Repository<Unit>      unitsRepo;
+    private final QueryableRepository<Equipment, Predicate<Equipment>> equipmentRepo;
+    private final QueryableRepository<Unit, Predicate<Unit>>           unitsRepo;
 
-    public TransactionUnitEquipmentParser(final Repository<Unit> unitsRepo,
-            final Repository<Equipment> equipmentRepo) {
+    public TransactionUnitEquipmentParser(
+            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
+            final QueryableRepository<Equipment, Predicate<Equipment>> equipmentRepo) {
         super();
 
         this.unitsRepo = unitsRepo;

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.DefaultUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.GroupedUnitWrapper;
@@ -18,10 +18,11 @@ import com.wandrell.tabletop.valuebox.DefaultValueBox;
 public final class TransactionUnitParser implements
         Parser<Map<String, Object>, Unit> {
 
-    private final Repository<SpecialRule> rulesRepo;
-    private final RulesetService          service;
+    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo;
+    private final RulesetService                                           service;
 
-    public TransactionUnitParser(final Repository<SpecialRule> rulesRepo,
+    public TransactionUnitParser(
+            final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo,
             final RulesetService service) {
         super();
 

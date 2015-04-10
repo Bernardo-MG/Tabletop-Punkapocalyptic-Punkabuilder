@@ -1,7 +1,8 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.ruleset.command;
 
+import com.google.common.base.Predicate;
 import com.wandrell.pattern.command.ResultCommand;
-import com.wandrell.pattern.repository.Repository;
+import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.conf.WeaponNameConf;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
@@ -10,8 +11,8 @@ import com.wandrell.tabletop.punkapocalyptic.util.tag.repository.WeaponRepositor
 public final class GetTwoHandedMeleeEquivalentCommand implements
         ResultCommand<MeleeWeapon>, WeaponRepositoryAware {
 
-    private MeleeWeapon        weapon;
-    private Repository<Weapon> weaponRepo;
+    private MeleeWeapon                                    weapon;
+    private QueryableRepository<Weapon, Predicate<Weapon>> weaponRepo;
 
     public GetTwoHandedMeleeEquivalentCommand() {
         super();
@@ -32,11 +33,13 @@ public final class GetTwoHandedMeleeEquivalentCommand implements
     }
 
     @Override
-    public final void setWeaponRepository(final Repository<Weapon> repository) {
+    public final void setWeaponRepository(
+            final QueryableRepository<Weapon, Predicate<Weapon>> repository) {
         weaponRepo = repository;
     }
 
-    private final Repository<Weapon> getUnitWeaponRepository() {
+    private final QueryableRepository<Weapon, Predicate<Weapon>>
+            getUnitWeaponRepository() {
         return weaponRepo;
     }
 
