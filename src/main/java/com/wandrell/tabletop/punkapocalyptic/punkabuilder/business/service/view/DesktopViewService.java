@@ -1,35 +1,33 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.view;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
+import java.io.IOException;
 import java.util.Collection;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
-import com.wandrell.pattern.command.CommandExecutor;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.view.command.LoadSetUpWeaponPaneCommand;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.SetUpWeaponController;
 
 public final class DesktopViewService implements ViewService {
 
-    private final CommandExecutor executor;
-
-    public DesktopViewService(final CommandExecutor executor) {
+    public DesktopViewService() {
         super();
-
-        checkNotNull(executor, "Received a null pointer as executor");
-
-        this.executor = executor;
     }
 
     @Override
     public void loadSetUpWeaponPane(final Collection<Pane> panes,
             final Collection<SetUpWeaponController> controllers) {
-        getExecutor().execute(
-                new LoadSetUpWeaponPaneCommand(panes, controllers));
+        final FXMLLoader loader;
+
+        loader = ContextFactory.getInstance().getSetUpWeaponLoader();
+
+        try {
+            panes.add(loader.load());
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        controllers.add(loader.getController());
     }
 
-    private final CommandExecutor getExecutor() {
-        return executor;
-    }
 }

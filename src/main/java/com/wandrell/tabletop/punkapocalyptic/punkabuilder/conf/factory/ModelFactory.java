@@ -15,6 +15,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailab
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.faction.DefaultFaction;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultArmor;
@@ -87,6 +88,7 @@ public final class ModelFactory {
             final String[] context, final LocalizationService service) {
         final Constraint constraint;
         final String message;
+        // TODO: The localization service should not be required in here
 
         switch (name) {
             case ConstraintsConf.UNIQUE:
@@ -121,6 +123,10 @@ public final class ModelFactory {
 
     public final Equipment getEquipment(final String name, final Integer cost) {
         return new DefaultEquipment(name, cost);
+    }
+
+    public final Faction getFaction(final String name) {
+        return new DefaultFaction(name);
     }
 
     public final FactionUnitAvailability getFactionUnitAvailability(

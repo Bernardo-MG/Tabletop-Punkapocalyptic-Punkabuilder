@@ -10,7 +10,8 @@
 		<constructor-arg ref="applicationInfoMap" />
 	</bean>
 
-	<bean id="applicationInfoMap" class="com.wandrell.util.service.application.ApplicationInfoUtils"
+	<bean id="applicationInfoMap"
+		class="com.wandrell.util.service.application.ApplicationInfoUtils"
 		factory-method="getData">
 		<constructor-arg ref="applicationInfoReader" />
 	</bean>
@@ -65,14 +66,13 @@
 
 	<!-- VIEW SERVICES -->
 
-	<bean id="viewService" class="${service.view.class}">
-		<constructor-arg ref="commandExecutor" />
-	</bean>
+	<bean id="viewService" class="${service.view.class}" />
 
 	<!-- DATA SERVICES -->
 
 	<bean id="modelService" class="${service.model.class}">
-		<constructor-arg ref="commandExecutor" />
+		<constructor-arg ref="rulesetService" />
+		<constructor-arg ref="localizationService" />
 	</bean>
 
 </beans>

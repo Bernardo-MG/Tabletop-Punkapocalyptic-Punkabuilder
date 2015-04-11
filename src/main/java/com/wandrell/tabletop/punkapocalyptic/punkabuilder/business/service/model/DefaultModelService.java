@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 
-import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.tabletop.procedure.Constraint;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
@@ -13,7 +12,6 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitEquipmentAva
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
-import com.wandrell.tabletop.punkapocalyptic.model.faction.DefaultFaction;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
@@ -26,54 +24,57 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.model.util.RangedValue;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command.GetFactionUnitAvailabilityCommand;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command.GetGangCommand;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command.GetSpecialRuleCommand;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command.GetUnitCommand;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model.command.GetUnitGangConstraintCommand;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ModelFactory;
+import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
+import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
 public final class DefaultModelService implements ModelService {
 
-    private final CommandExecutor executor;
+    private final ModelFactory        factory = ModelFactory.getInstance();
+    private final LocalizationService localizationService;
+    private final RulesetService      rulesetService;
 
-    public DefaultModelService(final CommandExecutor executor) {
+    public DefaultModelService(final RulesetService rulesetService,
+            final LocalizationService localizationService) {
         super();
 
-        checkNotNull(executor, "Received a null pointer as executor");
+        checkNotNull(rulesetService,
+                "Received a null pointer as ruleset service");
+        checkNotNull(localizationService,
+                "Received a null pointer as localization service");
 
-        this.executor = executor;
+        this.rulesetService = rulesetService;
+        this.localizationService = localizationService;
     }
 
     @Override
     public final Armor getArmor(final String name, final Integer armor,
             final Collection<SpecialRule> rules) {
-        return ModelFactory.getInstance().getArmor(name, armor, rules);
+        return getFactory().getArmor(name, armor, rules);
     }
 
     @Override
     public final Equipment getEquipment(final String name, final Integer cost) {
-        return ModelFactory.getInstance().getEquipment(name, cost);
+        return getFactory().getEquipment(name, cost);
     }
 
     @Override
     public final Faction getFaction(final String name) {
-        return new DefaultFaction(name);
+        return getFactory().getFaction(name);
     }
 
     @Override
     public final FactionUnitAvailability getFactionUnitAvailability(
             final Faction faction, final Unit unit,
             final Collection<Constraint> constraints) {
-        return getExecutor().execute(
-                new GetFactionUnitAvailabilityCommand(faction, unit,
-                        constraints));
+        return getFactory().getFactionUnitAvailability(faction, unit,
+                constraints);
     }
 
     @Override
     public final Gang getGang(final Faction faction) {
-        return getExecutor().execute(new GetGangCommand(faction));
+        return ModelFactory.getInstance().getGang(faction, getRulesetService());
     }
 
     @Override
@@ -81,8 +82,8 @@ public final class DefaultModelService implements ModelService {
             final Integer cost, final Integer strength,
             final Integer penetration, final Integer combat,
             final Collection<SpecialRule> rules) {
-        return ModelFactory.getInstance().getMeleeWeapon(name, cost, strength,
-                penetration, combat, rules);
+        return getFactory().getMeleeWeapon(name, cost, strength, penetration,
+                combat, rules);
     }
 
     @Override
@@ -90,15 +91,15 @@ public final class DefaultModelService implements ModelService {
             final Integer actions, final Integer agility, final Integer combat,
             final Integer precision, final Integer strength,
             final Integer tech, final Integer toughness) {
-        return ModelFactory.getInstance().getMutation(name, cost, actions,
-                agility, combat, precision, strength, tech, toughness);
+        return getFactory().getMutation(name, cost, actions, agility, combat,
+                precision, strength, tech, toughness);
     }
 
     @Override
     public final RangedValue getRangedValue(final Integer distanceShort,
             final Integer distanceMedium, final Integer distanceLong) {
-        return ModelFactory.getInstance().getRangedValue(distanceShort,
-                distanceMedium, distanceLong);
+        return getFactory().getRangedValue(distanceShort, distanceMedium,
+                distanceLong);
     }
 
     @Override
@@ -107,13 +108,13 @@ public final class DefaultModelService implements ModelService {
             final RangedValue penetration, final RangedValue strength,
             final RangedValue distanceCM, final RangedValue distanceInches,
             final MeleeWeapon weaponMelee) {
-        return ModelFactory.getInstance().getRangedWeapon(name, cost, rules,
-                penetration, strength, distanceCM, distanceInches, weaponMelee);
+        return getFactory().getRangedWeapon(name, cost, rules, penetration,
+                strength, distanceCM, distanceInches, weaponMelee);
     }
 
     @Override
     public final SpecialRule getSpecialRule(final String name) {
-        return getExecutor().execute(new GetSpecialRuleCommand(name));
+        return getFactory().getSpecialRule(name, getRulesetService());
     }
 
     @Override
@@ -122,17 +123,16 @@ public final class DefaultModelService implements ModelService {
             final Integer precision, final Integer strength,
             final Integer tech, final Integer toughness, final Integer cost,
             final Collection<SpecialRule> rules) {
-        return getExecutor().execute(
-                new GetUnitCommand(name, actions, agility, combat, precision,
-                        strength, tech, toughness, cost, rules));
+        return getFactory().getUnit(name, actions, agility, combat, precision,
+                strength, tech, toughness, cost, rules, getRulesetService());
     }
 
     @Override
     public final UnitArmorAvailability getUnitArmorAvailability(
             final Unit unit, final Collection<Armor> armorOptions,
             final Armor initialArmor) {
-        return ModelFactory.getInstance().getUnitArmorAvailability(unit,
-                armorOptions, initialArmor);
+        return getFactory().getUnitArmorAvailability(unit, armorOptions,
+                initialArmor);
     }
 
     @Override
@@ -144,40 +144,47 @@ public final class DefaultModelService implements ModelService {
     @Override
     public final Constraint getUnitGangConstraint(final String name,
             final String unit, final String... context) {
-        return getExecutor().execute(
-                new GetUnitGangConstraintCommand(name, unit, context));
+        return getFactory().getConstraint(name, unit, context,
+                getLocalizationService());
     }
 
     @Override
     public final UnitMutationAvailability getUnitMutationAvailability(
             final Unit unit, final Integer max,
             final Collection<Mutation> mutations) {
-        return ModelFactory.getInstance().getUnitMutationAvailability(unit,
-                max, mutations);
+        return getFactory().getUnitMutationAvailability(unit, max, mutations);
     }
 
     @Override
     public final UnitWeaponAvailability getUnitWeaponAvailability(
             final Unit unit, final Collection<WeaponOption> weaponOptions,
             final Integer minWeapons, final Integer maxWeapons) {
-        return ModelFactory.getInstance().getUnitWeaponAvailability(unit,
-                weaponOptions, minWeapons, maxWeapons);
+        return getFactory().getUnitWeaponAvailability(unit, weaponOptions,
+                minWeapons, maxWeapons);
     }
 
     @Override
     public final WeaponEnhancement getWeaponEnhancement(final String name,
             final Integer cost) {
-        return ModelFactory.getInstance().getWeaponEnhancement(name, cost);
+        return getFactory().getWeaponEnhancement(name, cost);
     }
 
     @Override
     public final WeaponOption getWeaponOption(final Weapon weapon,
             final Collection<WeaponEnhancement> enhancements) {
-        return ModelFactory.getInstance().getWeaponOption(weapon, enhancements);
+        return getFactory().getWeaponOption(weapon, enhancements);
     }
 
-    private final CommandExecutor getExecutor() {
-        return executor;
+    private final ModelFactory getFactory() {
+        return factory;
+    }
+
+    private final LocalizationService getLocalizationService() {
+        return localizationService;
+    }
+
+    private final RulesetService getRulesetService() {
+        return rulesetService;
     }
 
 }
