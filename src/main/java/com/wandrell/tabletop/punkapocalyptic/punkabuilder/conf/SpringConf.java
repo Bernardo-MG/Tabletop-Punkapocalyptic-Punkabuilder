@@ -1,18 +1,18 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf;
 
-public final class ContextConf {
+public final class SpringConf {
 
     public static final String CONTROLLER_FACTION          = "factionSelectionController";
     public static final String CONTROLLER_MAIN             = "mainPaneController";
-    public static final String FILE_COMMAND                = "context/context-punkapocalyptic-command.xml";
-    public static final String FILE_CONTROLLER             = "context/context-punkapocalyptic-controller.xml";
-    public static final String FILE_DATA                   = "context/context-punkapocalyptic-data.xml";
-    public static final String FILE_LOCALIZATION           = "context/context-punkapocalyptic-localization.xml";
-    public static final String FILE_LOG                    = "context/context-punkapocalyptic-log.xml";
-    public static final String FILE_PROCEDURE              = "context/context-punkapocalyptic-procedure.xml";
-    public static final String FILE_REPOSITORY             = "context/context-punkapocalyptic-repository.xml";
-    public static final String FILE_SERVICE                = "context/context-punkapocalyptic-service.xml";
-    public static final String FILE_VIEW                   = "context/context-punkapocalyptic-view.xml";
+    public static final String FILE_COMMAND                = "spring/punkapocalyptic-command.xml";
+    public static final String FILE_CONTROLLER             = "spring/punkapocalyptic-controller.xml";
+    public static final String FILE_DATA                   = "spring/punkapocalyptic-data.xml";
+    public static final String FILE_LOCALIZATION           = "spring/punkapocalyptic-localization.xml";
+    public static final String FILE_LOG                    = "spring/punkapocalyptic-log.xml";
+    public static final String FILE_PROCEDURE              = "spring/punkapocalyptic-procedure.xml";
+    public static final String FILE_REPOSITORY             = "spring/punkapocalyptic-repository.xml";
+    public static final String FILE_SERVICE                = "spring/punkapocalyptic-service.xml";
+    public static final String FILE_VIEW                   = "spring/punkapocalyptic-view.xml";
     public static final String LOADER_SET_UP_WEAPON        = "setUpWeaponLoader";
     public static final String LOCALIZATION_SERVICE        = "localizationService";
     public static final String MANAGER_GANG_BUILDER        = "gangBuilderManager";
@@ -26,7 +26,7 @@ public final class ContextConf {
     public static final String VIEW_MAIN                   = "mainPane";
     public static final String VIEW_SET_UP_UNIT_DIALOG     = "setUpUnitDialog";
 
-    private ContextConf() {
+    private SpringConf() {
         super();
     }
 
