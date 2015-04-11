@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- APPLICATION SERVICES -->
 
 	<bean id="applicationInfoService" class="${service.application.info.class}">
-		<constructor-arg ref="applicationProperties" />
+		<constructor-arg ref="applicationInfoMap" />
 	</bean>
 
-	<bean id="applicationProperties" class="com.wandrell.util.FileUtils"
-		factory-method="getProperties">
-		<constructor-arg ref="applicationStream" />
+	<bean id="applicationInfoMap" class="com.wandrell.util.service.application.ApplicationInfoUtils"
+		factory-method="getData">
+		<constructor-arg ref="applicationInfoReader" />
 	</bean>
 
-	<bean id="applicationStream" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathInputStream">
-		<constructor-arg value="${service.application.info.properties}" />
+	<bean id="applicationInfoReader" class="com.wandrell.util.ResourceUtils"
+		factory-method="getClassPathReader">
+		<constructor-arg value="${service.application.info.file}" />
 	</bean>
 
 	<!-- FILE SERVICE -->

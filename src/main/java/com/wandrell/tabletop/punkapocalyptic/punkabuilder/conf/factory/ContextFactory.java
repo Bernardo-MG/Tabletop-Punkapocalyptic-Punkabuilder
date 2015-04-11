@@ -12,9 +12,9 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.ContextConf;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.FactionSelectionController;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.MainPaneController;
-import com.wandrell.util.ContextUtils;
 import com.wandrell.util.FileUtils;
 import com.wandrell.util.ResourceUtils;
+import com.wandrell.util.SpringUtils;
 import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class ContextFactory {
@@ -33,7 +33,7 @@ public final class ContextFactory {
         config = FileUtils.getProperties(ResourceUtils
                 .getClassPathInputStream(ContextConf.PROPERTIES));
 
-        context = ContextUtils.getClassPathContext(config,
+        context = SpringUtils.getClassPathContext(config,
                 ContextConf.FILE_COMMAND, ContextConf.FILE_DATA,
                 ContextConf.FILE_SERVICE, ContextConf.FILE_REPOSITORY,
                 ContextConf.FILE_PROCEDURE, ContextConf.FILE_CONTROLLER,

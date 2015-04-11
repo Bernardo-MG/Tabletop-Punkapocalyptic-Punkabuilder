@@ -1,0 +1,19 @@
+###############################################################################
+#                              APPLICATION INFO                               #
+###############################################################################
+#
+# This file describes an application.
+# It is used mostly to build the "About" panel.
+#
+
+# Authors data
+authors:
+  - name: Bernardo Martínez Garrido
+    email: programming@wandrell.com
+
+# Application's data
+title: PunkaBuilder
+version: 0.0.5
+
+# Links
+projectURI: http://sourceforge.net/projects/punkabuilder/
