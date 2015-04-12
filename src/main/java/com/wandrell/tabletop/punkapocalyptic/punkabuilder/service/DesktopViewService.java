@@ -6,9 +6,12 @@ import java.util.Collection;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
+import org.springframework.stereotype.Service;
+
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller.SetUpWeaponController;
 
+@Service("viewService")
 public final class DesktopViewService implements ViewService {
 
     public DesktopViewService() {

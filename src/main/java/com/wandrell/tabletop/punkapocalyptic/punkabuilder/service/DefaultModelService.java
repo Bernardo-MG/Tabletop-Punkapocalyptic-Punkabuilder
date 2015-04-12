@@ -4,6 +4,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wandrell.tabletop.procedure.Constraint;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
@@ -29,12 +32,14 @@ import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
+@Service("modelService")
 public final class DefaultModelService implements ModelService {
 
     private final ModelFactory        factory = ModelFactory.getInstance();
     private final LocalizationService localizationService;
     private final RulesetService      rulesetService;
 
+    @Autowired
     public DefaultModelService(final RulesetService rulesetService,
             final LocalizationService localizationService) {
         super();

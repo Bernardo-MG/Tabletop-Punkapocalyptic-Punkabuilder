@@ -18,12 +18,16 @@ import javafx.stage.Stage;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.exception.DRException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.report.ReportFactory;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.util.service.application.ApplicationInfoService;
 
+@Service("fileService")
 public final class DesktopFileService implements FileService {
 
     private static final String          KEY_TITLE_IMAGE = "image.title";
@@ -34,13 +38,14 @@ public final class DesktopFileService implements FileService {
                                                                  .getInstance();
     private final RulesetService         rulesetService;
 
-    public DesktopFileService(final Properties fileProp,
+    @Autowired
+    public DesktopFileService(final Properties fileConfig,
             final ApplicationInfoService appInfoService,
             final LocalizationService localizationService,
             final RulesetService rulesetService) {
         super();
 
-        checkNotNull(fileProp, "Received a null pointer as file properties");
+        checkNotNull(fileConfig, "Received a null pointer as file properties");
         checkNotNull(localizationService,
                 "Received a null pointer as localization service");
         checkNotNull(appInfoService,
@@ -48,7 +53,7 @@ public final class DesktopFileService implements FileService {
         checkNotNull(rulesetService,
                 "Received a null pointer as ruleset service");
 
-        this.fileProp = fileProp;
+        this.fileProp = fileConfig;
         this.localizationService = localizationService;
         this.appInfoService = appInfoService;
         this.rulesetService = rulesetService;

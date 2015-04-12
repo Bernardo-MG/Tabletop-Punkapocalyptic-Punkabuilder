@@ -4,14 +4,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 
+@Service("localizationService")
 public final class DesktopLocalizationService implements LocalizationService {
 
     private final ResourceBundle bundleMessage;
     private final ResourceBundle bundleReport;
     private final ResourceBundle bundleView;
 
+    @Autowired
     public DesktopLocalizationService(final ResourceBundle messageBundle,
             final ResourceBundle viewBundle, final ResourceBundle reportBundle) {
         super();
