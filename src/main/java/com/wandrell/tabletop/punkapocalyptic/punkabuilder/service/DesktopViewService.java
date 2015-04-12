@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.view;
+package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -27,6 +27,7 @@ public final class DesktopViewService implements ViewService {
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
+
         controllers.add(loader.getController());
     }
 

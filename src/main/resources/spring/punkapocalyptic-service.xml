@@ -24,8 +24,10 @@
 	<!-- FILE SERVICE -->
 
 	<bean id="fileService" class="${service.file.class}">
-		<constructor-arg ref="commandExecutor" />
 		<constructor-arg ref="fileProperties" />
+		<constructor-arg ref="applicationInfoService" />
+		<constructor-arg ref="localizationService" />
+		<constructor-arg ref="rulesetService" />
 	</bean>
 
 	<bean id="fileProperties" class="com.wandrell.util.FileUtils"
@@ -41,8 +43,8 @@
 	<!-- RULESET SERVICE -->
 
 	<bean id="rulesetService" class="${service.ruleset.class}">
-		<constructor-arg ref="commandExecutor" />
 		<constructor-arg ref="rulesetProperties" />
+		<constructor-arg ref="weaponRepo" />
 	</bean>
 
 	<bean id="rulesetProperties" class="com.wandrell.util.FileUtils"
@@ -58,7 +60,6 @@
 	<!-- LOCALIZATION SERVICES -->
 
 	<bean id="localizationService" class="${service.localization.class}">
-		<constructor-arg ref="commandExecutor" />
 		<constructor-arg ref="messageBundle" />
 		<constructor-arg ref="viewBundle" />
 		<constructor-arg ref="reportBundle" />

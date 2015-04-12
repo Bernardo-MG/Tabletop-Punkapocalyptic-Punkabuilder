@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.file;
+package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
 import java.io.File;
 

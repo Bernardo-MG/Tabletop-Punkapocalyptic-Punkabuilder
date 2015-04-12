@@ -1,26 +1,21 @@
-package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.localization;
+package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ResourceBundle;
 
-import com.wandrell.pattern.command.CommandExecutor;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
-import com.wandrell.util.command.localization.BundleStringCommand;
 
 public final class DesktopLocalizationService implements LocalizationService {
 
-    private final ResourceBundle  bundleMessage;
-    private final ResourceBundle  bundleReport;
-    private final ResourceBundle  bundleView;
-    private final CommandExecutor executor;
+    private final ResourceBundle bundleMessage;
+    private final ResourceBundle bundleReport;
+    private final ResourceBundle bundleView;
 
-    public DesktopLocalizationService(final CommandExecutor executor,
-            final ResourceBundle messageBundle,
+    public DesktopLocalizationService(final ResourceBundle messageBundle,
             final ResourceBundle viewBundle, final ResourceBundle reportBundle) {
         super();
 
-        checkNotNull(executor, "Received a null pointer as executor");
         checkNotNull(messageBundle, "Received a null pointer as message bundle");
         checkNotNull(viewBundle, "Received a null pointer as view bundle");
         checkNotNull(reportBundle,
@@ -29,30 +24,21 @@ public final class DesktopLocalizationService implements LocalizationService {
         this.bundleMessage = messageBundle;
         this.bundleReport = reportBundle;
         this.bundleView = viewBundle;
-
-        this.executor = executor;
     }
 
     @Override
-    public final String getMessageString(final String message) {
-        return getExecutor().execute(
-                new BundleStringCommand(message, getMessageBundle()));
+    public final String getMessageString(final String key) {
+        return getValue(key, getMessageBundle());
     }
 
     @Override
     public String getReportString(String key) {
-        return getExecutor().execute(
-                new BundleStringCommand(key, getReportBundle()));
+        return getValue(key, getReportBundle());
     }
 
     @Override
     public final String getViewString(final String key) {
-        return getExecutor().execute(
-                new BundleStringCommand(key, getViewBundle()));
-    }
-
-    private final CommandExecutor getExecutor() {
-        return executor;
+        return getValue(key, getViewBundle());
     }
 
     private final ResourceBundle getMessageBundle() {
@@ -61,6 +47,19 @@ public final class DesktopLocalizationService implements LocalizationService {
 
     private final ResourceBundle getReportBundle() {
         return bundleReport;
+    }
+
+    private final String
+            getValue(final String key, final ResourceBundle bundle) {
+        final String value;
+
+        if (bundle.containsKey(key)) {
+            value = bundle.getString(key);
+        } else {
+            value = key;
+        }
+
+        return value;
     }
 
     private final ResourceBundle getViewBundle() {

@@ -44,7 +44,6 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.view.ViewService;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.comparator.ArmorCostComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.comparator.MutationNameComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.util.comparator.UnitNameComparator;
@@ -54,6 +53,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.re
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.MutationNameListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.javafx.renderer.UnitNameListCell;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.service.ViewService;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
 import com.wandrell.tabletop.valuebox.ValueBox;
 

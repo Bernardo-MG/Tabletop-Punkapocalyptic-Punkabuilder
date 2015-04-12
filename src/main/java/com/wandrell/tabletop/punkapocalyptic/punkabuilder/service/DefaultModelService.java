@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.service.model;
+package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
