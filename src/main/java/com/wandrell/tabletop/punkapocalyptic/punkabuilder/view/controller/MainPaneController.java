@@ -11,10 +11,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.service.FileService;
 
+@Component
 public final class MainPaneController {
 
     private Stage                    aboutDialog;
@@ -25,6 +30,7 @@ public final class MainPaneController {
     private final FileService        serviceFile;
     private Stage                    stage;
 
+    @Autowired
     public MainPaneController(final FileService fileService,
             final GangBuilderManager gangBuilderManager) {
         super();
@@ -72,14 +78,17 @@ public final class MainPaneController {
         getPrintPDFItem().setDisable(true);
     }
 
-    public final void setAboutDialog(final Stage dialog) {
+    @Autowired
+    public final void setAboutDialog(
+            @Qualifier("aboutDialog") final Stage dialog) {
         checkNotNull(dialog, "Received a null pointer as dialog");
 
         aboutDialog = dialog;
     }
 
-    public final void setRootLayout(final BorderPane root) {
-        rootLayout = root;
+    @Autowired
+    public final void setRootLayout(@Qualifier("mainPane") final Object root) {
+        rootLayout = (BorderPane) root;
     }
 
     public final void setSaveAllowed(final Boolean save) {

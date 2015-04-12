@@ -10,6 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
@@ -18,6 +22,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 
+@Component
 public final class FactionSelectionController {
 
     private final QueryableRepository<Faction, Predicate<Faction>>                     factionRepo;
@@ -29,11 +34,12 @@ public final class FactionSelectionController {
     @FXML
     private HBox                                                                       selectionBox;
 
+    @Autowired
     public FactionSelectionController(
             final QueryableRepository<Faction, Predicate<Faction>> factionRepo,
             final ModelService modelService,
             final GangBuilderManager gangBuilderManager,
-            final Pane gangCreationPane,
+            @Qualifier("gangCreationPane") final Object gangCreationPane,
             final MainPaneController mainController,
             final QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>> factionViewRepo) {
         super();
@@ -54,7 +60,7 @@ public final class FactionSelectionController {
         this.modelService = modelService;
         this.factionRepo = factionRepo;
         this.gangBuilderManager = gangBuilderManager;
-        this.gangCreationPane = gangCreationPane;
+        this.gangCreationPane = (Pane) gangCreationPane;
         mainPaneController = mainController;
         this.factionViewRepo = factionViewRepo;
     }

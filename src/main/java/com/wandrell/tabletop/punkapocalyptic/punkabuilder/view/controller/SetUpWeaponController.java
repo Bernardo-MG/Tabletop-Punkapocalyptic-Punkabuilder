@@ -20,6 +20,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
@@ -32,6 +35,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.W
 import com.wandrell.tabletop.punkapocalyptic.util.WeaponUtils;
 import com.wandrell.tabletop.punkapocalyptic.util.tag.UnitAware;
 
+@Component
 public final class SetUpWeaponController {
 
     @FXML
@@ -67,6 +71,7 @@ public final class SetUpWeaponController {
     private final ObservableList<Weapon>   weapons = FXCollections
                                                            .observableArrayList();
 
+    @Autowired
     public SetUpWeaponController(
             final UnitConfigurationManager unitConfigManager) {
         super();

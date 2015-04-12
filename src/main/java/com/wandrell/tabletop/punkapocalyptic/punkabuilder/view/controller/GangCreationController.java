@@ -14,6 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.procedure.DefaultValueHandler;
@@ -30,6 +34,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.U
 import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
+@Component
 public final class GangCreationController {
 
     private final ValueHandler       bulletsHandler = new DefaultValueHandler();
@@ -79,6 +84,7 @@ public final class GangCreationController {
         };
     }
 
+    @Autowired
     public GangCreationController(final GangBuilderManager gangBuilderManager) {
         super();
 
@@ -134,7 +140,9 @@ public final class GangCreationController {
         initializeTableColumnsCellFactories();
     }
 
-    public final void setDialog(final Stage dialog) {
+    @Autowired
+    public final void
+            setDialog(@Qualifier("setUpUnitDialog") final Stage dialog) {
         checkNotNull(dialog, "Received a null pointer as dialog");
 
         setUpUnitDialog = dialog;

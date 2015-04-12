@@ -26,6 +26,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.interval.Interval;
@@ -57,6 +61,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.U
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
+@Component
 public final class SetUpUnitController {
 
     @FXML
@@ -181,6 +186,7 @@ public final class SetUpUnitController {
         };
     }
 
+    @Autowired
     public SetUpUnitController(final GangBuilderManager gangBuilderManager,
             final UnitConfigurationManager unitConfigManager,
             final ViewService viewService) {
@@ -290,7 +296,9 @@ public final class SetUpUnitController {
         initializeSpecialRulesList();
     }
 
-    public final void setDialog(final Stage dialog) {
+    @Autowired
+    public final void
+            setDialog(@Qualifier("setUpUnitDialog") final Stage dialog) {
         checkNotNull(dialog, "Received a null pointer as dialog");
 
         setUpUnitDialog = dialog;
