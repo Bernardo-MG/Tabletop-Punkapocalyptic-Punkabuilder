@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.SetUpWeaponController;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller.SetUpWeaponController;
 
 public final class DesktopViewService implements ViewService {
 

@@ -8,7 +8,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.presentation.controller.MainPaneController;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller.MainPaneController;
+import com.wandrell.util.service.application.ApplicationInfoService;
 
 public final class Main extends Application {
 
@@ -20,11 +21,13 @@ public final class Main extends Application {
     public final void start(final Stage primaryStage) throws IOException {
         final String title;
         final String version;
+        final ApplicationInfoService appInfoService;
 
-        title = ContextFactory.getInstance().getApplicationInfoService()
-                .getApplicationName();
-        version = ContextFactory.getInstance().getApplicationInfoService()
-                .getVersion();
+        appInfoService = ContextFactory.getInstance()
+                .getApplicationInfoService();
+
+        title = appInfoService.getApplicationName();
+        version = appInfoService.getVersion();
         primaryStage.setTitle(String.format("%s - v%s", title, version));
 
         initRootLayout(primaryStage);

@@ -8,8 +8,8 @@ import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.model.config.DefaultFactionViewConfig;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.business.model.config.FactionViewConfig;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.DefaultFactionViewConfig;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
 import com.wandrell.util.ResourceUtils;
 
 public final class TransactionFactionViewParser implements
