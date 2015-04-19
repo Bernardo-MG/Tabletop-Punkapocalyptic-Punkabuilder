@@ -212,13 +212,13 @@
 		<dependency>
 			<!-- Tabletop's Punkapocalyptic Core -->
 			<groupId>com.wandrell.tabletop</groupId>
-			<artifactId>punkapocalyptic-core</artifactId>
+			<artifactId>punkapocalyptic-model</artifactId>
 			<version>${tabletop.version}</version>
 		</dependency>
 		<dependency>
 			<!-- Tabletop's Punkapocalyptic Framework -->
 			<groupId>com.wandrell.tabletop</groupId>
-			<artifactId>punkapocalyptic-framework</artifactId>
+			<artifactId>punkapocalyptic-ruleset</artifactId>
 			<version>${tabletop.version}</version>
 		</dependency>
 		<dependency>
