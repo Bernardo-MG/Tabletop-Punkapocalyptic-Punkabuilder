@@ -14,7 +14,6 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.service.DefaultRulesetService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
-import com.wandrell.tabletop.valuebox.ValueBox;
 
 @Service("rulesetService")
 public final class DesktopRulesetService implements RulesetService {
@@ -64,12 +63,6 @@ public final class DesktopRulesetService implements RulesetService {
     @Override
     public final Integer getUnitValoration(final Unit unit) {
         return getBaseService().getUnitValoration(unit);
-    }
-
-    @Override
-    public final void setUpMaxUnitsValueHandler(final ValueBox value,
-            final Gang gang) {
-        getBaseService().setUpMaxUnitsValueHandler(value, gang);
     }
 
     private final RulesetService getBaseService() {
