@@ -7,9 +7,7 @@
 
 	<bean id="gangBuilderManager" class="${procedure.builder.gang.manager}"
 		depends-on="gangBuilderValidatorContextHandler">
-		<constructor-arg ref="unitLimitConstraint" />
 		<constructor-arg ref="gangBuilderValidator" />
-		<constructor-arg ref="unitLimitValueBox" />
 		<constructor-arg ref="factionUnitRepo" />
 		<constructor-arg ref="rulesetService" />
 	</bean>
@@ -25,11 +23,6 @@
 	</bean>
 
 	<!-- CONSTRAINTS -->
-
-	<bean id="unitLimitConstraint" class="${procedure.constraint.unitLimit}">
-		<constructor-arg ref="unitLimitValueBox" />
-		<constructor-arg ref="tooManyUnitsMessage" />
-	</bean>
 
 	<bean id="weaponsIntervalConstraint" class="${procedure.constraint.unitWeaponsInterval}">
 		<constructor-arg ref="unitWeaponRepo" />
@@ -57,12 +50,6 @@
 
 	<bean id="unitConfigValidatorContextHandler" class="${procedure.builder.unit.validator.context}">
 		<property name="unitConfigurationManager" ref="unitConfigManager" />
-	</bean>
-
-	<!-- VALUE HANDLERS -->
-
-	<bean id="unitLimitValueBox"  class="${value.unitLimit.class}">
-		<constructor-arg ref="rulesetService" />
 	</bean>
 
 </beans>

@@ -26,6 +26,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.GangListener;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitEvent;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
+import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.UnitChangedListener;
@@ -273,13 +274,14 @@ public final class GangCreationController {
     }
 
     private final void setMaxUnitsListener() {
-        getGangBuilderManager().getMaxUnits().addValueChangeListener(
-                new ValueChangeListener() {
+        getGangBuilderManager().addStatusChangedListener(
+                new GangBuilderStatusChangedListener() {
 
                     @Override
-                    public final void valueChanged(final ValueChangeEvent evt) {
-                        getMaxUnitsLabel()
-                                .setText(evt.getNewValue().toString());
+                    public final void maxUnitsChanged(
+                            final ValueChangeEvent event) {
+                        getMaxUnitsLabel().setText(
+                                event.getNewValue().toString());
                     }
 
                 });
