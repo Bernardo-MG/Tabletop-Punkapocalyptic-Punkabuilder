@@ -2,12 +2,15 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wandrell.tabletop.procedure.Constraint;
+import com.wandrell.tabletop.procedure.ConstraintData;
+import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailability;
@@ -27,7 +30,6 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.model.util.RangedValue;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
@@ -72,7 +74,7 @@ public final class DefaultModelService implements ModelService {
     @Override
     public final FactionUnitAvailability getFactionUnitAvailability(
             final Faction faction, final Unit unit,
-            final Collection<Constraint> constraints) {
+            final Collection<ConstraintData> constraints) {
         return getFactory().getFactionUnitAvailability(faction, unit,
                 constraints);
     }
@@ -108,13 +110,13 @@ public final class DefaultModelService implements ModelService {
     }
 
     @Override
-    public final RangedWeapon getRangedWeapon(final String name,
-            final Integer cost, final Collection<SpecialRule> rules,
-            final RangedValue penetration, final RangedValue strength,
-            final RangedValue distanceCM, final RangedValue distanceInches,
-            final MeleeWeapon weaponMelee) {
-        return getFactory().getRangedWeapon(name, cost, rules, penetration,
-                strength, distanceCM, distanceInches, weaponMelee);
+    public final RangedWeapon getRangedWeapon(final Unit unit,
+            final String name, final Integer cost,
+            final Collection<SpecialRule> rules, final RangedValue penetration,
+            final RangedValue strength, final RangedValue distanceCM,
+            final RangedValue distanceInches, final MeleeWeapon weaponMelee) {
+        return getFactory().getRangedWeapon(unit, name, cost, rules,
+                penetration, strength, distanceCM, distanceInches, weaponMelee);
     }
 
     @Override
@@ -147,10 +149,10 @@ public final class DefaultModelService implements ModelService {
     }
 
     @Override
-    public final Constraint getUnitGangConstraint(final String name,
-            final String unit, final String... context) {
-        return getFactory().getConstraint(name, unit, context,
-                getLocalizationService());
+    public final Constraint getUnitGangConstraint(final Gang gang,
+            final String name, final String unit, final String... context) {
+        return getFactory().getConstraint(gang, name, unit,
+                Arrays.asList(context), getLocalizationService());
     }
 
     @Override

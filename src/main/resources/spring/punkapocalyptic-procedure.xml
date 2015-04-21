@@ -1,55 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<!-- MANAGERS -->
-
-	<bean id="gangBuilderManager" class="${procedure.builder.gang.manager}"
-		depends-on="gangBuilderValidatorContextHandler">
-		<constructor-arg ref="gangBuilderValidator" />
-		<constructor-arg ref="factionUnitRepo" />
-		<constructor-arg ref="rulesetService" />
-	</bean>
-
-	<bean id="unitConfigManager" class="${procedure.builder.unit.manager}"
-		depends-on="unitConfigValidatorContextHandler">
-		<constructor-arg ref="unitConfigValidator" />
-		<constructor-arg ref="unitArmorRepo" />
-		<constructor-arg ref="unitEquipmentRepo" />
-		<constructor-arg ref="unitMutationRepo" />
-		<constructor-arg ref="unitWeaponRepo" />
-		<constructor-arg ref="rulesetService" />
-	</bean>
-
-	<!-- CONSTRAINTS -->
-
-	<bean id="weaponsIntervalConstraint" class="${procedure.constraint.unitWeaponsInterval}">
-		<constructor-arg ref="unitWeaponRepo" />
-		<constructor-arg ref="missingCompWeaponMessage" />
-	</bean>
-
-	<!-- VALIDATORS -->
-
-	<bean id="gangBuilderValidator" class="${procedure.builder.gang.validator}">
-		<constructor-arg ref="gangBuilderValidatorContextHandler" />
-	</bean>
-
-	<bean id="unitConfigValidator" class="${procedure.builder.unit.validator}">
-		<constructor-arg ref="unitConfigValidatorContextHandler" />
-		<property name="constraints">
-			<list>
-				<ref bean="weaponsIntervalConstraint" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="gangBuilderValidatorContextHandler" class="${procedure.builder.gang.validator.context}">
-		<property name="gangBuilderManager" ref="gangBuilderManager" />
-	</bean>
-
-	<bean id="unitConfigValidatorContextHandler" class="${procedure.builder.unit.validator.context}">
-		<property name="unitConfigurationManager" ref="unitConfigManager" />
-	</bean>
+	<context:component-scan base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.procedure" />
 
 </beans>

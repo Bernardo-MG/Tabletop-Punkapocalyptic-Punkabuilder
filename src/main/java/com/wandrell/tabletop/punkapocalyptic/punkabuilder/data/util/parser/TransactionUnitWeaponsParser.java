@@ -1,15 +1,12 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.QueryableRepository;
-import com.wandrell.tabletop.procedure.Constraint;
-import com.wandrell.tabletop.punkapocalyptic.conf.ConstraintsConf;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultWeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
@@ -17,9 +14,6 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
-import com.wandrell.tabletop.punkapocalyptic.procedure.constraint.DependantUnitConstraint;
-import com.wandrell.tabletop.punkapocalyptic.procedure.constraint.UnitUpToACountConstraint;
-import com.wandrell.tabletop.punkapocalyptic.procedure.constraint.UnitUpToHalfGangLimitConstraint;
 
 public final class TransactionUnitWeaponsParser implements
         Parser<Map<String, Object>, UnitWeaponAvailability> {
@@ -37,37 +31,6 @@ public final class TransactionUnitWeaponsParser implements
         this.unitsRepo = unitsRepo;
         this.weaponsRepo = weaponsRepo;
         this.enhancementsRepo = enhancementsRepo;
-    }
-
-    public final Constraint getConstraint(final String name, final String unit,
-            final Collection<String> tags) {
-        final Constraint constraint;
-        final String message;
-        final Iterator<String> tagsItr;
-
-        switch (name) {
-            case ConstraintsConf.UNIQUE:
-                message = "";
-
-                constraint = new UnitUpToACountConstraint(unit, 1, message);
-                break;
-            case ConstraintsConf.UP_TO_HALF_POINTS:
-                message = "";
-
-                constraint = new UnitUpToHalfGangLimitConstraint(unit, message);
-                break;
-            case ConstraintsConf.DEPENDANT:
-                message = "";
-                tagsItr = tags.iterator();
-
-                constraint = new DependantUnitConstraint(tagsItr.next(), unit,
-                        Integer.parseInt(tagsItr.next()), message);
-                break;
-            default:
-                constraint = null;
-        }
-
-        return constraint;
     }
 
     @SuppressWarnings("unchecked")

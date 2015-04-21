@@ -14,8 +14,11 @@ import org.jdom2.Element;
 import org.jdom2.filter.Filters;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
@@ -65,6 +68,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFi
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
+@Component("dataBuilder")
 public final class DefaultDataBuilder implements
         ApplicationListener<ContextRefreshedEvent> {
 
@@ -78,9 +82,11 @@ public final class DefaultDataBuilder implements
     private final Document                                     source;
     private final Map<String, Collection<Map<String, Object>>> transactionsData = new LinkedHashMap<>();
 
-    public DefaultDataBuilder(final Collection<Reader> sources,
-            final Map<String, QueryableRepository<?, ?>> repos,
-            final Map<String, ResourceBundle> bundles,
+    @SuppressWarnings("unchecked")
+    @Autowired
+    public DefaultDataBuilder(@Qualifier("dataSources") final Object sources,
+            @Qualifier("repositoryMap") final Object repos,
+            @Qualifier("dataBundles") final Object bundles,
             final RulesetService rulesetService, final ModelService modelService) {
         super();
 
@@ -88,12 +94,11 @@ public final class DefaultDataBuilder implements
         checkNotNull(repos, "Received a null pointer as repositories");
         checkNotNull(bundles, "Received a null pointer as bundles");
         checkNotNull(modelService, "Received a null pointer as model service");
-
         checkNotNull(rulesetService,
                 "Received a null pointer as ruleset service");
 
-        this.repos = repos;
-        this.bundles = bundles;
+        this.repos = (Map<String, QueryableRepository<?, ?>>) repos;
+        this.bundles = (Map<String, ResourceBundle>) bundles;
 
         this.modelService = modelService;
         this.rulesetService = rulesetService;
@@ -103,7 +108,7 @@ public final class DefaultDataBuilder implements
         parser = new XMLFileCombinerParser();
 
         try {
-            this.source = parser.parse(sources);
+            this.source = parser.parse((Collection<Reader>) sources);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

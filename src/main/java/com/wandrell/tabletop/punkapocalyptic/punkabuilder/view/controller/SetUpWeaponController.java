@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitDependantWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
@@ -33,7 +34,6 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.WeaponNameAndCostListCell;
 import com.wandrell.tabletop.punkapocalyptic.util.WeaponUtils;
-import com.wandrell.tabletop.punkapocalyptic.util.tag.UnitAware;
 
 @Component
 public final class SetUpWeaponController {
@@ -243,8 +243,8 @@ public final class SetUpWeaponController {
                                 final Weapon weapon;
 
                                 weapon = newValue.createNewInstance();
-                                if (newValue instanceof UnitAware) {
-                                    ((UnitAware) weapon)
+                                if (newValue instanceof UnitDependantWeapon) {
+                                    ((UnitDependantWeapon) weapon)
                                             .setUnit(getUnitConfigurationManager()
                                                     .getUnit());
                                 }
