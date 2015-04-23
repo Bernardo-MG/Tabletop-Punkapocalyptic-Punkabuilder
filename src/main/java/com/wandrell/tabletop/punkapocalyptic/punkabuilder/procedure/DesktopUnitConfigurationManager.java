@@ -6,13 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.interval.Interval;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitEquipmentAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
@@ -21,6 +15,10 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.procedure.DefaultUnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitEquipmentAvailabilityRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitMutationAvailabilityRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
 @Component("unitConfigManager")
@@ -32,10 +30,10 @@ public final class DesktopUnitConfigurationManager implements
     @Autowired
     public DesktopUnitConfigurationManager(
             @Qualifier("missingCompWeaponMessage") final String constraintMessage,
-            @Qualifier("unitArmorRepo") final QueryableRepository<UnitArmorAvailability, Predicate<UnitArmorAvailability>> armorAvaRepo,
-            @Qualifier("unitEquipmentRepo") final QueryableRepository<UnitEquipmentAvailability, Predicate<UnitEquipmentAvailability>> equipAvaRepo,
-            @Qualifier("unitMutationRepo") final QueryableRepository<UnitMutationAvailability, Predicate<UnitMutationAvailability>> mutationAvaRepo,
-            @Qualifier("unitWeaponRepo") final QueryableRepository<UnitWeaponAvailability, Predicate<UnitWeaponAvailability>> weaponAvaRepo,
+            final UnitArmorAvailabilityRepository armorAvaRepo,
+            final UnitEquipmentAvailabilityRepository equipAvaRepo,
+            final UnitMutationAvailabilityRepository mutationAvaRepo,
+            final UnitWeaponAvailabilityRepository weaponAvaRepo,
             final RulesetService rulesetService) {
         super();
 

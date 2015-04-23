@@ -3,20 +3,18 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser;
 import java.util.Collection;
 import java.util.Map;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultMeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
+import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 
 public final class TransactionMeleeWeaponParser implements
         Parser<Map<String, Object>, Weapon> {
 
-    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo;
+    private final SpecialRuleRepository rulesRepo;
 
-    public TransactionMeleeWeaponParser(
-            final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo) {
+    public TransactionMeleeWeaponParser(final SpecialRuleRepository rulesRepo) {
         super();
 
         this.rulesRepo = rulesRepo;
@@ -30,14 +28,7 @@ public final class TransactionMeleeWeaponParser implements
 
         ruleNames = (Collection<String>) input.get("rules");
 
-        rules = rulesRepo.getCollection(new Predicate<SpecialRule>() {
-
-            @Override
-            public final boolean apply(final SpecialRule input) {
-                return ruleNames.contains(input.getName());
-            }
-
-        });
+        rules = rulesRepo.getByNamesList(ruleNames);
 
         // TODO: Use a service
         return new DefaultMeleeWeapon(input.get("name").toString(),

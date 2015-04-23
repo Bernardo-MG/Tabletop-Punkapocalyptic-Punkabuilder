@@ -4,21 +4,19 @@ import java.util.Map;
 
 import javafx.scene.image.Image;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.DefaultFactionViewConfig;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
+import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
 import com.wandrell.util.ResourceUtils;
 
 public final class TransactionFactionViewParser implements
         Parser<Map<String, Object>, FactionViewConfig> {
 
-    private final QueryableRepository<Faction, Predicate<Faction>> factionRepo;
+    private final FactionRepository factionRepo;
 
-    public TransactionFactionViewParser(
-            final QueryableRepository<Faction, Predicate<Faction>> factionRepo) {
+    public TransactionFactionViewParser(final FactionRepository factionRepo) {
         super();
 
         this.factionRepo = factionRepo;
@@ -36,8 +34,7 @@ public final class TransactionFactionViewParser implements
         name = input.get("faction").toString();
         image = new Image(ResourceUtils.getClassPathInputStream(path));
 
-        faction = factionRepo.getCollection(f -> f.getName().equals(name))
-                .iterator().next();
+        faction = factionRepo.getByName(name);
 
         return new DefaultFactionViewConfig(faction, image);
     }

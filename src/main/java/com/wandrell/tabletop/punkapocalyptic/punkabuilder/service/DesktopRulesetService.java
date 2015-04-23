@@ -6,12 +6,11 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.DefaultRulesetService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
@@ -22,7 +21,7 @@ public final class DesktopRulesetService implements RulesetService {
 
     @Autowired
     public DesktopRulesetService(final Properties rulesetConfig,
-            final QueryableRepository<Weapon, Predicate<Weapon>> weaponRepo) {
+            final WeaponRepository weaponRepo) {
         super();
 
         baseService = new DefaultRulesetService(rulesetConfig, weaponRepo);

@@ -3,12 +3,8 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.procedure;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.QueryableRepository;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.procedure.DefaultGangBuilderManager;
@@ -16,6 +12,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.UnitChangedListener;
+import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.valuebox.ValueBox;
@@ -27,7 +24,7 @@ public final class DesktopGangBuilderManager implements GangBuilderManager {
 
     @Autowired
     public DesktopGangBuilderManager(
-            @Qualifier("factionUnitRepo") final QueryableRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>> unitAvaRepository,
+            final FactionUnitAvailabilityRepository unitAvaRepository,
             final RulesetService rulesetService,
             final LocalizationService localizationService) {
         super();

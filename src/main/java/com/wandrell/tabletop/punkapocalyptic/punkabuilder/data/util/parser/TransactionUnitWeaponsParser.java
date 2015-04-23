@@ -4,9 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultWeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
@@ -14,18 +12,20 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
 
 public final class TransactionUnitWeaponsParser implements
         Parser<Map<String, Object>, UnitWeaponAvailability> {
 
-    private final QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> enhancementsRepo;
-    private final QueryableRepository<Unit, Predicate<Unit>>                           unitsRepo;
-    private final QueryableRepository<Weapon, Predicate<Weapon>>                       weaponsRepo;
+    private final WeaponEnhancementRepository enhancementsRepo;
+    private final UnitRepository              unitsRepo;
+    private final WeaponRepository            weaponsRepo;
 
-    public TransactionUnitWeaponsParser(
-            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
-            final QueryableRepository<Weapon, Predicate<Weapon>> weaponsRepo,
-            final QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> enhancementsRepo) {
+    public TransactionUnitWeaponsParser(final UnitRepository unitsRepo,
+            final WeaponRepository weaponsRepo,
+            final WeaponEnhancementRepository enhancementsRepo) {
         super();
 
         this.unitsRepo = unitsRepo;
@@ -46,36 +46,13 @@ public final class TransactionUnitWeaponsParser implements
         final Integer max;
         Collection<WeaponEnhancement> validEnhancements;
 
-        unit = unitsRepo.getCollection(new Predicate<Unit>() {
-
-            @Override
-            public final boolean apply(final Unit unit) {
-                return unit.getName().equals(input.get("unit"));
-            }
-
-        }).iterator().next();
+        unit = unitsRepo.getByName(input.get("unit").toString());
 
         weaponNames = (Collection<String>) input.get("weapons");
-        weapons = weaponsRepo.getCollection(new Predicate<Weapon>() {
-
-            @Override
-            public final boolean apply(final Weapon weapon) {
-                return weaponNames.contains(weapon.getName());
-            }
-
-        });
+        weapons = weaponsRepo.getByNamesList(weaponNames);
 
         enhancementNames = (Collection<String>) input.get("enhancements");
-        enhancements = enhancementsRepo
-                .getCollection(new Predicate<WeaponEnhancement>() {
-
-                    @Override
-                    public final boolean apply(
-                            final WeaponEnhancement enhancement) {
-                        return enhancementNames.contains(enhancement.getName());
-                    }
-
-                });
+        enhancements = enhancementsRepo.getByNamesList(enhancementNames);
 
         options = new LinkedList<>();
         for (final Weapon weapon : weapons) {

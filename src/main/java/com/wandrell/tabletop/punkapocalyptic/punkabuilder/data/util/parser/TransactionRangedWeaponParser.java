@@ -3,9 +3,7 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser;
 import java.util.Collection;
 import java.util.Map;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultRangedWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
@@ -13,15 +11,15 @@ import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.util.DefaultRangedValue;
 import com.wandrell.tabletop.punkapocalyptic.model.util.RangedValue;
+import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 
 public final class TransactionRangedWeaponParser implements
         Parser<Map<String, Object>, Weapon> {
 
-    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo;
-    private final MeleeWeapon                                              weaponMelee;
+    private final SpecialRuleRepository rulesRepo;
+    private final MeleeWeapon           weaponMelee;
 
-    public TransactionRangedWeaponParser(
-            final QueryableRepository<SpecialRule, Predicate<SpecialRule>> rulesRepo,
+    public TransactionRangedWeaponParser(final SpecialRuleRepository rulesRepo,
             final MeleeWeapon weaponMelee) {
         super();
 
@@ -43,14 +41,7 @@ public final class TransactionRangedWeaponParser implements
 
         ruleNames = (Collection<String>) input.get("rules");
 
-        rules = rulesRepo.getCollection(new Predicate<SpecialRule>() {
-
-            @Override
-            public final boolean apply(final SpecialRule input) {
-                return ruleNames.contains(input.getName());
-            }
-
-        });
+        rules = rulesRepo.getByNamesList(ruleNames);
 
         penetration = new DefaultRangedValue(
                 (Integer) input.get("penetration_short"),

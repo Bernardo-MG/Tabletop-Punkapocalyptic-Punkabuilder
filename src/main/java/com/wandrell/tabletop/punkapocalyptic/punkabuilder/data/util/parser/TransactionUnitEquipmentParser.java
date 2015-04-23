@@ -3,23 +3,22 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser;
 import java.util.Collection;
 import java.util.Map;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
 
 public final class TransactionUnitEquipmentParser implements
         Parser<Map<String, Object>, UnitEquipmentAvailability> {
 
-    private final QueryableRepository<Equipment, Predicate<Equipment>> equipmentRepo;
-    private final QueryableRepository<Unit, Predicate<Unit>>           unitsRepo;
+    private final EquipmentRepository equipmentRepo;
+    private final UnitRepository      unitsRepo;
 
-    public TransactionUnitEquipmentParser(
-            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
-            final QueryableRepository<Equipment, Predicate<Equipment>> equipmentRepo) {
+    public TransactionUnitEquipmentParser(final UnitRepository unitsRepo,
+            final EquipmentRepository equipmentRepo) {
         super();
 
         this.unitsRepo = unitsRepo;
@@ -34,24 +33,10 @@ public final class TransactionUnitEquipmentParser implements
         final Collection<String> equipmentNames;
         final Collection<Equipment> equipment;
 
-        unit = unitsRepo.getCollection(new Predicate<Unit>() {
-
-            @Override
-            public final boolean apply(final Unit unit) {
-                return unit.getName().equals(input.get("unit"));
-            }
-
-        }).iterator().next();
+        unit = unitsRepo.getByName(input.get("unit").toString());
 
         equipmentNames = (Collection<String>) input.get("equipment");
-        equipment = equipmentRepo.getCollection(new Predicate<Equipment>() {
-
-            @Override
-            public final boolean apply(final Equipment piece) {
-                return equipmentNames.contains(piece.getName());
-            }
-
-        });
+        equipment = equipmentRepo.getByNamesList(equipmentNames);
 
         // TODO: Use a service
         return new DefaultUnitEquipmentAvailability(unit, equipment);

@@ -3,23 +3,22 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser;
 import java.util.Collection;
 import java.util.Map;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitArmorAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.repository.ArmorRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
 
 public final class TransactionUnitArmorsParser implements
         Parser<Map<String, Object>, UnitArmorAvailability> {
 
-    private final QueryableRepository<Armor, Predicate<Armor>> armorsRepo;
-    private final QueryableRepository<Unit, Predicate<Unit>>   unitsRepo;
+    private final ArmorRepository armorsRepo;
+    private final UnitRepository  unitsRepo;
 
-    public TransactionUnitArmorsParser(
-            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
-            final QueryableRepository<Armor, Predicate<Armor>> armorsRepo) {
+    public TransactionUnitArmorsParser(final UnitRepository unitsRepo,
+            final ArmorRepository armorsRepo) {
         super();
 
         this.unitsRepo = unitsRepo;
@@ -34,43 +33,15 @@ public final class TransactionUnitArmorsParser implements
         final Collection<String> armorNames;
         final Armor initial;
 
-        unit = unitsRepo.getCollection(new Predicate<Unit>() {
-
-            @Override
-            public final boolean apply(final Unit unit) {
-                return unit.getName().equals(input.get("unit"));
-            }
-
-        }).iterator().next();
+        unit = unitsRepo.getByName(input.get("unit").toString());
 
         armorNames = (Collection<String>) input.get("armors");
-        armors = armorsRepo.getCollection(new Predicate<Armor>() {
-
-            @Override
-            public final boolean apply(final Armor armor) {
-                return armorNames.contains(armor.getName());
-            }
-
-        });
+        armors = armorsRepo.getByNamesList(armorNames);
 
         if (input.containsKey("initial")) {
-            initial = armorsRepo.getCollection(new Predicate<Armor>() {
-
-                @Override
-                public final boolean apply(final Armor armor) {
-                    return armor.getName().equals(input.get("initial"));
-                }
-
-            }).iterator().next();
+            initial = armorsRepo.getByName(input.get("initial").toString());
         } else {
-            initial = armorsRepo.getCollection(new Predicate<Armor>() {
-
-                @Override
-                public final boolean apply(final Armor armor) {
-                    return armor.getName().equals("unarmored");
-                }
-
-            }).iterator().next();
+            initial = armorsRepo.getByName("unarmored");
         }
 
         // TODO: Use a service

@@ -14,34 +14,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.FactionViewConfigRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 
 @Component
 public final class FactionSelectionController {
 
-    private final QueryableRepository<Faction, Predicate<Faction>>                     factionRepo;
-    private final QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>> factionViewRepo;
-    private final GangBuilderManager                                                   gangBuilderManager;
-    private final Pane                                                                 gangCreationPane;
-    private final MainPaneController                                                   mainPaneController;
-    private final ModelService                                                         modelService;
+    private final FactionRepository           factionRepo;
+    private final FactionViewConfigRepository factionViewRepo;
+    private final GangBuilderManager          gangBuilderManager;
+    private final Pane                        gangCreationPane;
+    private final MainPaneController          mainPaneController;
+    private final ModelService                modelService;
     @FXML
-    private HBox                                                                       selectionBox;
+    private HBox                              selectionBox;
 
     @Autowired
-    public FactionSelectionController(
-            final QueryableRepository<Faction, Predicate<Faction>> factionRepo,
+    public FactionSelectionController(final FactionRepository factionRepo,
             final ModelService modelService,
             final GangBuilderManager gangBuilderManager,
             @Qualifier("gangCreationPane") final Object gangCreationPane,
             final MainPaneController mainController,
-            final QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>> factionViewRepo) {
+            final FactionViewConfigRepository factionViewRepo) {
         super();
 
         checkNotNull(gangBuilderManager,
@@ -69,13 +67,9 @@ public final class FactionSelectionController {
         ImageView icon;
         Button button;
 
-        for (final Faction faction : getFactionRepository().getCollection(
-                f -> true)) {
-            icon = new ImageView(factionViewRepo
-                    .getCollection(
-                            f -> f.getFaction().getName()
-                                    .equals(faction.getName())).iterator()
-                    .next().getImage());
+        for (final Faction faction : getFactionRepository().getAll()) {
+            icon = new ImageView(factionViewRepo.getConfigForFaction(faction)
+                    .getImage());
 
             button = new Button(faction.getName(), icon);
             button.setContentDisplay(ContentDisplay.TOP);
@@ -98,8 +92,7 @@ public final class FactionSelectionController {
         }
     }
 
-    private final QueryableRepository<Faction, Predicate<Faction>>
-            getFactionRepository() {
+    private final FactionRepository getFactionRepository() {
         return factionRepo;
     }
 

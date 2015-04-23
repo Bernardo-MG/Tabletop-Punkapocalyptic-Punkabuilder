@@ -3,23 +3,22 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser;
 import java.util.Collection;
 import java.util.Map;
 
-import com.google.common.base.Predicate;
 import com.wandrell.pattern.parser.Parser;
-import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitMutationAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
+import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
 
 public final class TransactionUnitMutationsParser implements
         Parser<Map<String, Object>, UnitMutationAvailability> {
 
-    private final QueryableRepository<Mutation, Predicate<Mutation>> mutationsRepo;
-    private final QueryableRepository<Unit, Predicate<Unit>>         unitsRepo;
+    private final MutationRepository mutationsRepo;
+    private final UnitRepository     unitsRepo;
 
-    public TransactionUnitMutationsParser(
-            final QueryableRepository<Unit, Predicate<Unit>> unitsRepo,
-            final QueryableRepository<Mutation, Predicate<Mutation>> mutationsRepo) {
+    public TransactionUnitMutationsParser(final UnitRepository unitsRepo,
+            final MutationRepository mutationsRepo) {
         super();
 
         this.unitsRepo = unitsRepo;
@@ -35,24 +34,10 @@ public final class TransactionUnitMutationsParser implements
         final Collection<String> mutationNames;
         Integer max;
 
-        unit = unitsRepo.getCollection(new Predicate<Unit>() {
-
-            @Override
-            public final boolean apply(final Unit unit) {
-                return unit.getName().equals(input.get("unit"));
-            }
-
-        }).iterator().next();
+        unit = unitsRepo.getByName(input.get("unit").toString());
 
         mutationNames = (Collection<String>) input.get("white_list");
-        mutations = mutationsRepo.getCollection(new Predicate<Mutation>() {
-
-            @Override
-            public final boolean apply(final Mutation mutation) {
-                return mutationNames.contains(mutation.getName());
-            }
-
-        });
+        mutations = mutationsRepo.getByNamesList(mutationNames);
 
         max = (Integer) input.get("max_mutations");
 
