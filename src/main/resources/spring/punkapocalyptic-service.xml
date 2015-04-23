@@ -6,7 +6,8 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-	<context:component-scan base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.service" />
+	<context:component-scan
+		base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.service" />
 
 	<!-- APPLICATION SERVICES -->
 
@@ -23,12 +24,10 @@
 
 	<!-- FILE SERVICE -->
 
-	<util:properties id="fileConfig"
-		location="${service.file.config.file}" />
+	<util:properties id="fileConfig" location="${service.file.config.file}" />
 
 	<!-- RULESET SERVICE -->
 
-	<util:properties id="rulesetConfig"
-		location="${service.ruleset.config.file}" />
+	<util:properties id="rulesetConfig" location="${service.ruleset.config.file}" />
 
 </beans>

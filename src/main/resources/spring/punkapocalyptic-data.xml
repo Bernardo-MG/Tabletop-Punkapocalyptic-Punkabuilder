@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<context:component-scan base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util" />
+	<context:component-scan
+		base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util" />
 
 	<util:list id="dataSources" value-type="java.io.Reader">
 		<!-- Armors -->
@@ -45,7 +45,7 @@
 		<!-- Mutations -->
 		<ref bean="readerModelFactionView" />
 	</util:list>
-	
+
 	<util:map id="repositoryMap">
 		<entry key="armor">
 			<ref bean="armorRepo" />
@@ -105,7 +105,7 @@
 			<ref bean="factionNameBundle" />
 		</entry>
 	</util:map>
-	
+
 	<!-- MODEL SERVICE READERS -->
 
 	<!-- INVENTORY -->
