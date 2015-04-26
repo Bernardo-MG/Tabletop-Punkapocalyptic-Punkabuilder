@@ -110,6 +110,8 @@ public final class SetUpWeaponController {
 
     @FXML
     public final void initialize() {
+        final EventHandler<ActionEvent> handler;
+
         enhancementNodes = getEnhancementsPane().getChildren();
 
         initializeWeaponComboBox();
@@ -117,22 +119,18 @@ public final class SetUpWeaponController {
         getSpecialRulesList().setCellFactory(column -> {
             return new SpecialRuleListCell();
         });
-    }
 
-    public final void loadWeapons() {
-        final Comparator<Weapon> comparator;
+        handler = new EventHandler<ActionEvent>() {
 
-        // TODO: Get the comparator out of here
-        comparator = (Weapon o1, Weapon o2) -> o1.getCost().compareTo(
-                o2.getCost());
+            @Override
+            public final void handle(final ActionEvent event) {
+                getUnit().addWeapon(current);
+                setEnabled(false);
+            }
 
-        getWeapons().setAll(getUnitConfigurationManager().getWeaponOptions());
+        };
 
-        FXCollections.sort(getWeapons(), comparator);
-
-        if (getWeaponComboBox().getItems().size() > 0) {
-            getWeaponComboBox().getSelectionModel().select(0);
-        }
+        getPickButton().addEventHandler(ActionEvent.ACTION, handler);
     }
 
     public final void setEnabled(final Boolean enabled) {
@@ -143,6 +141,10 @@ public final class SetUpWeaponController {
 
         for (final Node node : getEnhancementNodes()) {
             node.setDisable(!enabled);
+        }
+
+        if (enabled) {
+            loadWeapons();
         }
     }
 
@@ -218,12 +220,6 @@ public final class SetUpWeaponController {
 
     private final ObservableList<Weapon> getWeapons() {
         return weapons;
-    }
-
-    @FXML
-    private final void handleWeaponPicked() {
-        getUnit().addWeapon(current);
-        setEnabled(false);
     }
 
     private final void initializeWeaponComboBox() {
@@ -343,6 +339,22 @@ public final class SetUpWeaponController {
                     }
                 }
             });
+        }
+    }
+
+    private final void loadWeapons() {
+        final Comparator<Weapon> comparator;
+
+        // TODO: Get the comparator out of here
+        comparator = (Weapon o1, Weapon o2) -> o1.getCost().compareTo(
+                o2.getCost());
+
+        getWeapons().setAll(getUnitConfigurationManager().getWeaponOptions());
+
+        FXCollections.sort(getWeapons(), comparator);
+
+        if (getWeaponComboBox().getItems().size() > 0) {
+            getWeaponComboBox().getSelectionModel().select(0);
         }
     }
 

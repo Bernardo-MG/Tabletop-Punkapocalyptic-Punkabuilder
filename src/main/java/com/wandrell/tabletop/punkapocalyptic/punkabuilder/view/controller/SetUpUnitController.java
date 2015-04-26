@@ -55,7 +55,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFa
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.ArmorCostComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.MutationNameComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.UnitNameComparator;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.event.WeaponPickedEventHandler;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.event.WeaponPickedControllerQueueEventHandler;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.ArmorNameAndCostListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.MutationNameAndCostListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.MutationNameListCell;
@@ -553,10 +553,6 @@ public final class SetUpUnitController {
 
             enabled = (i == 0);
 
-            if (enabled) {
-                controller.loadWeapons();
-            }
-
             controller.setEnabled(enabled);
 
             controller.addOnPickEventHandler(handler);
@@ -753,15 +749,14 @@ public final class SetUpUnitController {
         getWeaponsPane().getChildren().clear();
         getSetUpWeaponControllers().clear();
 
-        handler = new WeaponPickedEventHandler(getSetUpWeaponControllers());
+        handler = new WeaponPickedControllerQueueEventHandler(
+                getSetUpWeaponControllers());
 
         intervalWeapons = getUnitConfigurationManager()
                 .getAllowedWeaponsInterval();
 
-        initializeWeaponSelectionPanels(0, intervalWeapons.getLowerLimit(),
+        initializeWeaponSelectionPanels(0, intervalWeapons.getUpperLimit(),
                 handler);
-        initializeWeaponSelectionPanels(intervalWeapons.getLowerLimit(),
-                intervalWeapons.getUpperLimit(), handler);
 
         getSetUpWeaponControllers().poll();
     }

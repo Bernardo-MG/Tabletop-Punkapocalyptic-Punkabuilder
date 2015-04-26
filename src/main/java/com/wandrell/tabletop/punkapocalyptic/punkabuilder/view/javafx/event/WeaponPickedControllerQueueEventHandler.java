@@ -7,12 +7,12 @@ import javafx.event.EventHandler;
 
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller.SetUpWeaponController;
 
-public final class WeaponPickedEventHandler implements
+public final class WeaponPickedControllerQueueEventHandler implements
         EventHandler<ActionEvent> {
 
     private final Queue<SetUpWeaponController> controllers;
 
-    public WeaponPickedEventHandler(
+    public WeaponPickedControllerQueueEventHandler(
             final Queue<SetUpWeaponController> controllers) {
         super();
 
@@ -26,7 +26,6 @@ public final class WeaponPickedEventHandler implements
         controller = getControllers().poll();
 
         if (controller != null) {
-            controller.loadWeapons();
             controller.setEnabled(true);
         }
     }
