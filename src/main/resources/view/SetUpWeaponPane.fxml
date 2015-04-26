@@ -90,6 +90,6 @@
 		<Separator orientation="HORIZONTAL" />
 		<!-- ENHANCEMENTS -->
 		<VBox fx:id="enhancementPane" />
-		<Button fx:id="pickButton" text="%pick" />
+		<Button fx:id="pickButton" text="%pick" onAction="#handleWeaponPicked" />
 	</children>
 </VBox>

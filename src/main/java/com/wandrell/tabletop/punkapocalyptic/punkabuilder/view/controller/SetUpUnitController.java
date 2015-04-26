@@ -2,12 +2,12 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -50,7 +51,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.service.ViewService;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.ArmorCostComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.MutationNameComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.UnitNameComparator;
@@ -68,78 +69,77 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 public final class SetUpUnitController {
 
     @FXML
-    private Button                            addMutationButton;
+    private Button                                  addMutationButton;
     @FXML
-    private Pane                              armorBox;
+    private Pane                                    armorBox;
     @FXML
-    private ComboBox<Armor>                   armorCombo;
+    private ComboBox<Armor>                         armorCombo;
     @FXML
-    private Pane                              armorPane;
+    private Pane                                    armorPane;
     @FXML
-    private Label                             armorProtectionLabel;
+    private Label                                   armorProtectionLabel;
     @FXML
-    private ListView<SpecialRule>             armorSpecialRulesList;
+    private ListView<SpecialRule>                   armorSpecialRulesList;
     @FXML
-    private Label                             basePointsLabel;
+    private Label                                   basePointsLabel;
     @FXML
-    private Button                            decreaseGroupButton;
+    private Button                                  decreaseGroupButton;
     @FXML
-    private Pane                              equipmentPane;
+    private Pane                                    equipmentPane;
     @FXML
-    private ListView<String>                  errorsList;
-    private final GangBuilderManager          gangBuilderManager;
+    private ListView<String>                        errorsList;
+    private final GangBuilderManager                gangBuilderManager;
     @FXML
-    private Pane                              groupBox;
+    private Pane                                    groupBox;
     @FXML
-    private Pane                              groupPane;
-    private final ValueHandler                groupSizeHandler       = new DefaultValueHandler();
+    private Pane                                    groupPane;
+    private final ValueHandler                      groupSizeHandler       = new DefaultValueHandler();
     @FXML
-    private Label                             groupSizeLabel;
+    private Label                                   groupSizeLabel;
     @FXML
-    private Button                            increaseGroupButton;
+    private Button                                  increaseGroupButton;
     @FXML
-    private Label                             labelActions;
+    private Label                                   labelActions;
     @FXML
-    private Label                             labelAgility;
+    private Label                                   labelAgility;
     @FXML
-    private Label                             labelCombat;
+    private Label                                   labelCombat;
     @FXML
-    private Label                             labelPrecision;
+    private Label                                   labelPrecision;
     @FXML
-    private Label                             labelStrength;
+    private Label                                   labelStrength;
     @FXML
-    private Label                             labelTech;
+    private Label                                   labelTech;
     @FXML
-    private Label                             labelToughness;
+    private Label                                   labelToughness;
     @FXML
-    private ComboBox<Mutation>                mutationCombo;
+    private ComboBox<Mutation>                      mutationCombo;
     @FXML
-    private Pane                              mutationsBox;
+    private Pane                                    mutationsBox;
     @FXML
-    private ListView<Mutation>                mutationsList;
+    private ListView<Mutation>                      mutationsList;
     @FXML
-    private Pane                              mutationsPane;
+    private Pane                                    mutationsPane;
     @FXML
-    private Pane                              rulesBox;
-    private final RulesetService              rulesetService;
+    private Pane                                    rulesBox;
+    private final RulesetService                    rulesetService;
     @FXML
-    private Pane                              rulesPane;
-    private Stage                             setUpUnitDialog;
-    private final List<SetUpWeaponController> setUpWeaponControllers = new LinkedList<>();
-    private final List<Pane>                  setUpWeaponPanes       = new LinkedList<>();
+    private Pane                                    rulesPane;
+    private Stage                                   setUpUnitDialog;
+    private final LinkedList<SetUpWeaponController> setUpWeaponControllers = new LinkedList<>();
+    private final List<Pane>                        setUpWeaponPanes       = new LinkedList<>();
     @FXML
-    private ListView<SpecialRule>             specialRulesList;
+    private ListView<SpecialRule>                   specialRulesList;
     @FXML
-    private Label                             totalPointsLabel;
-    private final UnitConfigurationManager    unitConfigManager;
-    private final UnitListener                unitListener;
+    private Label                                   totalPointsLabel;
+    private final UnitConfigurationManager          unitConfigManager;
+    private final UnitListener                      unitListener;
     @FXML
-    private Label                             unitNameLabel;
+    private Label                                   unitNameLabel;
     @FXML
-    private ListView<Unit>                    unitSelectionList;
-    private final ViewService                 viewService;
+    private ListView<Unit>                          unitSelectionList;
     @FXML
-    private Pane                              weaponsPane;
+    private Pane                                    weaponsPane;
 
     {
         unitListener = new UnitListener() {
@@ -200,10 +200,9 @@ public final class SetUpUnitController {
     @Autowired
     public SetUpUnitController(final GangBuilderManager gangBuilderManager,
             final UnitConfigurationManager unitConfigManager,
-            final ViewService viewService, final RulesetService rulesetService) {
+            final RulesetService rulesetService) {
         super();
 
-        checkNotNull(viewService, "Received a null pointer as view service");
         checkNotNull(rulesetService,
                 "Received a null pointer as ruleset service");
         checkNotNull(gangBuilderManager,
@@ -211,7 +210,6 @@ public final class SetUpUnitController {
         checkNotNull(unitConfigManager,
                 "Received a null pointer as unit configuration manager");
 
-        this.viewService = viewService;
         this.rulesetService = rulesetService;
         this.gangBuilderManager = gangBuilderManager;
         this.unitConfigManager = unitConfigManager;
@@ -409,7 +407,7 @@ public final class SetUpUnitController {
         return rulesetService;
     }
 
-    private final List<SetUpWeaponController> getSetUpWeaponControllers() {
+    private final LinkedList<SetUpWeaponController> getSetUpWeaponControllers() {
         return setUpWeaponControllers;
     }
 
@@ -459,10 +457,6 @@ public final class SetUpUnitController {
         return unitSelectionList;
     }
 
-    private final ViewService getViewService() {
-        return viewService;
-    }
-
     private final Pane getWeaponsPane() {
         return weaponsPane;
     }
@@ -496,33 +490,6 @@ public final class SetUpUnitController {
         });
     }
 
-    private final void initializeCompulsoryPanels(
-            final Queue<SetUpWeaponController> controllers) {
-        Pane pane;
-        SetUpWeaponController controller;
-
-        for (int i = 0; i < getUnitConfigurationManager()
-                .getAllowedWeaponsInterval().getLowerLimit(); i++) {
-            if (i > 0) {
-                getWeaponsPane().getChildren().add(
-                        new Separator(Orientation.VERTICAL));
-            }
-
-            if (getSetUpWeaponPanes().size() <= i) {
-                getViewService().loadSetUpWeaponPane(getSetUpWeaponPanes(),
-                        getSetUpWeaponControllers());
-                getSetUpWeaponControllers().get(i).setUnit(getUnit());
-            }
-
-            pane = getSetUpWeaponPanes().get(i);
-            controller = getSetUpWeaponControllers().get(i);
-
-            initializeSetUpWeaponPane(controller, i == 0, controllers);
-
-            getWeaponsPane().getChildren().add(pane);
-        }
-    }
-
     private final void initializeMutationsComboBox() {
         getMutationsComboBox().getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {});
@@ -537,52 +504,6 @@ public final class SetUpUnitController {
         getMutationsList().setCellFactory(column -> {
             return new MutationNameListCell();
         });
-    }
-
-    private final void initializeOptionalPanels(
-            final Queue<SetUpWeaponController> controllers) {
-        final Interval intervalWeapons;
-        Pane pane;
-        SetUpWeaponController controller;
-
-        intervalWeapons = getUnitConfigurationManager()
-                .getAllowedWeaponsInterval();
-
-        for (int i = intervalWeapons.getLowerLimit(); i < intervalWeapons
-                .getUpperLimit(); i++) {
-            if ((intervalWeapons.getLowerLimit() > 0) || (i > 0)) {
-                getWeaponsPane().getChildren().add(
-                        new Separator(Orientation.VERTICAL));
-            }
-
-            if (getSetUpWeaponPanes().size() <= i) {
-                getViewService().loadSetUpWeaponPane(getSetUpWeaponPanes(),
-                        getSetUpWeaponControllers());
-                getSetUpWeaponControllers().get(i).setUnit(getUnit());
-            }
-
-            pane = getSetUpWeaponPanes().get(i);
-            controller = getSetUpWeaponControllers().get(i);
-
-            initializeSetUpWeaponPane(controller, i == 0, controllers);
-
-            getWeaponsPane().getChildren().add(pane);
-        }
-    }
-
-    private final void initializeSetUpWeaponPane(
-            final SetUpWeaponController controller, final Boolean enabled,
-            final Queue<SetUpWeaponController> controllers) {
-        if (enabled) {
-            controller.loadWeapons();
-        }
-
-        controller.setEnabled(enabled);
-
-        controllers.add(controller);
-
-        controller.addOnPickEventHandler(new WeaponPickedEventHandler(
-                controllers));
     }
 
     private final void initializeSpecialRulesList() {
@@ -608,6 +529,49 @@ public final class SetUpUnitController {
                                 setUnit(newValue.createNewInstance());
                             }
                         });
+    }
+
+    private final void initializeWeaponSelectionPanels(final Integer min,
+            final Integer max, final EventHandler<ActionEvent> handler) {
+        FXMLLoader loader;
+        Pane pane;
+        SetUpWeaponController controller;
+        Boolean enabled;
+
+        for (int i = min; i < max; i++) {
+            loader = ContextFactory.getInstance().getSetUpWeaponLoader();
+
+            try {
+                pane = loader.load();
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            controller = loader.getController();
+
+            controller.setUnit(getUnit());
+
+            enabled = (i == 0);
+
+            if (enabled) {
+                controller.loadWeapons();
+            }
+
+            controller.setEnabled(enabled);
+
+            controller.addOnPickEventHandler(handler);
+
+            getSetUpWeaponControllers().add(controller);
+
+            getSetUpWeaponPanes().add(pane);
+
+            if (i > 0) {
+                getWeaponsPane().getChildren().add(
+                        new Separator(Orientation.VERTICAL));
+            }
+
+            getWeaponsPane().getChildren().add(pane);
+        }
     }
 
     private final void loadArmorComboBox() {
@@ -782,16 +746,24 @@ public final class SetUpUnitController {
     }
 
     private final void loadWeaponsPane() {
-        final Queue<SetUpWeaponController> controllers;
+        final EventHandler<ActionEvent> handler;
+        final Interval intervalWeapons;
 
+        getSetUpWeaponPanes().clear();
         getWeaponsPane().getChildren().clear();
+        getSetUpWeaponControllers().clear();
 
-        controllers = new LinkedList<>();
+        handler = new WeaponPickedEventHandler(getSetUpWeaponControllers());
 
-        initializeCompulsoryPanels(controllers);
-        initializeOptionalPanels(controllers);
+        intervalWeapons = getUnitConfigurationManager()
+                .getAllowedWeaponsInterval();
 
-        controllers.poll();
+        initializeWeaponSelectionPanels(0, intervalWeapons.getLowerLimit(),
+                handler);
+        initializeWeaponSelectionPanels(intervalWeapons.getLowerLimit(),
+                intervalWeapons.getUpperLimit(), handler);
+
+        getSetUpWeaponControllers().poll();
     }
 
     private final void reset() {

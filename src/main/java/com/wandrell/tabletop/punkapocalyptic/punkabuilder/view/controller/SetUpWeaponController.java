@@ -21,6 +21,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
@@ -36,6 +38,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.W
 import com.wandrell.tabletop.punkapocalyptic.util.WeaponUtils;
 
 @Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public final class SetUpWeaponController {
 
     @FXML
@@ -110,16 +113,6 @@ public final class SetUpWeaponController {
         enhancementNodes = getEnhancementsPane().getChildren();
 
         initializeWeaponComboBox();
-
-        // TODO: Use a method handler
-        getPickButton().addEventHandler(ActionEvent.ACTION,
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public final void handle(final ActionEvent event) {
-                        getUnit().addWeapon(current);
-                        setEnabled(false);
-                    }
-                });
 
         getSpecialRulesList().setCellFactory(column -> {
             return new SpecialRuleListCell();
@@ -225,6 +218,12 @@ public final class SetUpWeaponController {
 
     private final ObservableList<Weapon> getWeapons() {
         return weapons;
+    }
+
+    @FXML
+    private final void handleWeaponPicked() {
+        getUnit().addWeapon(current);
+        setEnabled(false);
     }
 
     private final void initializeWeaponComboBox() {
