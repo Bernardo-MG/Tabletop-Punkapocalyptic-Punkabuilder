@@ -121,9 +121,11 @@
 		<aspectj.version>1.8.4</aspectj.version>
 		<controlsfx.version>8.0.6_20</controlsfx.version>
 		<dynamicreports.version>3.2.1</dynamicreports.version>
+		<hibernate.version>4.3.8.Final</hibernate.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<snakeyaml.version>1.14</snakeyaml.version>
-		<spring.version>4.1.2.RELEASE</spring.version>
+		<spring.version>4.1.5.RELEASE</spring.version>
+		<spring.jpa.version>1.7.1.RELEASE</spring.jpa.version>
 		<tabletop.version>0.1.0-SNAPSHOT</tabletop.version>
 		<testng.version>6.8.8</testng.version>
 		<!-- Plugins versions -->
@@ -180,6 +182,18 @@
 			<version>${dynamicreports.version}</version>
 		</dependency>
 		<dependency>
+			<!-- Hibernate Ehcache -->
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Hibernate Entity Manager -->
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
 			<!-- SLF4J API -->
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -202,6 +216,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Spring JPA -->
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.jpa.version}</version>
 		</dependency>
 		<dependency>
 			<!-- Tabletop Core -->

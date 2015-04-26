@@ -35,12 +35,14 @@ import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.interval.Interval;
 import com.wandrell.tabletop.procedure.DefaultValueHandler;
 import com.wandrell.tabletop.procedure.ValueHandler;
+import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultArmor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.GroupedUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitListener;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.MutantUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
@@ -58,6 +60,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.M
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.MutationNameListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameListCell;
+import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
@@ -118,6 +121,7 @@ public final class SetUpUnitController {
     private Pane                              mutationsPane;
     @FXML
     private Pane                              rulesBox;
+    private final RulesetService              rulesetService;
     @FXML
     private Pane                              rulesPane;
     private Stage                             setUpUnitDialog;
@@ -141,41 +145,48 @@ public final class SetUpUnitController {
         unitListener = new UnitListener() {
 
             @Override
-            public final void actionsChanged(final EventObject e) {
-                labelActions.setText(getUnit().getActions().toString());
+            public final void actionsChanged(final ValueChangeEvent e) {
+                labelActions.setText(getUnit().getAttributes().getActions()
+                        .toString());
             }
 
             @Override
-            public final void agilityChanged(final EventObject e) {
-                labelAgility.setText(getUnit().getAgility().toString());
+            public final void agilityChanged(final ValueChangeEvent e) {
+                labelAgility.setText(getUnit().getAttributes().getAgility()
+                        .toString());
             }
 
             @Override
-            public final void combatChanged(final EventObject e) {
-                labelCombat.setText(getUnit().getCombat().toString());
+            public final void combatChanged(final ValueChangeEvent e) {
+                labelCombat.setText(getUnit().getAttributes().getCombat()
+                        .toString());
             }
 
             @Override
             public final void mutationChanged(final EventObject e) {}
 
             @Override
-            public final void precisionChanged(final EventObject e) {
-                labelPrecision.setText(getUnit().getPrecision().toString());
+            public final void precisionChanged(final ValueChangeEvent e) {
+                labelPrecision.setText(getUnit().getAttributes().getPrecision()
+                        .toString());
             }
 
             @Override
-            public final void strengthChanged(final EventObject e) {
-                labelStrength.setText(getUnit().getStrength().toString());
+            public final void strengthChanged(final ValueChangeEvent e) {
+                labelStrength.setText(getUnit().getAttributes().getStrength()
+                        .toString());
             }
 
             @Override
-            public final void techChanged(final EventObject e) {
-                labelTech.setText(getUnit().getTech().toString());
+            public final void techChanged(final ValueChangeEvent e) {
+                labelTech.setText(getUnit().getAttributes().getTech()
+                        .toString());
             }
 
             @Override
-            public final void toughnessChanged(final EventObject e) {
-                labelToughness.setText(getUnit().getToughness().toString());
+            public final void toughnessChanged(final ValueChangeEvent e) {
+                labelToughness.setText(getUnit().getAttributes().getToughness()
+                        .toString());
             }
 
             @Override
@@ -189,16 +200,19 @@ public final class SetUpUnitController {
     @Autowired
     public SetUpUnitController(final GangBuilderManager gangBuilderManager,
             final UnitConfigurationManager unitConfigManager,
-            final ViewService viewService) {
+            final ViewService viewService, final RulesetService rulesetService) {
         super();
 
         checkNotNull(viewService, "Received a null pointer as view service");
+        checkNotNull(rulesetService,
+                "Received a null pointer as ruleset service");
         checkNotNull(gangBuilderManager,
                 "Received a null pointer as gang builder manager");
         checkNotNull(unitConfigManager,
                 "Received a null pointer as unit configuration manager");
 
         this.viewService = viewService;
+        this.rulesetService = rulesetService;
         this.gangBuilderManager = gangBuilderManager;
         this.unitConfigManager = unitConfigManager;
 
@@ -391,6 +405,10 @@ public final class SetUpUnitController {
         return mutationsPane;
     }
 
+    private final RulesetService getRulesetService() {
+        return rulesetService;
+    }
+
     private final List<SetUpWeaponController> getSetUpWeaponControllers() {
         return setUpWeaponControllers;
     }
@@ -421,6 +439,20 @@ public final class SetUpUnitController {
 
     private final UnitListener getUnitListener() {
         return unitListener;
+    }
+
+    private final List<Unit> getUnits(final Collection<UnitTemplate> templates) {
+        final ModelFactory factory;
+        final List<Unit> units;
+
+        factory = ModelFactory.getInstance();
+
+        units = new LinkedList<>();
+        for (final UnitTemplate template : templates) {
+            units.add(factory.getUnit(template, getRulesetService()));
+        }
+
+        return units;
     }
 
     private final ListView<Unit> getUnitsList() {
@@ -608,13 +640,16 @@ public final class SetUpUnitController {
     }
 
     private final void loadAttributeLabels(final Unit unit) {
-        labelActions.setText(String.valueOf(unit.getActions()));
-        labelAgility.setText(String.valueOf(unit.getAgility()));
-        labelCombat.setText(String.valueOf(unit.getCombat()));
-        labelPrecision.setText(String.valueOf(unit.getPrecision()));
-        labelStrength.setText(String.valueOf(unit.getStrength()));
-        labelTech.setText(String.valueOf(unit.getTech()));
-        labelToughness.setText(String.valueOf(unit.getToughness()));
+        labelActions.setText(String.valueOf(unit.getAttributes().getActions()));
+        labelAgility.setText(String.valueOf(unit.getAttributes().getAgility()));
+        labelCombat.setText(String.valueOf(unit.getAttributes().getCombat()));
+        labelPrecision.setText(String.valueOf(unit.getAttributes()
+                .getPrecision()));
+        labelStrength.setText(String
+                .valueOf(unit.getAttributes().getStrength()));
+        labelTech.setText(String.valueOf(unit.getAttributes().getTech()));
+        labelToughness.setText(String.valueOf(unit.getAttributes()
+                .getToughness()));
     }
 
     private final void loadEquipment() {
@@ -716,14 +751,16 @@ public final class SetUpUnitController {
     }
 
     private final void loadPointsLabels() {
-        basePointsLabel.setText(String.valueOf(getUnit().getBaseCost()));
+        basePointsLabel.setText(String.valueOf(getUnit().getUnitTemplate()
+                .getBaseCost()));
         totalPointsLabel.setText(String.valueOf(getUnit().getValoration()));
     }
 
     private final void loadSpecialRules() {
-        getSpecialRulesList().getItems().setAll(getUnit().getSpecialRules());
+        getSpecialRulesList().getItems().setAll(
+                getUnit().getUnitTemplate().getSpecialRules());
 
-        if (getUnit().getSpecialRules().isEmpty()) {
+        if (getUnit().getUnitTemplate().getSpecialRules().isEmpty()) {
             getSpecialRulesBox().getChildren().clear();
         } else if (getSpecialRulesBox().getChildren().isEmpty()) {
             getSpecialRulesBox().getChildren().add(getSpecialRulesPane());
@@ -732,14 +769,8 @@ public final class SetUpUnitController {
 
     private final void loadUnitsList() {
         final List<Unit> units;
-        final Collection<Unit> options;
 
-        options = getGangBuilderManager().getUnitOptions();
-        if (options instanceof List<?>) {
-            units = (List<Unit>) getGangBuilderManager().getUnitOptions();
-        } else {
-            units = new LinkedList<>(getGangBuilderManager().getUnitOptions());
-        }
+        units = getUnits(getGangBuilderManager().getUnitOptions());
 
         Collections.sort(units, new UnitNameComparator());
 

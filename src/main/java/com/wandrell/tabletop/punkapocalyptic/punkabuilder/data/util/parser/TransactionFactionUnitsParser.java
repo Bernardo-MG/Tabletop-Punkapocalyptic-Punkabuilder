@@ -10,17 +10,18 @@ import com.wandrell.tabletop.procedure.DefaultConstraintData;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
-import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 
 public final class TransactionFactionUnitsParser implements
         Parser<Map<String, Object>, FactionUnitAvailability> {
 
-    private final FactionRepository factionsRepo;
-    private final UnitRepository    unitsRepo;
+    private final FactionRepository      factionsRepo;
+    private final UnitTemplateRepository unitsRepo;
 
-    public TransactionFactionUnitsParser(final UnitRepository unitsRepo,
+    public TransactionFactionUnitsParser(
+            final UnitTemplateRepository unitsRepo,
             final FactionRepository factionsRepo) {
         super();
 
@@ -31,7 +32,7 @@ public final class TransactionFactionUnitsParser implements
     @SuppressWarnings("unchecked")
     @Override
     public final FactionUnitAvailability parse(final Map<String, Object> input) {
-        final Unit unit;
+        final UnitTemplate unit;
         final Faction faction;
         final Collection<ConstraintData> constraints;
         final ModelFactory modelFactory;
@@ -39,7 +40,7 @@ public final class TransactionFactionUnitsParser implements
 
         modelFactory = ModelFactory.getInstance();
 
-        unit = unitsRepo.getByName(input.get("unit").toString());
+        unit = unitsRepo.getByNameToken(input.get("unit").toString());
 
         faction = factionsRepo.getByName(input.get("faction").toString());
 

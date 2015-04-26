@@ -9,7 +9,6 @@ import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 
 @Component("factionUnitRepo")
@@ -50,14 +49,14 @@ public final class DesktopFactionUnitAvailabilityRepository implements
     }
 
     @Override
-    public final FactionUnitAvailability
-            getAvailabilityForUnit(final Unit unit) {
+    public final FactionUnitAvailability getAvailabilityForUnit(
+            final String unit) {
         return getBaseRepository().getEntity(
                 new Predicate<FactionUnitAvailability>() {
 
                     @Override
                     public boolean apply(FactionUnitAvailability input) {
-                        return input.getUnit().getName().equals(unit.getName());
+                        return input.getUnit().getNameToken().equals(unit);
                     }
 
                 });

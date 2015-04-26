@@ -11,8 +11,8 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvaila
 import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
-import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
 
@@ -20,10 +20,10 @@ public final class TransactionUnitWeaponsParser implements
         Parser<Map<String, Object>, UnitWeaponAvailability> {
 
     private final WeaponEnhancementRepository enhancementsRepo;
-    private final UnitRepository              unitsRepo;
+    private final UnitTemplateRepository      unitsRepo;
     private final WeaponRepository            weaponsRepo;
 
-    public TransactionUnitWeaponsParser(final UnitRepository unitsRepo,
+    public TransactionUnitWeaponsParser(final UnitTemplateRepository unitsRepo,
             final WeaponRepository weaponsRepo,
             final WeaponEnhancementRepository enhancementsRepo) {
         super();
@@ -36,7 +36,7 @@ public final class TransactionUnitWeaponsParser implements
     @SuppressWarnings("unchecked")
     @Override
     public final UnitWeaponAvailability parse(final Map<String, Object> input) {
-        final Unit unit;
+        final UnitTemplate unit;
         final Collection<Weapon> weapons;
         final Collection<WeaponEnhancement> enhancements;
         final Collection<String> weaponNames;
@@ -46,7 +46,7 @@ public final class TransactionUnitWeaponsParser implements
         final Integer max;
         Collection<WeaponEnhancement> validEnhancements;
 
-        unit = unitsRepo.getByName(input.get("unit").toString());
+        unit = unitsRepo.getByNameToken(input.get("unit").toString());
 
         weaponNames = (Collection<String>) input.get("weapons");
         weapons = weaponsRepo.getByNamesList(weaponNames);

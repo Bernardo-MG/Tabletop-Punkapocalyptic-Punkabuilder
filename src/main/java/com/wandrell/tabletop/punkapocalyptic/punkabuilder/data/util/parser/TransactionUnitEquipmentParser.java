@@ -7,17 +7,18 @@ import com.wandrell.pattern.parser.Parser;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
-import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 
 public final class TransactionUnitEquipmentParser implements
         Parser<Map<String, Object>, UnitEquipmentAvailability> {
 
-    private final EquipmentRepository equipmentRepo;
-    private final UnitRepository      unitsRepo;
+    private final EquipmentRepository    equipmentRepo;
+    private final UnitTemplateRepository unitsRepo;
 
-    public TransactionUnitEquipmentParser(final UnitRepository unitsRepo,
+    public TransactionUnitEquipmentParser(
+            final UnitTemplateRepository unitsRepo,
             final EquipmentRepository equipmentRepo) {
         super();
 
@@ -29,11 +30,11 @@ public final class TransactionUnitEquipmentParser implements
     @Override
     public final UnitEquipmentAvailability
             parse(final Map<String, Object> input) {
-        final Unit unit;
+        final UnitTemplate unit;
         final Collection<String> equipmentNames;
         final Collection<Equipment> equipment;
 
-        unit = unitsRepo.getByName(input.get("unit").toString());
+        unit = unitsRepo.getByNameToken(input.get("unit").toString());
 
         equipmentNames = (Collection<String>) input.get("equipment");
         equipment = equipmentRepo.getByNamesList(equipmentNames);

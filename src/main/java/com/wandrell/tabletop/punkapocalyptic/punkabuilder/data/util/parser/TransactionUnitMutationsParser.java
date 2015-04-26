@@ -6,18 +6,19 @@ import java.util.Map;
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitMutationAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
-import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 
 public final class TransactionUnitMutationsParser implements
         Parser<Map<String, Object>, UnitMutationAvailability> {
 
-    private final MutationRepository mutationsRepo;
-    private final UnitRepository     unitsRepo;
+    private final MutationRepository     mutationsRepo;
+    private final UnitTemplateRepository unitsRepo;
 
-    public TransactionUnitMutationsParser(final UnitRepository unitsRepo,
+    public TransactionUnitMutationsParser(
+            final UnitTemplateRepository unitsRepo,
             final MutationRepository mutationsRepo) {
         super();
 
@@ -29,12 +30,12 @@ public final class TransactionUnitMutationsParser implements
     @Override
     public final UnitMutationAvailability
             parse(final Map<String, Object> input) {
-        final Unit unit;
+        final UnitTemplate unit;
         final Collection<Mutation> mutations;
         final Collection<String> mutationNames;
         Integer max;
 
-        unit = unitsRepo.getByName(input.get("unit").toString());
+        unit = unitsRepo.getByNameToken(input.get("unit").toString());
 
         mutationNames = (Collection<String>) input.get("white_list");
         mutations = mutationsRepo.getByNamesList(mutationNames);

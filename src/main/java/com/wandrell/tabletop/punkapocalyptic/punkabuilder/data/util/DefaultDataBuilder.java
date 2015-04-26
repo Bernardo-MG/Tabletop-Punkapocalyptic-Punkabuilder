@@ -45,7 +45,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.Trans
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitArmorsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitMutationsParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitParser;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitTemplateParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitWeaponsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitArmorsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitEquipmentTransactionParser;
@@ -59,11 +59,10 @@ import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
-import com.wandrell.tabletop.punkapocalyptic.repository.UnitRepository;
+import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
-import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
 @Component("dataBuilder")
 public final class DefaultDataBuilder implements
@@ -75,7 +74,6 @@ public final class DefaultDataBuilder implements
     private Boolean                                            loaded           = false;
     private final ModelService                                 modelService;
     private final Map<String, Repository<?>>                   repos;
-    private final RulesetService                               rulesetService;
     private final Document                                     source;
     private final Map<String, Collection<Map<String, Object>>> transactionsData = new LinkedHashMap<>();
 
@@ -84,21 +82,18 @@ public final class DefaultDataBuilder implements
     public DefaultDataBuilder(@Qualifier("dataSources") final Object sources,
             @Qualifier("repositoryMap") final Object repos,
             @Qualifier("dataBundles") final Object bundles,
-            final RulesetService rulesetService, final ModelService modelService) {
+            final ModelService modelService) {
         super();
 
         checkNotNull(sources, "Received a null pointer as sources");
         checkNotNull(repos, "Received a null pointer as repositories");
         checkNotNull(bundles, "Received a null pointer as bundles");
         checkNotNull(modelService, "Received a null pointer as model service");
-        checkNotNull(rulesetService,
-                "Received a null pointer as ruleset service");
 
         this.repos = (Map<String, Repository<?>>) repos;
         this.bundles = (Map<String, ResourceBundle>) bundles;
 
         this.modelService = modelService;
-        this.rulesetService = rulesetService;
 
         final Parser<Collection<Reader>, Document> parser;
 
@@ -194,10 +189,10 @@ public final class DefaultDataBuilder implements
     private final void saveTransactions() {
         final MeleeWeapon defaultWeaponMelee;
         final SpecialRuleRepository ruleRepo;
-        final UnitRepository unitRepo;
+        final UnitTemplateRepository unitRepo;
 
         ruleRepo = (SpecialRuleRepository) repos.get("rule");
-        unitRepo = (UnitRepository) repos.get("unit");
+        unitRepo = (UnitTemplateRepository) repos.get("unit");
 
         saveTransactions("faction", new TransactionFactionParser(modelService));
         saveTransactions("rule", new TransactionRuleParser());
@@ -213,8 +208,7 @@ public final class DefaultDataBuilder implements
         saveTransactions("equipment", new TransactionEquipmentParser());
         saveTransactions("enhancement", new TransactionEnhancementParser());
         saveTransactions("mutation", new TransactionMutationParser());
-        saveTransactions("unit", new TransactionUnitParser(ruleRepo,
-                rulesetService));
+        saveTransactions("unit", new TransactionUnitTemplateParser(ruleRepo));
 
         saveTransactions("faction_unit", new TransactionFactionUnitsParser(
                 unitRepo, (FactionRepository) repos.get("faction")));

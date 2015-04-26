@@ -8,7 +8,6 @@ import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitMutationAvailabilityRepository;
 
 @Component("unitMutationRepo")
@@ -34,13 +33,13 @@ public final class DesktopUnitMutationAvailabilityRepository implements
     }
 
     @Override
-    public final UnitMutationAvailability getAvailabilityForUnit(Unit unit) {
+    public final UnitMutationAvailability getAvailabilityForUnit(String unit) {
         return getBaseRepository().getEntity(
                 new Predicate<UnitMutationAvailability>() {
 
                     @Override
                     public boolean apply(UnitMutationAvailability input) {
-                        return input.getUnit().getName().equals(unit.getName());
+                        return input.getUnit().getNameToken().equals(unit);
                     }
 
                 });

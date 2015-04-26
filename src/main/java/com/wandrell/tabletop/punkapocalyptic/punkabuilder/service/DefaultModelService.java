@@ -28,6 +28,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.model.util.RangedValue;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
@@ -73,7 +74,7 @@ public final class DefaultModelService implements ModelService {
 
     @Override
     public final FactionUnitAvailability getFactionUnitAvailability(
-            final Faction faction, final Unit unit,
+            final Faction faction, final UnitTemplate unit,
             final Collection<ConstraintData> constraints) {
         return getFactory().getFactionUnitAvailability(faction, unit,
                 constraints);
@@ -125,18 +126,13 @@ public final class DefaultModelService implements ModelService {
     }
 
     @Override
-    public final Unit getUnit(final String name, final Integer actions,
-            final Integer agility, final Integer combat,
-            final Integer precision, final Integer strength,
-            final Integer tech, final Integer toughness, final Integer cost,
-            final Collection<SpecialRule> rules) {
-        return getFactory().getUnit(name, actions, agility, combat, precision,
-                strength, tech, toughness, cost, rules, getRulesetService());
+    public final Unit getUnit(final UnitTemplate template) {
+        return getFactory().getUnit(template, getRulesetService());
     }
 
     @Override
     public final UnitArmorAvailability getUnitArmorAvailability(
-            final Unit unit, final Collection<Armor> armorOptions,
+            final UnitTemplate unit, final Collection<Armor> armorOptions,
             final Armor initialArmor) {
         return getFactory().getUnitArmorAvailability(unit, armorOptions,
                 initialArmor);
@@ -144,7 +140,7 @@ public final class DefaultModelService implements ModelService {
 
     @Override
     public final UnitEquipmentAvailability getUnitEquipmentAvailability(
-            final Unit unit, final Collection<Equipment> equipment) {
+            final UnitTemplate unit, final Collection<Equipment> equipment) {
         return new DefaultUnitEquipmentAvailability(unit, equipment);
     }
 
@@ -157,14 +153,15 @@ public final class DefaultModelService implements ModelService {
 
     @Override
     public final UnitMutationAvailability getUnitMutationAvailability(
-            final Unit unit, final Integer max,
+            final UnitTemplate unit, final Integer max,
             final Collection<Mutation> mutations) {
         return getFactory().getUnitMutationAvailability(unit, max, mutations);
     }
 
     @Override
     public final UnitWeaponAvailability getUnitWeaponAvailability(
-            final Unit unit, final Collection<WeaponOption> weaponOptions,
+            final UnitTemplate unit,
+            final Collection<WeaponOption> weaponOptions,
             final Integer minWeapons, final Integer maxWeapons) {
         return getFactory().getUnitWeaponAvailability(unit, weaponOptions,
                 minWeapons, maxWeapons);

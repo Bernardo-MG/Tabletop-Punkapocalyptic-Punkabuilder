@@ -8,7 +8,6 @@ import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRepository;
 
 @Component("unitArmorRepo")
@@ -34,13 +33,14 @@ public final class DesktopUnitArmorAvailabilityRepository implements
     }
 
     @Override
-    public final UnitArmorAvailability getAvailabilityForUnit(final Unit unit) {
+    public final UnitArmorAvailability
+            getAvailabilityForUnit(final String unit) {
         return getBaseRepository().getEntity(
                 new Predicate<UnitArmorAvailability>() {
 
                     @Override
                     public boolean apply(UnitArmorAvailability input) {
-                        return input.getUnit().getName().equals(unit.getName());
+                        return input.getUnit().getNameToken().equals(unit);
                     }
 
                 });

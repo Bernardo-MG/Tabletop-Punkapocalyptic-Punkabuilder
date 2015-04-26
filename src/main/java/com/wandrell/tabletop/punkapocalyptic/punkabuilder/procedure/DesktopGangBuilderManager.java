@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.procedure.DefaultGangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
@@ -62,7 +62,7 @@ public final class DesktopGangBuilderManager implements GangBuilderManager {
     }
 
     @Override
-    public final Collection<Unit> getUnitOptions() {
+    public final Collection<UnitTemplate> getUnitOptions() {
         return getGangBuilderManager().getUnitOptions();
     }
 
