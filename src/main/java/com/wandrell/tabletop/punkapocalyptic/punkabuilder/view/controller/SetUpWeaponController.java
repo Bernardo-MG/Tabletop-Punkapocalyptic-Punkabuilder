@@ -237,7 +237,7 @@ public final class SetUpWeaponController {
                             if (newValue != null) {
                                 final Weapon weapon;
 
-                                weapon = newValue.createNewInstance();
+                                weapon = newValue;
                                 if (newValue instanceof UnitDependantWeapon) {
                                     ((UnitDependantWeapon) weapon)
                                             .setUnit(getUnitConfigurationManager()
