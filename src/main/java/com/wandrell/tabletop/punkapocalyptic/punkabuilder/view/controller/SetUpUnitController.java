@@ -307,6 +307,8 @@ public final class SetUpUnitController {
         initializeMutationsList();
         initializeArmorRulesList();
         initializeSpecialRulesList();
+
+        groupSizeHandler.setInterval(0, getRulesetService().getPackMaxSize());
     }
 
     @Autowired
