@@ -1,13 +1,11 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
-import java.util.Collection;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
@@ -25,13 +23,6 @@ public final class DesktopRulesetService implements RulesetService {
         super();
 
         baseService = new DefaultRulesetService(rulesetConfig, weaponRepo);
-    }
-
-    @Override
-    public final Collection<Weapon> filterWeaponOptions(
-            final Collection<Weapon> weaponsHas,
-            final Collection<Weapon> weapons) {
-        return getBaseService().filterWeaponOptions(weaponsHas, weapons);
     }
 
     @Override

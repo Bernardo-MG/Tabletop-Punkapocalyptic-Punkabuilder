@@ -19,7 +19,6 @@ import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRep
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitEquipmentAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitMutationAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
-import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
 @Component("unitConfigManager")
 public final class DesktopUnitConfigurationManager implements
@@ -33,13 +32,11 @@ public final class DesktopUnitConfigurationManager implements
             final UnitArmorAvailabilityRepository armorAvaRepo,
             final UnitEquipmentAvailabilityRepository equipAvaRepo,
             final UnitMutationAvailabilityRepository mutationAvaRepo,
-            final UnitWeaponAvailabilityRepository weaponAvaRepo,
-            final RulesetService rulesetService) {
+            final UnitWeaponAvailabilityRepository weaponAvaRepo) {
         super();
 
         baseManager = new DefaultUnitConfigurationManager(constraintMessage,
-                armorAvaRepo, equipAvaRepo, mutationAvaRepo, weaponAvaRepo,
-                rulesetService);
+                armorAvaRepo, equipAvaRepo, mutationAvaRepo, weaponAvaRepo);
     }
 
     @Override
