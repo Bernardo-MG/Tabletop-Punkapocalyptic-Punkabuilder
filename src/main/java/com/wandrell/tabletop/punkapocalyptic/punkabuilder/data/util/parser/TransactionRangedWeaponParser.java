@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultRangedWeapon;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.util.DefaultRangedValue;
@@ -16,15 +15,11 @@ public final class TransactionRangedWeaponParser implements
         Parser<Map<String, Object>, Weapon> {
 
     private final SpecialRuleRepository rulesRepo;
-    private final MeleeWeapon           weaponMelee;
 
-    public TransactionRangedWeaponParser(final SpecialRuleRepository rulesRepo,
-            final MeleeWeapon weaponMelee) {
+    public TransactionRangedWeaponParser(final SpecialRuleRepository rulesRepo) {
         super();
 
         this.rulesRepo = rulesRepo;
-
-        this.weaponMelee = weaponMelee;
     }
 
     @SuppressWarnings("unchecked")
@@ -68,7 +63,7 @@ public final class TransactionRangedWeaponParser implements
         // TODO: Use a service
         weapon = new DefaultRangedWeapon(input.get("name").toString(),
                 (Integer) input.get("cost"), rules, penetration, strength,
-                distanceCM, distanceInches, firearm, weaponMelee);
+                distanceCM, distanceInches, firearm);
 
         return weapon;
     }

@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.ArmorTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.EquipmentTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.FactionTransactionParser;
@@ -187,7 +186,6 @@ public final class DefaultDataBuilder implements
     }
 
     private final void saveTransactions() {
-        final MeleeWeapon defaultWeaponMelee;
         final SpecialRuleRepository ruleRepo;
         final UnitTemplateRepository unitRepo;
 
@@ -199,11 +197,8 @@ public final class DefaultDataBuilder implements
         saveTransactions("weapon_melee", new TransactionMeleeWeaponParser(
                 ruleRepo));
 
-        defaultWeaponMelee = ((WeaponRepository) repos.get("weapon"))
-                .getRangedMeleeWeapon();
-
         saveTransactions("weapon_ranged", new TransactionRangedWeaponParser(
-                ruleRepo, defaultWeaponMelee));
+                ruleRepo));
         saveTransactions("armor", new TransactionArmorParser(ruleRepo));
         saveTransactions("equipment", new TransactionEquipmentParser());
         saveTransactions("enhancement", new TransactionEnhancementParser());
