@@ -32,8 +32,8 @@ public final class DesktopRulesetService implements RulesetService {
     }
 
     @Override
-    public final Integer getMaxAllowedUnits(final Gang gang) {
-        return getBaseService().getMaxAllowedUnits(gang);
+    public final Integer getMaxAllowedUnits(final Integer valoration) {
+        return getBaseService().getMaxAllowedUnits(valoration);
     }
 
     @Override
