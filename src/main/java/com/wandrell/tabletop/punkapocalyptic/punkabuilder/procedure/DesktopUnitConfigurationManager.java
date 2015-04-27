@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.wandrell.tabletop.interval.Interval;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
@@ -48,7 +48,7 @@ public final class DesktopUnitConfigurationManager implements
     }
 
     @Override
-    public final Collection<Armor> getArmorOptions() {
+    public final Collection<ArmorOption> getArmorOptions() {
         return getUnitConfigurationManager().getArmorOptions();
     }
 

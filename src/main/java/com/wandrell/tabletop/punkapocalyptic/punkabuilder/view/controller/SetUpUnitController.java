@@ -37,7 +37,8 @@ import com.wandrell.tabletop.interval.Interval;
 import com.wandrell.tabletop.procedure.DefaultValueHandler;
 import com.wandrell.tabletop.procedure.ValueHandler;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.DefaultArmorOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultArmor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
@@ -52,7 +53,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.ArmorCostComparator;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.ArmorOptionCostComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.MutationNameComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.UnitNameComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.event.WeaponPickedControllerQueueEventHandler;
@@ -73,7 +74,7 @@ public final class SetUpUnitController {
     @FXML
     private Pane                                    armorBox;
     @FXML
-    private ComboBox<Armor>                         armorCombo;
+    private ComboBox<ArmorOption>                   armorCombo;
     @FXML
     private Pane                                    armorPane;
     @FXML
@@ -331,7 +332,7 @@ public final class SetUpUnitController {
         return armorBox;
     }
 
-    private final ComboBox<Armor> getArmorComboBox() {
+    private final ComboBox<ArmorOption> getArmorComboBox() {
         return armorCombo;
     }
 
@@ -470,9 +471,12 @@ public final class SetUpUnitController {
                         getUnit().setArmor(newValue);
                     } else {
                         // TODO: Do not instantiate manually
-                        getUnit().setArmor(
-                                new DefaultArmor("unarmored", 0,
-                                        new LinkedList<>()));
+                        getUnit()
+                                .setArmor(
+                                        new DefaultArmorOption(
+                                                new DefaultArmor("unarmored",
+                                                        0, new LinkedList<>()),
+                                                0));
                     }
 
                     loadArmorData(getUnit().getArmor());
@@ -575,7 +579,7 @@ public final class SetUpUnitController {
                 getUnitConfigurationManager().getArmorOptions());
 
         FXCollections.sort(getArmorComboBox().getItems(),
-                new ArmorCostComparator());
+                new ArmorOptionCostComparator());
 
         if (getArmorComboBox().getItems().isEmpty()) {
             getArmorBox().getChildren().clear();
@@ -587,15 +591,17 @@ public final class SetUpUnitController {
         }
     }
 
-    private final void loadArmorData(final Armor armor) {
+    private final void loadArmorData(final ArmorOption armor) {
         if (armor == null) {
             getArmorProtectionLabel().setText("0");
 
             getArmorRulesList().getItems().clear();
         } else {
-            getArmorProtectionLabel().setText(ArmorUtils.getArmor(armor));
+            getArmorProtectionLabel().setText(
+                    ArmorUtils.getArmor(armor.getArmor()));
 
-            getArmorRulesList().getItems().setAll(armor.getSpecialRules());
+            getArmorRulesList().getItems().setAll(
+                    armor.getArmor().getSpecialRules());
         }
     }
 

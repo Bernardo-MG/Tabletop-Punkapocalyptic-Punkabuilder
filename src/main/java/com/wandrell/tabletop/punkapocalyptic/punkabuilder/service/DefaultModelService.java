@@ -17,7 +17,8 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailab
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitEquipmentAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
@@ -132,8 +133,9 @@ public final class DefaultModelService implements ModelService {
 
     @Override
     public final UnitArmorAvailability getUnitArmorAvailability(
-            final UnitTemplate unit, final Collection<Armor> armorOptions,
-            final Armor initialArmor) {
+            final UnitTemplate unit,
+            final Collection<ArmorOption> armorOptions,
+            final ArmorOption initialArmor) {
         return getFactory().getUnitArmorAvailability(unit, armorOptions,
                 initialArmor);
     }

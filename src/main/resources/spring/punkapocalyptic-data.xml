@@ -80,6 +80,9 @@
 		<entry key="unit_armor">
 			<ref bean="unitArmorRepo" />
 		</entry>
+		<entry key="armor_option">
+			<ref bean="armorOptionRepo" />
+		</entry>
 		<entry key="unit_equipment">
 			<ref bean="unitEquipmentRepo" />
 		</entry>

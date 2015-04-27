@@ -6,9 +6,9 @@ import java.util.Map;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitWeaponAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultWeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.WeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.DefaultWeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
