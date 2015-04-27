@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.service.DefaultRulesetService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
@@ -40,11 +39,6 @@ public final class DesktopRulesetService implements RulesetService {
     @Override
     public final Integer getPackMaxSize() {
         return getBaseService().getPackMaxSize();
-    }
-
-    @Override
-    public final Integer getUnitValoration(final Unit unit) {
-        return getBaseService().getUnitValoration(unit);
     }
 
     private final RulesetService getBaseService() {
