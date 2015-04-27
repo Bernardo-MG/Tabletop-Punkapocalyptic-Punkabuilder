@@ -3,6 +3,7 @@
 	xsi:noNamespaceSchemaLocation="validation/punkapocalyptic-model-weapon-ranged.xsd">
 	<weapon_ranged_profile>
 		<name>automatic_rifle</name>
+		<firearm>true</firearm>
 		<rules>
 			<rule>automatic</rule>
 			<rule>firearm</rule>
@@ -34,6 +35,7 @@
 	</weapon_ranged_profile>
 	<weapon_ranged_profile>
 		<name>bow</name>
+		<firearm>false</firearm>
 		<rules>
 			<rule>hard_to_use</rule>
 			<rule>two-handed</rule>
@@ -64,6 +66,7 @@
 	</weapon_ranged_profile>
 	<weapon_ranged_profile>
 		<name>crossbow</name>
+		<firearm>false</firearm>
 		<rules>
 			<rule>dead_slow</rule>
 			<rule>two-handed</rule>
@@ -94,6 +97,7 @@
 	</weapon_ranged_profile>
 	<weapon_ranged_profile>
 		<name>pistol</name>
+		<firearm>true</firearm>
 		<rules>
 			<rule>firearm</rule>
 		</rules>
@@ -123,6 +127,7 @@
 	</weapon_ranged_profile>
 	<weapon_ranged_profile>
 		<name>rifle</name>
+		<firearm>true</firearm>
 		<rules>
 			<rule>firearm</rule>
 			<rule>two-handed</rule>
@@ -153,6 +158,7 @@
 	</weapon_ranged_profile>
 	<weapon_ranged_profile>
 		<name>shotgun</name>
+		<firearm>true</firearm>
 		<rules>
 			<rule>firearm</rule>
 			<rule>pellets</rule>
@@ -184,6 +190,7 @@
 	</weapon_ranged_profile>
 	<weapon_ranged_profile>
 		<name>throwing_knife</name>
+		<firearm>false</firearm>
 		<penetration>
 			<short>2</short>
 			<medium>1</medium>

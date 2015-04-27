@@ -116,9 +116,11 @@ public final class DefaultModelService implements ModelService {
             final String name, final Integer cost,
             final Collection<SpecialRule> rules, final RangedValue penetration,
             final RangedValue strength, final RangedValue distanceCM,
-            final RangedValue distanceInches, final MeleeWeapon weaponMelee) {
+            final RangedValue distanceInches, final Boolean firearm,
+            final MeleeWeapon weaponMelee) {
         return getFactory().getRangedWeapon(unit, name, cost, rules,
-                penetration, strength, distanceCM, distanceInches, weaponMelee);
+                penetration, strength, distanceCM, distanceInches, firearm,
+                weaponMelee);
     }
 
     @Override

@@ -6,7 +6,6 @@ import java.util.Map;
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultRangedWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.util.DefaultRangedValue;
@@ -38,6 +37,7 @@ public final class TransactionRangedWeaponParser implements
         final RangedValue distanceCM;
         final RangedValue distanceInches;
         final Weapon weapon;
+        final Boolean firearm;
 
         ruleNames = (Collection<String>) input.get("rules");
 
@@ -63,14 +63,12 @@ public final class TransactionRangedWeaponParser implements
                 (Integer) input.get("distance_medium_inches"),
                 (Integer) input.get("distance_long_inches"));
 
+        firearm = (Boolean) input.get("firearm");
+
         // TODO: Use a service
         weapon = new DefaultRangedWeapon(input.get("name").toString(),
                 (Integer) input.get("cost"), rules, penetration, strength,
-                distanceCM, distanceInches, weaponMelee);
-
-        if (ruleNames.contains("firearm")) {
-            ((RangedWeapon) weapon).setFirearm(true);
-        }
+                distanceCM, distanceInches, firearm, weaponMelee);
 
         return weapon;
     }

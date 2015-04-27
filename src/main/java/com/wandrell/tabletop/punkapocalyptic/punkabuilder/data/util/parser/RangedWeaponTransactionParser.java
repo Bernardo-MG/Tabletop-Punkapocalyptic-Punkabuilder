@@ -41,6 +41,7 @@ public final class RangedWeaponTransactionParser implements
         final Integer distanceLongInches;
         final Integer cost;
         final Collection<String> rules;
+        final Boolean firearm;
 
         name = input.getChildText(ModelNodeConf.NAME);
 
@@ -80,6 +81,8 @@ public final class RangedWeaponTransactionParser implements
 
         cost = Integer.parseInt(input.getChildText(ModelNodeConf.COST));
 
+        firearm = Boolean.parseBoolean(input.getChildText("firearm"));
+
         rules = new LinkedList<>();
         rulesNode = input.getChild("rules");
         if (rulesNode != null) {
@@ -108,6 +111,8 @@ public final class RangedWeaponTransactionParser implements
         transaction.put("distance_long_cm", distanceLongCM);
 
         transaction.put("cost", cost);
+
+        transaction.put("firearm", firearm);
 
         transaction.put("rules", rules);
 
