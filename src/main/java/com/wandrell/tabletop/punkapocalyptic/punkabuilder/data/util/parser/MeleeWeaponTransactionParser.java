@@ -26,6 +26,7 @@ public final class MeleeWeaponTransactionParser implements
         final Integer penetration;
         final Integer combat;
         final Integer cost;
+        final Boolean twoHanded;
         final Collection<String> rules;
 
         name = input.getChildText(ModelNodeConf.NAME);
@@ -34,6 +35,8 @@ public final class MeleeWeaponTransactionParser implements
                 .getChildText(ModelNodeConf.PENETRATION));
         combat = Integer.parseInt(input.getChildText(ModelNodeConf.COMBAT));
         cost = Integer.parseInt(input.getChildText(ModelNodeConf.COST));
+
+        twoHanded = Boolean.parseBoolean(input.getChildText("twoHanded"));
 
         rules = new LinkedList<>();
         rulesNode = input.getChild("rules");
@@ -50,6 +53,7 @@ public final class MeleeWeaponTransactionParser implements
         transaction.put("combat", combat);
         transaction.put("cost", cost);
         transaction.put("rules", rules);
+        transaction.put("two_handed", twoHanded);
 
         return transaction;
     }

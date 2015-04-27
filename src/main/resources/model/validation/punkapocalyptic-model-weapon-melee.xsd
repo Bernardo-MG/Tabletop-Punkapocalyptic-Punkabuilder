@@ -17,6 +17,8 @@
 		<xs:sequence>
 			<xs:element name="name" type="xs:token" maxOccurs="1"
 				minOccurs="1" />
+			<xs:element name="twoHanded" type="xs:boolean" maxOccurs="1"
+				minOccurs="1" />
 			<xs:element name="rules" type="rulesList" maxOccurs="1"
 				minOccurs="0">
 				<xs:unique name="uniqueRule">

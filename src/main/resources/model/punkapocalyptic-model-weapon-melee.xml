@@ -3,6 +3,7 @@
 	xsi:noNamespaceSchemaLocation="validation/punkapocalyptic-model-weapon-melee.xsd">
 	<weapon_melee_profile>
 		<name>claws_and_teeth</name>
+		<twoHanded>false</twoHanded>
 		<combat>0</combat>
 		<penetration>2</penetration>
 		<strength>0</strength>
@@ -10,6 +11,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>heavy_blade</name>
+		<twoHanded>true</twoHanded>
 		<rules>
 			<rule>cumbersome</rule>
 			<rule>two-handed</rule>
@@ -21,6 +23,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>heavy_mace</name>
+		<twoHanded>true</twoHanded>
 		<rules>
 			<rule>two-handed</rule>
 		</rules>
@@ -31,6 +34,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>improvised_weapon</name>
+		<twoHanded>false</twoHanded>
 		<combat>-1</combat>
 		<penetration>0</penetration>
 		<strength>0</strength>
@@ -38,6 +42,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>light_mace</name>
+		<twoHanded>false</twoHanded>
 		<combat>0</combat>
 		<penetration>0</penetration>
 		<strength>1</strength>
@@ -45,6 +50,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>mace</name>
+		<twoHanded>false</twoHanded>
 		<combat>0</combat>
 		<penetration>1</penetration>
 		<strength>2</strength>
@@ -52,6 +58,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>medium_blade</name>
+		<twoHanded>false</twoHanded>
 		<combat>1</combat>
 		<penetration>3</penetration>
 		<strength>2</strength>
@@ -59,6 +66,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>shield</name>
+		<twoHanded>true</twoHanded>
 		<rules>
 			<rule>two-handed</rule>
 		</rules>
@@ -69,6 +77,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>small_blade</name>
+		<twoHanded>false</twoHanded>
 		<combat>0</combat>
 		<penetration>2</penetration>
 		<strength>1</strength>
@@ -76,6 +85,7 @@
 	</weapon_melee_profile>
 	<weapon_melee_profile>
 		<name>unarmed</name>
+		<twoHanded>false</twoHanded>
 		<combat>-2</combat>
 		<penetration>0</penetration>
 		<strength>0</strength>

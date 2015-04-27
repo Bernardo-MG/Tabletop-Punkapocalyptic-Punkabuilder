@@ -34,7 +34,8 @@ public final class TransactionMeleeWeaponParser implements
         return new DefaultMeleeWeapon(input.get("name").toString(),
                 (Integer) input.get("cost"), (Integer) input.get("strength"),
                 (Integer) input.get("penetration"),
-                (Integer) input.get("combat"), rules);
+                (Integer) input.get("combat"),
+                (Boolean) input.get("two_handed"), rules);
     }
 
 }

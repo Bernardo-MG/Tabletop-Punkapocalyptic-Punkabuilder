@@ -90,9 +90,9 @@ public final class DefaultModelService implements ModelService {
     public final MeleeWeapon getMeleeWeapon(final String name,
             final Integer cost, final Integer strength,
             final Integer penetration, final Integer combat,
-            final Collection<SpecialRule> rules) {
+            final Boolean twoHanded, final Collection<SpecialRule> rules) {
         return getFactory().getMeleeWeapon(name, cost, strength, penetration,
-                combat, rules);
+                combat, twoHanded, rules);
     }
 
     @Override
@@ -113,11 +113,11 @@ public final class DefaultModelService implements ModelService {
 
     @Override
     public final RangedWeapon getRangedWeapon(final Unit unit,
-            final String name, final Integer cost,
+            final String name, final Integer cost, final Boolean twoHanded,
             final Collection<SpecialRule> rules, final RangedValue penetration,
             final RangedValue strength, final RangedValue distanceCM,
             final RangedValue distanceInches, final Boolean firearm) {
-        return getFactory().getRangedWeapon(unit, name, cost, rules,
+        return getFactory().getRangedWeapon(unit, name, cost, twoHanded, rules,
                 penetration, strength, distanceCM, distanceInches, firearm);
     }
 

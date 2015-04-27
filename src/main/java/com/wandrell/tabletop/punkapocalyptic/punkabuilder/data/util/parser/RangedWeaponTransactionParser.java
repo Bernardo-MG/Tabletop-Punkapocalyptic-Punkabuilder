@@ -40,6 +40,7 @@ public final class RangedWeaponTransactionParser implements
         final Integer distanceMediumInches;
         final Integer distanceLongInches;
         final Integer cost;
+        final Boolean twoHanded;
         final Collection<String> rules;
         final Boolean firearm;
 
@@ -83,6 +84,8 @@ public final class RangedWeaponTransactionParser implements
 
         firearm = Boolean.parseBoolean(input.getChildText("firearm"));
 
+        twoHanded = Boolean.parseBoolean(input.getChildText("twoHanded"));
+
         rules = new LinkedList<>();
         rulesNode = input.getChild("rules");
         if (rulesNode != null) {
@@ -113,6 +116,7 @@ public final class RangedWeaponTransactionParser implements
         transaction.put("cost", cost);
 
         transaction.put("firearm", firearm);
+        transaction.put("two_handed", twoHanded);
 
         transaction.put("rules", rules);
 

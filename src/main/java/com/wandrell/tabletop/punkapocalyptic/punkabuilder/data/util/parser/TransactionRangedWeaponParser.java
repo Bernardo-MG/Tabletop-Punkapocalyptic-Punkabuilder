@@ -62,8 +62,9 @@ public final class TransactionRangedWeaponParser implements
 
         // TODO: Use a service
         weapon = new DefaultRangedWeapon(input.get("name").toString(),
-                (Integer) input.get("cost"), rules, penetration, strength,
-                distanceCM, distanceInches, firearm);
+                (Integer) input.get("cost"), (Boolean) input.get("two_handed"),
+                rules, penetration, strength, distanceCM, distanceInches,
+                firearm);
 
         return weapon;
     }
