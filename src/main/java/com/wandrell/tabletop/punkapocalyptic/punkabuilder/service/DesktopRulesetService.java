@@ -5,10 +5,8 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
-import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.DefaultRulesetService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 
@@ -18,11 +16,10 @@ public final class DesktopRulesetService implements RulesetService {
     private final RulesetService baseService;
 
     @Autowired
-    public DesktopRulesetService(final Properties rulesetConfig,
-            final WeaponRepository weaponRepo) {
+    public DesktopRulesetService(final Properties rulesetConfig) {
         super();
 
-        baseService = new DefaultRulesetService(rulesetConfig, weaponRepo);
+        baseService = new DefaultRulesetService(rulesetConfig);
     }
 
     @Override
@@ -43,11 +40,6 @@ public final class DesktopRulesetService implements RulesetService {
     @Override
     public final Integer getPackMaxSize() {
         return getBaseService().getPackMaxSize();
-    }
-
-    @Override
-    public final MeleeWeapon getTwoHandedMeleeEquivalent() {
-        return getBaseService().getTwoHandedMeleeEquivalent();
     }
 
     @Override

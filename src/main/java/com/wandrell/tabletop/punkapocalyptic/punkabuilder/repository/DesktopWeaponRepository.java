@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
-import com.wandrell.tabletop.punkapocalyptic.conf.WeaponNameConf;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
 
@@ -44,20 +42,6 @@ public final class DesktopWeaponRepository implements WeaponRepository {
             }
 
         });
-    }
-
-    @Override
-    public final MeleeWeapon getRangedMeleeWeapon() {
-        return (MeleeWeapon) getBaseRepository().getEntity(
-                new Predicate<Weapon>() {
-
-                    @Override
-                    public final boolean apply(final Weapon input) {
-                        return input.getName().equals(
-                                WeaponNameConf.IMPROVISED_WEAPON);
-                    }
-
-                });
     }
 
     @Override
