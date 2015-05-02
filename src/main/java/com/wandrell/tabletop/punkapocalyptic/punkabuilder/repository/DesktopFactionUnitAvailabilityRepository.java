@@ -1,6 +1,7 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.springframework.stereotype.Component;
 
@@ -8,6 +9,7 @@ import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 
 @Component("factionUnitRepo")
@@ -58,6 +60,22 @@ public final class DesktopFactionUnitAvailabilityRepository implements
                     }
 
                 });
+    }
+
+    @Override
+    public final Collection<UnitTemplate> getUnitsForFaction(
+            final String faction) {
+        final Collection<UnitTemplate> result;
+        final Collection<FactionUnitAvailability> avas;
+
+        avas = getAvailabilitiesForFaction(faction);
+
+        result = new LinkedList<>();
+        for (final FactionUnitAvailability ava : avas) {
+            result.add(ava.getUnit());
+        }
+
+        return result;
     }
 
     @Override

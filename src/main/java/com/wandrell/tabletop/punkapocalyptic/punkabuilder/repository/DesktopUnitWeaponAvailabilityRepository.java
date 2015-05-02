@@ -1,13 +1,18 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
+import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
 
 @Component("unitWeaponRepo")
@@ -44,6 +49,54 @@ public final class DesktopUnitWeaponAvailabilityRepository implements
                     }
 
                 });
+    }
+
+    @Override
+    public final Collection<Weapon>
+            getAvailableWeaponsForUnit(final String unit) {
+        final UnitWeaponAvailability ava;
+        final Collection<Weapon> weaponOptions;
+
+        ava = getAvailabilityForUnit(unit);
+
+        weaponOptions = new LinkedList<>();
+        if (ava != null) {
+            for (final WeaponOption option : ava.getWeaponOptions()) {
+                weaponOptions.add(option.getWeapon());
+            }
+        }
+
+        return weaponOptions;
+    }
+
+    @Override
+    public final Collection<WeaponEnhancement> getEnhancementsForUnitAndWeapon(
+            final String unit, final String weapon) {
+        final UnitWeaponAvailability ava;
+        final Collection<WeaponEnhancement> enhancements;
+        final WeaponOption option;
+
+        ava = getAvailabilityForUnit(unit);
+
+        enhancements = new LinkedList<>();
+        if (ava != null) {
+            option = Collections2
+                    .filter(ava.getWeaponOptions(),
+                            new Predicate<WeaponOption>() {
+
+                                @Override
+                                public final boolean apply(
+                                        final WeaponOption input) {
+                                    return input.getWeapon().getName()
+                                            .equals(weapon);
+                                }
+
+                            }).iterator().next();
+
+            enhancements.addAll(option.getEnhancements());
+        }
+
+        return enhancements;
     }
 
     @Override
