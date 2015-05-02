@@ -246,7 +246,8 @@ public final class SetUpWeaponController {
 
                                 loadWeaponData(weapon);
                                 loadWeaponEnhancements(getUnitConfigurationManager()
-                                        .getWeaponEnhancements(weapon));
+                                        .getOptions().getWeaponEnhancements(
+                                                weapon));
                             }
                         });
 
@@ -349,7 +350,8 @@ public final class SetUpWeaponController {
         comparator = (Weapon o1, Weapon o2) -> o1.getCost().compareTo(
                 o2.getCost());
 
-        getWeapons().setAll(getUnitConfigurationManager().getWeaponOptions());
+        getWeapons().setAll(
+                getUnitConfigurationManager().getOptions().getWeaponOptions());
 
         FXCollections.sort(getWeapons(), comparator);
 

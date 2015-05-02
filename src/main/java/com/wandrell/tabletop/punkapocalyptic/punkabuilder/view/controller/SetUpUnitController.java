@@ -247,7 +247,7 @@ public final class SetUpUnitController {
                 getMutationsComboBox().getSelectionModel().select(0);
             }
 
-            if (getUnitConfigurationManager().getMaxMutations() == ((MutantUnit) getUnit())
+            if (getUnitConfigurationManager().getOptions().getMaxMutations() == ((MutantUnit) getUnit())
                     .getMutations().size()) {
                 getAddMutationButton().setDisable(true);
                 getMutationsComboBox().setDisable(true);
@@ -578,7 +578,7 @@ public final class SetUpUnitController {
 
     private final void loadArmorComboBox() {
         getArmorComboBox().getItems().setAll(
-                getUnitConfigurationManager().getArmorOptions());
+                getUnitConfigurationManager().getOptions().getArmorOptions());
 
         FXCollections.sort(getArmorComboBox().getItems(),
                 new ArmorOptionCostComparator());
@@ -627,7 +627,7 @@ public final class SetUpUnitController {
         getEquipmentPane().getChildren().clear();
 
         for (final Equipment equipment : getUnitConfigurationManager()
-                .getEquipmentOptions()) {
+                .getOptions().getEquipmentOptions()) {
             final CheckBox check;
 
             name = String.format(template, equipment.getName(),
@@ -695,7 +695,8 @@ public final class SetUpUnitController {
             getMutationsList().getItems().clear();
         }
 
-        mutationOptions = getUnitConfigurationManager().getMutations();
+        mutationOptions = getUnitConfigurationManager().getOptions()
+                .getMutations();
         if (mutationOptions.isEmpty()) {
             getMutationsBox().getChildren().clear();
         } else if (getMutationsBox().getChildren().isEmpty()) {
@@ -760,7 +761,7 @@ public final class SetUpUnitController {
         handler = new WeaponPickedControllerQueueEventHandler(
                 getSetUpWeaponControllers());
 
-        intervalWeapons = getUnitConfigurationManager()
+        intervalWeapons = getUnitConfigurationManager().getOptions()
                 .getAllowedWeaponsInterval();
 
         initializeWeaponSelectionPanels(0, intervalWeapons.getUpperLimit(),
