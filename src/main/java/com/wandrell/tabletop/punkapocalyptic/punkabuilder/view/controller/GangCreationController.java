@@ -28,8 +28,6 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitEvent;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
-import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
-import com.wandrell.tabletop.punkapocalyptic.procedure.event.UnitChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameTableCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitValorationTableCell;
 import com.wandrell.tabletop.valuebox.DefaultValueBox;
@@ -228,9 +226,9 @@ public final class GangCreationController {
     }
 
     private final void setGangChangedListeners() {
-        final GangChangedListener gangChangedListener;
+        final GangBuilderStatusChangedListener gangChangedListener;
 
-        gangChangedListener = new GangChangedListener() {
+        gangChangedListener = new GangBuilderStatusChangedListener() {
 
             @Override
             public final void gangChanged(final GangChangedEvent event) {
@@ -268,14 +266,26 @@ public final class GangCreationController {
                 getErrorsList().getItems().clear();
             }
 
+            @Override
+            public final void maxUnitsChanged(final ValueChangeEvent event) {}
+
+            @Override
+            public final void unitAdded(final UnitEvent event) {}
+
+            @Override
+            public final void unitRemoved(final UnitEvent event) {}
+
         };
 
-        getGangBuilderManager().addGangChangedListener(gangChangedListener);
+        getGangBuilderManager().addStatusChangedListener(gangChangedListener);
     }
 
     private final void setMaxUnitsListener() {
         getGangBuilderManager().addStatusChangedListener(
                 new GangBuilderStatusChangedListener() {
+
+                    @Override
+                    public final void gangChanged(final GangChangedEvent event) {}
 
                     @Override
                     public final void maxUnitsChanged(
@@ -284,12 +294,25 @@ public final class GangCreationController {
                                 event.getNewValue().toString());
                     }
 
+                    @Override
+                    public final void unitAdded(final UnitEvent event) {}
+
+                    @Override
+                    public final void unitRemoved(final UnitEvent event) {}
+
                 });
     }
 
     private final void setUnitChangedListeners() {
-        getGangBuilderManager().addUnitChangedListener(
-                new UnitChangedListener() {
+        getGangBuilderManager().addStatusChangedListener(
+                new GangBuilderStatusChangedListener() {
+
+                    @Override
+                    public final void gangChanged(final GangChangedEvent event) {}
+
+                    @Override
+                    public final void maxUnitsChanged(
+                            final ValueChangeEvent event) {}
 
                     @Override
                     public final void unitAdded(final UnitEvent event) {

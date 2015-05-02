@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
-import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.procedure.DefaultGangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
+import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderOptions;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
-import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
-import com.wandrell.tabletop.punkapocalyptic.procedure.event.UnitChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
@@ -34,21 +32,9 @@ public final class DesktopGangBuilderManager implements GangBuilderManager {
     }
 
     @Override
-    public final void
-            addGangChangedListener(final GangChangedListener listener) {
-        getGangBuilderManager().addGangChangedListener(listener);
-    }
-
-    @Override
     public final void addStatusChangedListener(
             final GangBuilderStatusChangedListener listener) {
         getGangBuilderManager().addStatusChangedListener(listener);
-    }
-
-    @Override
-    public final void
-            addUnitChangedListener(final UnitChangedListener listener) {
-        getGangBuilderManager().addUnitChangedListener(listener);
     }
 
     @Override
@@ -62,8 +48,8 @@ public final class DesktopGangBuilderManager implements GangBuilderManager {
     }
 
     @Override
-    public final Collection<UnitTemplate> getUnitOptions() {
-        return getGangBuilderManager().getUnitOptions();
+    public final GangBuilderOptions getOptions() {
+        return getGangBuilderManager().getOptions();
     }
 
     @Override
@@ -72,21 +58,9 @@ public final class DesktopGangBuilderManager implements GangBuilderManager {
     }
 
     @Override
-    public final void removeGangChangedListener(
-            final GangChangedListener listener) {
-        getGangBuilderManager().removeGangChangedListener(listener);
-    }
-
-    @Override
     public final void removeStatusChangedListener(
             final GangBuilderStatusChangedListener listener) {
         getGangBuilderManager().removeStatusChangedListener(listener);
-    }
-
-    @Override
-    public final void removeUnitChangedListener(
-            final UnitChangedListener listener) {
-        getGangBuilderManager().removeUnitChangedListener(listener);
     }
 
     @Override

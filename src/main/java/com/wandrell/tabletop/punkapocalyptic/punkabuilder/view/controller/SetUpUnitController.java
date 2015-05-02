@@ -45,13 +45,14 @@ import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.GroupedUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitEvent;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitListener;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.MutantUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
+import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
-import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory.ContextFactory;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.ArmorOptionCostComparator;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.util.comparator.MutationNameComparator;
@@ -215,14 +216,25 @@ public final class SetUpUnitController {
         this.gangBuilderManager = gangBuilderManager;
         this.unitConfigManager = unitConfigManager;
 
-        gangBuilderManager.addGangChangedListener(new GangChangedListener() {
+        gangBuilderManager
+                .addStatusChangedListener(new GangBuilderStatusChangedListener() {
 
-            @Override
-            public final void gangChanged(final GangChangedEvent event) {
-                loadUnitsList();
-            }
+                    @Override
+                    public final void gangChanged(final GangChangedEvent event) {
+                        loadUnitsList();
+                    }
 
-        });
+                    @Override
+                    public final void maxUnitsChanged(
+                            final ValueChangeEvent event) {}
+
+                    @Override
+                    public final void unitAdded(final UnitEvent event) {}
+
+                    @Override
+                    public final void unitRemoved(final UnitEvent event) {}
+
+                });
     }
 
     @FXML
@@ -739,7 +751,7 @@ public final class SetUpUnitController {
     private final void loadUnitsList() {
         final List<Unit> units;
 
-        units = getUnits(getGangBuilderManager().getUnitOptions());
+        units = getUnits(getGangBuilderManager().getOptions().getUnitOptions());
 
         Collections.sort(units, new UnitNameComparator());
 

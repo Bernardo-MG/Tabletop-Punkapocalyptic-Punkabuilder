@@ -8,7 +8,6 @@ import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
-import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 
 @Component("factionUnitRepo")
@@ -35,14 +34,13 @@ public final class DesktopFactionUnitAvailabilityRepository implements
 
     @Override
     public final Collection<FactionUnitAvailability>
-            getAvailabilitiesForFaction(final Faction faction) {
+            getAvailabilitiesForFaction(final String faction) {
         return getBaseRepository().getCollection(
                 new Predicate<FactionUnitAvailability>() {
 
                     @Override
                     public boolean apply(FactionUnitAvailability input) {
-                        return input.getFaction().getName()
-                                .equals(faction.getName());
+                        return input.getFaction().getName().equals(faction);
                     }
 
                 });
