@@ -81,7 +81,7 @@
 											GridPane.columnIndex="1" GridPane.rowIndex="2" />
 										<Label fx:id="bulletsLabel" alignment="center" minWidth="30.0"
 											text="0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-										<Button minWidth="30.0" onAction="#handleAddBulletAction"
+										<Button fx:id="addBulletButton" minWidth="30.0" onAction="#handleAddBulletAction"
 											text="+" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 									</children>
 								</HBox>

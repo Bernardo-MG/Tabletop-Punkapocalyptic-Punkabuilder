@@ -2,8 +2,6 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller;
 
 import java.awt.Desktop;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -39,9 +37,10 @@ public final class AboutController {
     @FXML
     public final void handleDownloadURL() {
         try {
-            Desktop.getDesktop().browse(new URI(downloadLabel.getText()));
-        } catch (final IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+            Desktop.getDesktop().browse(
+                    getApplicationInfoService().getProjectURI());
+        } catch (final IOException e) {
+            e.printStackTrace();
         }
     }
 

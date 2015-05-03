@@ -36,6 +36,8 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 @Component
 public final class GangCreationController {
 
+    @FXML
+    private Button                   addBulletButton;
     private final ValueHandler       bulletsHandler = new DefaultValueHandler();
     @FXML
     private Label                    bulletsLabel;
@@ -52,6 +54,10 @@ public final class GangCreationController {
     private Label                    totalPointsLabel;
     @FXML
     private TableView<Unit>          unitsTable;
+
+    {
+        bulletsHandler.setInterval(0, Integer.MAX_VALUE);
+    }
 
     {
         gangListener = new GangListener() {
@@ -101,10 +107,7 @@ public final class GangCreationController {
     public final void handleAddBulletAction(final ActionEvent event) {
         getBulletsHandler().increaseValue();
 
-        getRemoveBulletButton().setDisable(
-                !getBulletsHandler().isAbleToIncrease());
-        getRemoveBulletButton().setDisable(
-                !getBulletsHandler().isAbleToDecrease());
+        setBulletButtonsStatus();
     }
 
     @FXML
@@ -127,16 +130,15 @@ public final class GangCreationController {
     public final void handleRemoveBulletAction(final ActionEvent event) {
         getBulletsHandler().decreaseValue();
 
-        getRemoveBulletButton().setDisable(
-                !getBulletsHandler().isAbleToIncrease());
-        getRemoveBulletButton().setDisable(
-                !getBulletsHandler().isAbleToDecrease());
+        setBulletButtonsStatus();
     }
 
     @FXML
     public final void initialize() {
         initializeTableColumnsCellValuesFactories();
         initializeTableColumnsCellFactories();
+
+        setBulletButtonsStatus();
     }
 
     @Autowired
@@ -145,6 +147,10 @@ public final class GangCreationController {
         checkNotNull(dialog, "Received a null pointer as dialog");
 
         setUpUnitDialog = dialog;
+    }
+
+    private final Button getAddBulletButton() {
+        return addBulletButton;
     }
 
     private final ValueHandler getBulletsHandler() {
@@ -225,6 +231,13 @@ public final class GangCreationController {
                         cellData.getValue().getValoration()));
     }
 
+    private final void setBulletButtonsStatus() {
+        getAddBulletButton()
+                .setDisable(!getBulletsHandler().isAbleToIncrease());
+        getRemoveBulletButton().setDisable(
+                !getBulletsHandler().isAbleToDecrease());
+    }
+
     private final void setGangChangedListeners() {
         final GangBuilderStatusChangedListener gangChangedListener;
 
@@ -249,6 +262,8 @@ public final class GangCreationController {
 
                 valueBox = new DefaultValueBox(bullets);
                 getBulletsHandler().setValueBox(valueBox);
+
+                setBulletButtonsStatus();
 
                 valueBox.addValueChangeListener(new ValueChangeListener() {
 

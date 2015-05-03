@@ -241,6 +241,7 @@ public final class SetUpUnitController {
     public final void handleAddMutation(final ActionEvent event) {
         final Mutation mutation;
         final Integer index;
+        final MutantUnit unitMutant;
 
         if (getUnit() instanceof MutantUnit) {
             mutation = getMutationsComboBox().getSelectionModel()
@@ -248,10 +249,13 @@ public final class SetUpUnitController {
             index = getMutationsComboBox().getSelectionModel()
                     .getSelectedIndex();
 
-            getMutationsComboBox().getItems().remove(mutation);
+            unitMutant = ((MutantUnit) getUnit());
 
-            ((MutantUnit) getUnit()).addMutation(mutation);
+            unitMutant.addMutation(mutation);
+
             getMutationsList().getItems().add(mutation);
+
+            getMutationsComboBox().getItems().remove(mutation);
             if (getMutationsComboBox().getItems().isEmpty()) {
                 getMutationsComboBox().setDisable(true);
                 getAddMutationButton().setDisable(true);
@@ -259,7 +263,7 @@ public final class SetUpUnitController {
                 getMutationsComboBox().getSelectionModel().select(0);
             }
 
-            if (getUnitConfigurationManager().getOptions().getMaxMutations() == ((MutantUnit) getUnit())
+            if (getUnitConfigurationManager().getOptions().getMaxMutations() == unitMutant
                     .getMutations().size()) {
                 getAddMutationButton().setDisable(true);
                 getMutationsComboBox().setDisable(true);
@@ -272,10 +276,7 @@ public final class SetUpUnitController {
         if (getUnit() instanceof GroupedUnit) {
             getGroupSizeHandler().decreaseValue();
 
-            getDecreaseGroupButton().setDisable(
-                    !getGroupSizeHandler().isAbleToDecrease());
-            getIncreaseGroupButton().setDisable(
-                    !getGroupSizeHandler().isAbleToIncrease());
+            setGroupButtonsStatus();
         }
     }
 
@@ -284,10 +285,7 @@ public final class SetUpUnitController {
         if (getUnit() instanceof GroupedUnit) {
             getGroupSizeHandler().increaseValue();
 
-            getDecreaseGroupButton().setDisable(
-                    !getGroupSizeHandler().isAbleToDecrease());
-            getIncreaseGroupButton().setDisable(
-                    !getGroupSizeHandler().isAbleToIncrease());
+            setGroupButtonsStatus();
         }
     }
 
@@ -550,11 +548,14 @@ public final class SetUpUnitController {
     }
 
     private final void initializeWeaponSelectionPanels(final Integer min,
-            final Integer max, final EventHandler<ActionEvent> handler) {
+            final Integer max) {
+        final EventHandler<ActionEvent> handler;
         FXMLLoader loader;
         Pane pane;
         SetUpWeaponController controller;
-        Boolean enabled;
+
+        handler = new WeaponPickedControllerQueueEventHandler(
+                getSetUpWeaponControllers());
 
         for (int i = min; i < max; i++) {
             loader = ContextFactory.getInstance().getSetUpWeaponLoader();
@@ -569,9 +570,7 @@ public final class SetUpUnitController {
 
             controller.setUnit(getUnit());
 
-            enabled = (i == 0);
-
-            controller.setEnabled(enabled);
+            controller.setEnabled(i == 0);
 
             controller.addOnPickEventHandler(handler);
 
@@ -763,21 +762,16 @@ public final class SetUpUnitController {
     }
 
     private final void loadWeaponsPane() {
-        final EventHandler<ActionEvent> handler;
         final Interval intervalWeapons;
 
         getSetUpWeaponPanes().clear();
         getWeaponsPane().getChildren().clear();
         getSetUpWeaponControllers().clear();
 
-        handler = new WeaponPickedControllerQueueEventHandler(
-                getSetUpWeaponControllers());
-
         intervalWeapons = getUnitConfigurationManager().getOptions()
                 .getAllowedWeaponsInterval();
 
-        initializeWeaponSelectionPanels(0, intervalWeapons.getUpperLimit(),
-                handler);
+        initializeWeaponSelectionPanels(0, intervalWeapons.getUpperLimit());
 
         getSetUpWeaponControllers().poll();
     }
@@ -791,6 +785,13 @@ public final class SetUpUnitController {
             setUnit(getUnitsList().getSelectionModel().getSelectedItem()
                     .createNewInstance());
         }
+    }
+
+    private final void setGroupButtonsStatus() {
+        getDecreaseGroupButton().setDisable(
+                !getGroupSizeHandler().isAbleToDecrease());
+        getIncreaseGroupButton().setDisable(
+                !getGroupSizeHandler().isAbleToIncrease());
     }
 
     private final void setUnit(final Unit unit) {

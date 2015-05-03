@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.QueryableRepository;
-import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
 
 @Component("factionViewRepo")
@@ -33,9 +32,9 @@ public final class DesktopFactionViewConfigRepository implements
     }
 
     @Override
-    public final FactionViewConfig getConfigForFaction(final Faction faction) {
+    public final FactionViewConfig getConfigForFaction(final String faction) {
         return getBaseRepository().getEntity(
-                f -> f.getFaction().getName().equals(faction.getName()));
+                f -> f.getFaction().getName().equals(faction));
     }
 
     @Override

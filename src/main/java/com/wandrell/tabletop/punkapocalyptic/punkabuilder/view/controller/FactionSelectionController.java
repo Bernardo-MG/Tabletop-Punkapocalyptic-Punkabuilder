@@ -68,8 +68,8 @@ public final class FactionSelectionController {
         Button button;
 
         for (final Faction faction : getFactionRepository().getAll()) {
-            icon = new ImageView(factionViewRepo.getConfigForFaction(faction)
-                    .getImage());
+            icon = new ImageView(factionViewRepo.getConfigForFaction(
+                    faction.getName()).getImage());
 
             button = new Button(faction.getName(), icon);
             button.setContentDisplay(ContentDisplay.TOP);
