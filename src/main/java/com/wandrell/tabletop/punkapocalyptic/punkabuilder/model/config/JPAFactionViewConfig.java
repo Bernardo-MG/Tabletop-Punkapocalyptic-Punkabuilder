@@ -7,9 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.faction.JPAFaction;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.PersistenceEntity;
 import com.wandrell.util.ResourceUtils;
 
@@ -18,22 +22,23 @@ import com.wandrell.util.ResourceUtils;
 public final class JPAFactionViewConfig implements FactionViewConfig,
         PersistenceEntity {
 
-    @Column(name = "faction")
-    private String  faction;
+    @OneToOne
+    @JoinColumn(name = "faction_id", referencedColumnName = "id")
+    private JPAFaction faction;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = -1;
+    private Integer    id = -1;
     @Transient
-    private Image   image;
+    private Image      image;
     @Column(name = "image")
-    private String  imagePath;
+    private String     imagePath;
 
     public JPAFactionViewConfig() {
         super();
     }
 
     @Override
-    public final String getFaction() {
+    public final Faction getFaction() {
         return faction;
     }
 
@@ -56,7 +61,7 @@ public final class JPAFactionViewConfig implements FactionViewConfig,
         return imagePath;
     }
 
-    public final void setFaction(final String faction) {
+    public final void setFaction(final JPAFaction faction) {
         this.faction = faction;
     }
 

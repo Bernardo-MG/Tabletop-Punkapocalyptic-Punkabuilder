@@ -42,8 +42,6 @@
 		<ref bean="readerModelUnitMutation" />
 		<!-- Mutations -->
 		<ref bean="readerModelMutation" />
-		<!-- Mutations -->
-		<ref bean="readerModelFactionView" />
 	</util:list>
 
 	<util:map id="repositoryMap">
@@ -97,9 +95,6 @@
 		</entry>
 		<entry key="faction_unit">
 			<ref bean="factionUnitRepo" />
-		</entry>
-		<entry key="faction_view">
-			<ref bean="factionViewRepo" />
 		</entry>
 	</util:map>
 
@@ -217,13 +212,6 @@
 		factory-method="getClassPathReader">
 		<constructor-arg type="java.lang.String"
 			value="${model.conf.availability.mutation.unit.file}" />
-	</bean>
-
-	<!-- Faction view readers -->
-	<bean id="readerModelFactionView" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.view.faction.file}" />
 	</bean>
 
 </beans>

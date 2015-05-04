@@ -2,9 +2,11 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config;
 
 import javafx.scene.image.Image;
 
+import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
+
 public interface FactionViewConfig {
 
-    public String getFaction();
+    public Faction getFaction();
 
     public Image getImage();
 

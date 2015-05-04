@@ -23,9 +23,7 @@ import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.ArmorTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.EquipmentTransactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.FactionTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.FactionUnitsTransactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.FactionViewTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MeleeWeaponTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MutationTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.RangedWeaponTransactionParser;
@@ -33,8 +31,6 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.RuleT
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionArmorParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionEnhancementParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionEquipmentParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionFactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionFactionUnitsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMeleeWeaponParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMutationParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionRangedWeaponParser;
@@ -53,13 +49,11 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.Weapo
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFileCombinerParser;
 import com.wandrell.tabletop.punkapocalyptic.repository.ArmorRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
-import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
-import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 
 @Component("dataBuilder")
 public final class DefaultDataBuilder implements
@@ -68,7 +62,6 @@ public final class DefaultDataBuilder implements
     private final XPathFactory                                 factoryXpath     = XPathFactory
                                                                                         .instance();
     private Boolean                                            loaded           = false;
-    private final ModelService                                 modelService;
     private final Map<String, Repository<?>>                   repos;
     private final Document                                     source;
     private final Map<String, Collection<Map<String, Object>>> transactionsData = new LinkedHashMap<>();
@@ -76,17 +69,13 @@ public final class DefaultDataBuilder implements
     @SuppressWarnings("unchecked")
     @Autowired
     public DefaultDataBuilder(@Qualifier("dataSources") final Object sources,
-            @Qualifier("repositoryMap") final Object repos,
-            final ModelService modelService) {
+            @Qualifier("repositoryMap") final Object repos) {
         super();
 
         checkNotNull(sources, "Received a null pointer as sources");
         checkNotNull(repos, "Received a null pointer as repositories");
-        checkNotNull(modelService, "Received a null pointer as model service");
 
         this.repos = (Map<String, Repository<?>>) repos;
-
-        this.modelService = modelService;
 
         final Parser<Collection<Reader>, Document> parser;
 
@@ -128,8 +117,6 @@ public final class DefaultDataBuilder implements
     }
 
     private final void buildTransactions(final Document doc) {
-        buildTransactions(filterDocument(doc, "//faction_profile"),
-                new FactionTransactionParser(), "faction");
         buildTransactions(filterDocument(doc, "//rule"),
                 new RuleTransactionParser(), "rule");
         buildTransactions(filterDocument(doc, "//weapon_melee_profile"),
@@ -157,9 +144,6 @@ public final class DefaultDataBuilder implements
                 new UnitArmorsTransactionParser(), "unit_armor");
         buildTransactions(filterDocument(doc, "//unit_equipment_piece"),
                 new UnitEquipmentTransactionParser(), "unit_equipment");
-
-        buildTransactions(filterDocument(doc, "//faction_view"),
-                new FactionViewTransactionParser(), "faction_view");
     }
 
     private final Collection<Element> filterDocument(final Document doc,
@@ -185,7 +169,6 @@ public final class DefaultDataBuilder implements
         ruleRepo = (SpecialRuleRepository) repos.get("rule");
         unitRepo = (UnitTemplateRepository) repos.get("unit");
 
-        saveTransactions("faction", new TransactionFactionParser(modelService));
         saveTransactions("rule", new TransactionRuleParser());
         saveTransactions("weapon_melee", new TransactionMeleeWeaponParser(
                 ruleRepo));
@@ -198,8 +181,6 @@ public final class DefaultDataBuilder implements
         saveTransactions("mutation", new TransactionMutationParser());
         saveTransactions("unit", new TransactionUnitTemplateParser(ruleRepo));
 
-        saveTransactions("faction_unit", new TransactionFactionUnitsParser(
-                unitRepo, (FactionRepository) repos.get("faction")));
         saveTransactions("unit_mutation", new TransactionUnitMutationsParser(
                 unitRepo, (MutationRepository) repos.get("mutation")));
         saveTransactions("unit_weapon", new TransactionUnitWeaponsParser(

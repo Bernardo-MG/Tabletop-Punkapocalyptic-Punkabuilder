@@ -26,7 +26,7 @@ public final class DesktopFactionViewConfigRepository extends
         params.put("faction", faction);
 
         return getEntity(new DefaultQueryData(
-                "SELECT config FROM FactionViewConfig config WHERE config.faction = :faction",
+                "SELECT config FROM FactionViewConfig config WHERE config.faction.nameToken = :faction",
                 params));
     }
 
