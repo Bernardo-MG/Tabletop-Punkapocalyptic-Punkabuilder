@@ -103,12 +103,6 @@
 		</entry>
 	</util:map>
 
-	<util:map id="dataBundles">
-		<entry key="faction">
-			<ref bean="factionNameBundle" />
-		</entry>
-	</util:map>
-
 	<!-- MODEL SERVICE READERS -->
 
 	<!-- INVENTORY -->

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 
@@ -14,7 +14,7 @@ import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 public final class DesktopUnitTemplateRepository implements
         UnitTemplateRepository {
 
-    private final QueryableRepository<UnitTemplate, Predicate<UnitTemplate>> baseRepo;
+    private final FilteredRepository<UnitTemplate, Predicate<UnitTemplate>> baseRepo;
 
     public DesktopUnitTemplateRepository() {
         super();
@@ -54,7 +54,7 @@ public final class DesktopUnitTemplateRepository implements
         getBaseRepository().update(entity);
     }
 
-    private final QueryableRepository<UnitTemplate, Predicate<UnitTemplate>>
+    private final FilteredRepository<UnitTemplate, Predicate<UnitTemplate>>
             getBaseRepository() {
         return baseRepo;
     }

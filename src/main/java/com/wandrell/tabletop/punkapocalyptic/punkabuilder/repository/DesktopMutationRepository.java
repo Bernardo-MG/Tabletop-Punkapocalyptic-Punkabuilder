@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 
 @Component("mutationRepo")
 public final class DesktopMutationRepository implements MutationRepository {
 
-    private final QueryableRepository<Mutation, Predicate<Mutation>> baseRepo;
+    private final FilteredRepository<Mutation, Predicate<Mutation>> baseRepo;
 
     public DesktopMutationRepository() {
         super();
@@ -54,7 +54,7 @@ public final class DesktopMutationRepository implements MutationRepository {
         getBaseRepository().update(entity);
     }
 
-    private final QueryableRepository<Mutation, Predicate<Mutation>>
+    private final FilteredRepository<Mutation, Predicate<Mutation>>
             getBaseRepository() {
         return baseRepo;
     }

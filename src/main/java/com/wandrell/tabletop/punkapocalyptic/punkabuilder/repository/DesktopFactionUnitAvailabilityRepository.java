@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
@@ -16,7 +16,7 @@ import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityR
 public final class DesktopFactionUnitAvailabilityRepository implements
         FactionUnitAvailabilityRepository {
 
-    private final QueryableRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>> baseRepo;
+    private final FilteredRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>> baseRepo;
 
     public DesktopFactionUnitAvailabilityRepository() {
         super();
@@ -42,7 +42,8 @@ public final class DesktopFactionUnitAvailabilityRepository implements
 
                     @Override
                     public boolean apply(FactionUnitAvailability input) {
-                        return input.getFaction().getName().equals(faction);
+                        return input.getFaction().getNameToken()
+                                .equals(faction);
                     }
 
                 });
@@ -89,7 +90,7 @@ public final class DesktopFactionUnitAvailabilityRepository implements
     }
 
     private final
-            QueryableRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>>
+            FilteredRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>>
             getBaseRepository() {
         return baseRepo;
     }

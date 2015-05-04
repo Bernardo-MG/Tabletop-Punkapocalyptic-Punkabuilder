@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 
@@ -14,7 +14,7 @@ import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementReposit
 public final class DesktopWeaponEnhancementRepository implements
         WeaponEnhancementRepository {
 
-    private final QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> baseRepo;
+    private final FilteredRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> baseRepo;
 
     public DesktopWeaponEnhancementRepository() {
         super();
@@ -58,7 +58,7 @@ public final class DesktopWeaponEnhancementRepository implements
     }
 
     private final
-            QueryableRepository<WeaponEnhancement, Predicate<WeaponEnhancement>>
+            FilteredRepository<WeaponEnhancement, Predicate<WeaponEnhancement>>
             getBaseRepository() {
         return baseRepo;
     }

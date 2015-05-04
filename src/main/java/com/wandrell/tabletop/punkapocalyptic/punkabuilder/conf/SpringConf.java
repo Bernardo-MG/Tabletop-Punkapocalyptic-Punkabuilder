@@ -8,6 +8,7 @@ public final class SpringConf {
     public static final String FILE_DATA                   = "spring/punkapocalyptic-data.xml";
     public static final String FILE_LOCALIZATION           = "spring/punkapocalyptic-localization.xml";
     public static final String FILE_LOG                    = "spring/punkapocalyptic-log.xml";
+    public static final String FILE_PERSISTENCE            = "spring/punkapocalyptic-persistence.xml";
     public static final String FILE_PROCEDURE              = "spring/punkapocalyptic-procedure.xml";
     public static final String FILE_REPOSITORY             = "spring/punkapocalyptic-repository.xml";
     public static final String FILE_SERVICE                = "spring/punkapocalyptic-service.xml";

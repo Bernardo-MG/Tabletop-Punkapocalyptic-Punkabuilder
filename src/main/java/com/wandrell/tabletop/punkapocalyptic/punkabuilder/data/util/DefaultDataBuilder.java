@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -36,7 +35,6 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.Trans
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionFactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionFactionUnitsParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionFactionViewParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMeleeWeaponParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMutationParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionRangedWeaponParser;
@@ -67,7 +65,6 @@ import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 public final class DefaultDataBuilder implements
         ApplicationListener<ContextRefreshedEvent> {
 
-    private final Map<String, ResourceBundle>                  bundles;
     private final XPathFactory                                 factoryXpath     = XPathFactory
                                                                                         .instance();
     private Boolean                                            loaded           = false;
@@ -80,17 +77,14 @@ public final class DefaultDataBuilder implements
     @Autowired
     public DefaultDataBuilder(@Qualifier("dataSources") final Object sources,
             @Qualifier("repositoryMap") final Object repos,
-            @Qualifier("dataBundles") final Object bundles,
             final ModelService modelService) {
         super();
 
         checkNotNull(sources, "Received a null pointer as sources");
         checkNotNull(repos, "Received a null pointer as repositories");
-        checkNotNull(bundles, "Received a null pointer as bundles");
         checkNotNull(modelService, "Received a null pointer as model service");
 
         this.repos = (Map<String, Repository<?>>) repos;
-        this.bundles = (Map<String, ResourceBundle>) bundles;
 
         this.modelService = modelService;
 
@@ -112,7 +106,6 @@ public final class DefaultDataBuilder implements
         if (!loaded) {
             loaded = true;
             buildTransactions(getSource());
-            translateTransactions();
             saveTransactions();
         }
     }
@@ -216,9 +209,6 @@ public final class DefaultDataBuilder implements
                 unitRepo, (ArmorRepository) repos.get("armor")));
         saveTransactions("unit_equipment", new TransactionUnitEquipmentParser(
                 unitRepo, (EquipmentRepository) repos.get("equipment")));
-
-        saveTransactions("faction_view", new TransactionFactionViewParser(
-                (FactionRepository) repos.get("faction")));
     }
 
     @SuppressWarnings("unchecked")
@@ -242,31 +232,6 @@ public final class DefaultDataBuilder implements
 
         for (final V entity : entities) {
             repository.add(entity);
-        }
-    }
-
-    private final void translateTransactions() {
-        String text;
-        ResourceBundle bundle;
-
-        bundle = bundles.get("faction");
-        for (final Map<String, Object> transaction : transactionsData
-                .get("faction")) {
-            text = transaction.get("name").toString();
-            text = bundle.getString(text);
-            transaction.put("name", text);
-        }
-        for (final Map<String, Object> transaction : transactionsData
-                .get("faction_unit")) {
-            text = transaction.get("faction").toString();
-            text = bundle.getString(text);
-            transaction.put("faction", text);
-        }
-        for (final Map<String, Object> transaction : transactionsData
-                .get("faction_view")) {
-            text = transaction.get("faction").toString();
-            text = bundle.getString(text);
-            transaction.put("faction", text);
         }
     }
 

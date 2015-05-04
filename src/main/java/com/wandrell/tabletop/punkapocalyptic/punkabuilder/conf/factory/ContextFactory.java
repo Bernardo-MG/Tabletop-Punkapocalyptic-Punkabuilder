@@ -35,8 +35,9 @@ public final class ContextFactory {
 
         context = SpringUtils.getClassPathContext(config, SpringConf.FILE_DATA,
                 SpringConf.FILE_SERVICE, SpringConf.FILE_REPOSITORY,
-                SpringConf.FILE_PROCEDURE, SpringConf.FILE_CONTROLLER,
-                SpringConf.FILE_LOCALIZATION, SpringConf.FILE_VIEW);
+                SpringConf.FILE_PERSISTENCE, SpringConf.FILE_PROCEDURE,
+                SpringConf.FILE_CONTROLLER, SpringConf.FILE_LOCALIZATION,
+                SpringConf.FILE_VIEW);
     }
 
     public final Stage getAboutDialog() {

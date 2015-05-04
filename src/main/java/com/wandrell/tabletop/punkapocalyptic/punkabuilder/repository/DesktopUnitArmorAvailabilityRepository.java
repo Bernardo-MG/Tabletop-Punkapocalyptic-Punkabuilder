@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailability;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRepository;
 
@@ -14,7 +14,7 @@ import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRep
 public final class DesktopUnitArmorAvailabilityRepository implements
         UnitArmorAvailabilityRepository {
 
-    private final QueryableRepository<UnitArmorAvailability, Predicate<UnitArmorAvailability>> baseRepo;
+    private final FilteredRepository<UnitArmorAvailability, Predicate<UnitArmorAvailability>> baseRepo;
 
     public DesktopUnitArmorAvailabilityRepository() {
         super();
@@ -57,7 +57,7 @@ public final class DesktopUnitArmorAvailabilityRepository implements
     }
 
     private final
-            QueryableRepository<UnitArmorAvailability, Predicate<UnitArmorAvailability>>
+            FilteredRepository<UnitArmorAvailability, Predicate<UnitArmorAvailability>>
             getBaseRepository() {
         return baseRepo;
     }

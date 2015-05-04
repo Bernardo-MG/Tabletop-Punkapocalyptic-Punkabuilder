@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
 
 @Component("equipmentRepo")
 public final class DesktopEquipmentRepository implements EquipmentRepository {
 
-    private final QueryableRepository<Equipment, Predicate<Equipment>> baseRepo;
+    private final FilteredRepository<Equipment, Predicate<Equipment>> baseRepo;
 
     public DesktopEquipmentRepository() {
         super();
@@ -54,7 +54,7 @@ public final class DesktopEquipmentRepository implements EquipmentRepository {
         getBaseRepository().update(entity);
     }
 
-    private final QueryableRepository<Equipment, Predicate<Equipment>>
+    private final FilteredRepository<Equipment, Predicate<Equipment>>
             getBaseRepository() {
         return baseRepo;
     }

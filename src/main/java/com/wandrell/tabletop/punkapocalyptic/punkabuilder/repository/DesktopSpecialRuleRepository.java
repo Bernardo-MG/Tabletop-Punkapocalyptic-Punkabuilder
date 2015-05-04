@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 
@@ -14,7 +14,7 @@ import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 public final class DesktopSpecialRuleRepository implements
         SpecialRuleRepository {
 
-    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>> baseRepo;
+    private final FilteredRepository<SpecialRule, Predicate<SpecialRule>> baseRepo;
 
     public DesktopSpecialRuleRepository() {
         super();
@@ -55,7 +55,7 @@ public final class DesktopSpecialRuleRepository implements
         getBaseRepository().update(entity);
     }
 
-    private final QueryableRepository<SpecialRule, Predicate<SpecialRule>>
+    private final FilteredRepository<SpecialRule, Predicate<SpecialRule>>
             getBaseRepository() {
         return baseRepo;
     }

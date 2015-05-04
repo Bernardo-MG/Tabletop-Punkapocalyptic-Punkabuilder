@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
 
 @Component("factionRepo")
 public final class DesktopFactionRepository implements FactionRepository {
 
-    private final QueryableRepository<Faction, Predicate<Faction>> baseRepo;
+    private final FilteredRepository<Faction, Predicate<Faction>> baseRepo;
 
     public DesktopFactionRepository() {
         super();
@@ -33,7 +33,8 @@ public final class DesktopFactionRepository implements FactionRepository {
 
     @Override
     public final Faction getByName(final String faction) {
-        return getBaseRepository().getEntity(f -> f.getName().equals(faction));
+        return getBaseRepository().getEntity(
+                f -> f.getNameToken().equals(faction));
     }
 
     @Override
@@ -46,7 +47,7 @@ public final class DesktopFactionRepository implements FactionRepository {
         getBaseRepository().update(entity);
     }
 
-    private final QueryableRepository<Faction, Predicate<Faction>>
+    private final FilteredRepository<Faction, Predicate<Faction>>
             getBaseRepository() {
         return baseRepo;
     }

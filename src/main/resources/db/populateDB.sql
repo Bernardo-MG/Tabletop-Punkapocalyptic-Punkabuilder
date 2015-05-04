@@ -1,0 +1,2 @@
+INSERT INTO faction_view_config (id, faction, image) VALUES (1, 'gangers', 'images/logo_gangers_small.jpg');
+INSERT INTO faction_view_config (id, faction, image) VALUES (2, 'mutards', 'images/logo_mutants_small.jpg');
