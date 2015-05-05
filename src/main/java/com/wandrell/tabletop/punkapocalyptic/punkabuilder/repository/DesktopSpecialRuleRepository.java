@@ -24,10 +24,10 @@ public final class DesktopSpecialRuleRepository extends
             final Collection<String> names) {
         final Map<String, Object> params;
         final StringBuilder namesResult;
-        
+
         namesResult = new StringBuilder();
-        for(final String name : names){
-            if(namesResult.length()>0){
+        for (final String name : names) {
+            if (namesResult.length() > 0) {
                 namesResult.append(", ");
             }
             namesResult.append(name);

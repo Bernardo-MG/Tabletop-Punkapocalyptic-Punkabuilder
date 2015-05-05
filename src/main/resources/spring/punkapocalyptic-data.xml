@@ -10,8 +10,6 @@
 		base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util" />
 
 	<util:list id="dataSources" value-type="java.io.Reader">
-		<!-- Armors -->
-		<ref bean="readerModelArmor" />
 		<!-- Melee weapons -->
 		<ref bean="readerModelWeaponMelee" />
 		<!-- Ranged weapons -->
@@ -96,12 +94,6 @@
 	<!-- MODEL SERVICE READERS -->
 
 	<!-- INVENTORY -->
-
-	<!-- Armor readers -->
-	<bean id="readerModelArmor" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String" value="${model.conf.armor.file}" />
-	</bean>
 
 	<!-- Equipment readers -->
 	<bean id="readerModelEquipment" class="com.wandrell.util.ResourceUtils"

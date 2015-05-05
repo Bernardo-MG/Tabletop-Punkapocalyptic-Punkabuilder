@@ -1,74 +1,56 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.ArmorRepository;
 
 @Component("armorRepo")
-public final class DesktopArmorRepository implements ArmorRepository {
-
-    private final FilteredRepository<Armor, Predicate<Armor>> baseRepo;
+public final class DesktopArmorRepository extends JPARepository<Armor>
+        implements ArmorRepository {
 
     public DesktopArmorRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<Armor>();
-    }
-
-    @Override
-    public final void add(final Armor entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<Armor> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData("SELECT armor FROM Armor armor"));
     }
 
     @Override
     public final Armor getByName(final String name) {
-        return getBaseRepository().getEntity(new Predicate<Armor>() {
+        final Map<String, Object> params;
 
-            @Override
-            public final boolean apply(final Armor armor) {
-                return armor.getName().equals(name);
-            }
+        params = new LinkedHashMap<>();
+        params.put("armor", name);
 
-        });
+        return getEntity(new DefaultQueryData(
+                "SELECT armor FROM Armor armor WHERE armor.armorName = :armor",
+                params));
     }
 
     @Override
     public final Collection<Armor>
             getByNamesList(final Collection<String> names) {
-        return getBaseRepository().getCollection(new Predicate<Armor>() {
+        final Map<String, Object> params;
+        final StringBuilder namesResult;
 
-            @Override
-            public final boolean apply(final Armor armor) {
-                return names.contains(armor.getName());
+        namesResult = new StringBuilder();
+        for (final String name : names) {
+            if (namesResult.length() > 0) {
+                namesResult.append(", ");
             }
+            namesResult.append(name);
+        }
 
-        });
-    }
+        params = new LinkedHashMap<>();
+        params.put("rules", namesResult.toString());
 
-    @Override
-    public final void remove(final Armor entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final Armor entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final FilteredRepository<Armor, Predicate<Armor>>
-            getBaseRepository() {
-        return baseRepo;
+        return getCollection(new DefaultQueryData(
+                "SELECT armor FROM Armor armor WHERE armor.armorName IN :rules",
+                params));
     }
 
 }
