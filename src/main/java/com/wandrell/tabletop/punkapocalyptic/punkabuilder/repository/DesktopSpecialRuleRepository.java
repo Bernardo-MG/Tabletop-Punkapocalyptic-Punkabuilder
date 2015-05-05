@@ -37,7 +37,7 @@ public final class DesktopSpecialRuleRepository extends
         params.put("rules", namesResult.toString());
 
         return getCollection(new DefaultQueryData(
-                "SELECT rule FROM SpecialRule rule WHERE rule.nameToken IN :rules",
+                "SELECT rule FROM SpecialRule rule WHERE rule.nameToken IN (:rules)",
                 params));
     }
 

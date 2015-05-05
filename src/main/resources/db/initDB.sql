@@ -1,6 +1,7 @@
 DROP TABLE factions IF EXISTS;
 DROP TABLE unit_templates IF EXISTS;
 DROP TABLE armors IF EXISTS;
+DROP TABLE equipment IF EXISTS;
 DROP TABLE special_rules IF EXISTS;
 
 DROP TABLE faction_view_config IF EXISTS;
@@ -30,6 +31,12 @@ CREATE TABLE armors (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(30),
 	armor			INTEGER
+);
+
+CREATE TABLE equipment (
+	id				INTEGER IDENTITY PRIMARY KEY,
+	name			VARCHAR(30),
+	cost			INTEGER
 );
 
 CREATE TABLE special_rules (

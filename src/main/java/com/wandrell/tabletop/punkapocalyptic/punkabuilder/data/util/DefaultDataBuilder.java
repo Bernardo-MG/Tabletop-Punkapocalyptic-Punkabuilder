@@ -21,13 +21,11 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.EquipmentTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.FactionUnitsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MeleeWeaponTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MutationTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.RangedWeaponTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionEnhancementParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMeleeWeaponParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMutationParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionRangedWeaponParser;
@@ -115,8 +113,6 @@ public final class DefaultDataBuilder implements
                 new MeleeWeaponTransactionParser(), "weapon_melee");
         buildTransactions(filterDocument(doc, "//weapon_ranged_profile"),
                 new RangedWeaponTransactionParser(), "weapon_ranged");
-        buildTransactions(filterDocument(doc, "//equipment_profile"),
-                new EquipmentTransactionParser(), "equipment");
         buildTransactions(filterDocument(doc, "//weapon_enhancement_profile"),
                 new WeaponEnhancementTransactionParser(), "enhancement");
         buildTransactions(filterDocument(doc, "//mutations/mutation"),
@@ -162,7 +158,6 @@ public final class DefaultDataBuilder implements
 
         saveTransactions("weapon_ranged", new TransactionRangedWeaponParser(
                 ruleRepo));
-        saveTransactions("equipment", new TransactionEquipmentParser());
         saveTransactions("enhancement", new TransactionEnhancementParser());
         saveTransactions("mutation", new TransactionMutationParser());
 

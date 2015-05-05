@@ -49,7 +49,7 @@ public final class DesktopArmorRepository extends JPARepository<Armor>
         params.put("rules", namesResult.toString());
 
         return getCollection(new DefaultQueryData(
-                "SELECT armor FROM Armor armor WHERE armor.armorName IN :rules",
+                "SELECT armor FROM Armor armor WHERE armor.armorName IN (:rules)",
                 params));
     }
 
