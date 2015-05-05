@@ -1,63 +1,44 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 
 @Component("ruleRepo")
-public final class DesktopSpecialRuleRepository implements
-        SpecialRuleRepository {
-
-    private final FilteredRepository<SpecialRule, Predicate<SpecialRule>> baseRepo;
+public final class DesktopSpecialRuleRepository extends
+        JPARepository<SpecialRule> implements SpecialRuleRepository {
 
     public DesktopSpecialRuleRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<SpecialRule>();
-    }
-
-    @Override
-    public final void add(final SpecialRule entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<SpecialRule> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData("SELECT rule FROM SpecialRule rule"));
     }
 
     @Override
     public final Collection<SpecialRule> getByNamesList(
             final Collection<String> names) {
-        return getBaseRepository().getCollection(new Predicate<SpecialRule>() {
-
-            @Override
-            public final boolean apply(final SpecialRule input) {
-                return names.contains(input.getName());
+        final Map<String, Object> params;
+        final StringBuilder namesResult;
+        
+        namesResult = new StringBuilder();
+        for(final String name : names){
+            if(namesResult.length()>0){
+                namesResult.append(", ");
             }
+            namesResult.append(name);
+        }
 
-        });
-    }
+        params = new LinkedHashMap<>();
+        params.put("rules", namesResult.toString());
 
-    @Override
-    public final void remove(final SpecialRule entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final SpecialRule entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final FilteredRepository<SpecialRule, Predicate<SpecialRule>>
-            getBaseRepository() {
-        return baseRepo;
+        return getCollection(new DefaultQueryData(
+                "SELECT rule FROM SpecialRule rule WHERE rule.nameToken IN :rules",
+                params));
     }
 
 }

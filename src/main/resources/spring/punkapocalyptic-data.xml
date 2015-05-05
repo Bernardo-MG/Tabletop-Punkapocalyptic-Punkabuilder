@@ -20,8 +20,6 @@
 		<ref bean="readerModelEquipment" />
 		<!-- Weapon enhancements -->
 		<ref bean="readerModelWeaponEnhancement" />
-		<!-- Factions -->
-		<ref bean="readerModelFaction" />
 		<!-- Faction units -->
 		<ref bean="readerModelFactionUnit" />
 		<!-- Faction weapon enhancements -->
@@ -53,9 +51,6 @@
 		</entry>
 		<entry key="equipment">
 			<ref bean="equipmentRepo" />
-		</entry>
-		<entry key="faction">
-			<ref bean="factionRepo" />
 		</entry>
 		<entry key="mutation">
 			<ref bean="mutationRepo" />
@@ -143,12 +138,6 @@
 	</bean>
 
 	<!-- FACTION -->
-
-	<!-- Factions readers -->
-	<bean id="readerModelFaction" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String" value="${model.conf.faction.file}" />
-	</bean>
 
 	<!-- Faction units readers -->
 	<bean id="readerModelFactionUnit" class="com.wandrell.util.ResourceUtils"

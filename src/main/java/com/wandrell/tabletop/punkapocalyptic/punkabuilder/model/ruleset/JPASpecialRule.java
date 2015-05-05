@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.faction;
+package com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.ruleset;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -27,12 +27,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
+import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.PersistenceEntity;
 
-@Entity(name = "Faction")
-@Table(name = "factions")
-public final class JPAFaction implements Faction, PersistenceEntity {
+@Entity(name = "SpecialRule")
+@Table(name = "special_rules")
+public final class JPASpecialRule implements SpecialRule, PersistenceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,16 +40,16 @@ public final class JPAFaction implements Faction, PersistenceEntity {
     @Column(name = "name")
     private String  nameToken;
 
-    public JPAFaction() {
+    public JPASpecialRule() {
         super();
     }
 
-    public JPAFaction(final JPAFaction faction) {
+    public JPASpecialRule(final JPASpecialRule rule) {
         super();
 
-        checkNotNull(faction, "Received a null pointer as faction");
+        checkNotNull(rule, "Received a null pointer as rule");
 
-        nameToken = faction.nameToken;
+        nameToken = rule.nameToken;
     }
 
     @Override
@@ -66,9 +66,9 @@ public final class JPAFaction implements Faction, PersistenceEntity {
             return false;
         }
 
-        final JPAFaction other;
+        final JPASpecialRule other;
 
-        other = (JPAFaction) obj;
+        other = (JPASpecialRule) obj;
         return Objects.equals(nameToken, other.nameToken);
     }
 

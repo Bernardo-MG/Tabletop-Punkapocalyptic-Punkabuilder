@@ -5,7 +5,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionVi
 
 public interface FactionViewConfigRepository extends
         Repository<FactionViewConfig> {
-
-    public FactionViewConfig getConfigForFaction(final String faction);
+    
+    public  FactionViewConfig getConfigForFaction(final String faction);
 
 }
