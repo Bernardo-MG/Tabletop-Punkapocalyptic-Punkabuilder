@@ -24,8 +24,6 @@
 		<ref bean="readerModelFactionWeaponEnhancement" />
 		<!-- Faction equipment -->
 		<ref bean="readerModelFactionEquipment" />
-		<!-- Units -->
-		<ref bean="readerModelUnit" />
 		<!-- Unit armors -->
 		<ref bean="readerModelUnitArmor" />
 		<!-- Unit weapons -->
@@ -153,12 +151,6 @@
 	</bean>
 
 	<!-- UNIT -->
-
-	<!-- Unit readers -->
-	<bean id="readerModelUnit" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String" value="${model.conf.unit.file}" />
-	</bean>
 
 	<!-- Unit armor readers -->
 	<bean id="readerModelUnitArmor" class="com.wandrell.util.ResourceUtils"

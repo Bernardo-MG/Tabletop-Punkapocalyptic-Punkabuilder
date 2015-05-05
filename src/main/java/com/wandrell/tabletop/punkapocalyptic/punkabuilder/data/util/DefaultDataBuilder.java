@@ -34,12 +34,10 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.Trans
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitArmorsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitMutationsParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitTemplateParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitWeaponsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitArmorsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitEquipmentTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitMutationsTransactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitWeaponsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.WeaponEnhancementTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFileCombinerParser;
@@ -123,8 +121,6 @@ public final class DefaultDataBuilder implements
                 new WeaponEnhancementTransactionParser(), "enhancement");
         buildTransactions(filterDocument(doc, "//mutations/mutation"),
                 new MutationTransactionParser(), "mutation");
-        buildTransactions(filterDocument(doc, "//unit_profiles/unit_profile"),
-                new UnitTransactionParser(), "unit");
         buildTransactions(filterDocument(doc, "//faction_unit"),
                 new FactionUnitsTransactionParser(), "faction_unit");
         buildTransactions(
@@ -169,7 +165,6 @@ public final class DefaultDataBuilder implements
         saveTransactions("equipment", new TransactionEquipmentParser());
         saveTransactions("enhancement", new TransactionEnhancementParser());
         saveTransactions("mutation", new TransactionMutationParser());
-        saveTransactions("unit", new TransactionUnitTemplateParser(ruleRepo));
 
         saveTransactions("unit_mutation", new TransactionUnitMutationsParser(
                 unitRepo, (MutationRepository) repos.get("mutation")));

@@ -1,62 +1,35 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
-import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 
 @Component("unitRepo")
-public final class DesktopUnitTemplateRepository implements
-        UnitTemplateRepository {
-
-    private final FilteredRepository<UnitTemplate, Predicate<UnitTemplate>> baseRepo;
+public final class DesktopUnitTemplateRepository extends
+        JPARepository<UnitTemplate> implements UnitTemplateRepository {
 
     public DesktopUnitTemplateRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<UnitTemplate>();
-    }
-
-    @Override
-    public final void add(final UnitTemplate entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<UnitTemplate> getAll() {
-        return getBaseRepository().getAll();
+        super(
+                new DefaultQueryData(
+                        "SELECT template FROM UnitTemplate template"));
     }
 
     @Override
     public UnitTemplate getByNameToken(String name) {
-        return getBaseRepository().getEntity(new Predicate<UnitTemplate>() {
+        final Map<String, Object> params;
 
-            @Override
-            public final boolean apply(final UnitTemplate unit) {
-                return unit.getNameToken().equals(name);
-            }
+        params = new LinkedHashMap<>();
+        params.put("template", name);
 
-        });
-    }
-
-    @Override
-    public final void remove(final UnitTemplate entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final UnitTemplate entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final FilteredRepository<UnitTemplate, Predicate<UnitTemplate>>
-            getBaseRepository() {
-        return baseRepo;
+        return getEntity(new DefaultQueryData(
+                "SELECT template FROM UnitTemplate template WHERE template.name = :template",
+                params));
     }
 
 }

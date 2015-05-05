@@ -1,4 +1,5 @@
 DROP TABLE factions IF EXISTS;
+DROP TABLE unit_templates IF EXISTS;
 DROP TABLE armors IF EXISTS;
 DROP TABLE special_rules IF EXISTS;
 
@@ -10,6 +11,19 @@ DROP TABLE armor_rules IF EXISTS;
 CREATE TABLE factions (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(30)
+);
+
+CREATE TABLE unit_templates (
+	id				INTEGER IDENTITY PRIMARY KEY,
+	name			VARCHAR(30),
+	cost			INTEGER,
+	actions			INTEGER,
+	agility			INTEGER,
+	combat			INTEGER,
+	precision		INTEGER,
+	strength		INTEGER,
+	tech			INTEGER,
+	toughness		INTEGER
 );
 
 CREATE TABLE armors (
@@ -38,4 +52,11 @@ CREATE TABLE armor_rules (
 );
 ALTER TABLE armor_rules ADD CONSTRAINT fk_armor_rules_armor FOREIGN KEY (armor_id) REFERENCES armors (id);
 ALTER TABLE armor_rules ADD CONSTRAINT fk_armor_rules_rule FOREIGN KEY (rule_id) REFERENCES special_rules (id);
+
+CREATE TABLE unit_template_rules (
+	template_id		INTEGER NOT NULL,
+  	rule_id			INTEGER NOT NULL
+);
+ALTER TABLE unit_template_rules ADD CONSTRAINT fk_unit_template_rules_template FOREIGN KEY (template_id) REFERENCES unit_templates (id);
+ALTER TABLE unit_template_rules ADD CONSTRAINT fk_unit_template_rules_rule FOREIGN KEY (rule_id) REFERENCES special_rules (id);
 
