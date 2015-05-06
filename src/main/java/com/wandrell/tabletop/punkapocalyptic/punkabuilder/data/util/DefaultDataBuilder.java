@@ -22,10 +22,8 @@ import org.springframework.stereotype.Component;
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MeleeWeaponTransactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MutationTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.RangedWeaponTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMeleeWeaponParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMutationParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionRangedWeaponParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitArmorsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitEquipmentParser;
@@ -110,8 +108,6 @@ public final class DefaultDataBuilder implements
                 new MeleeWeaponTransactionParser(), "weapon_melee");
         buildTransactions(filterDocument(doc, "//weapon_ranged_profile"),
                 new RangedWeaponTransactionParser(), "weapon_ranged");
-        buildTransactions(filterDocument(doc, "//mutations/mutation"),
-                new MutationTransactionParser(), "mutation");
         buildTransactions(
                 filterDocument(doc, "//unit_mutations/unit_mutation"),
                 new UnitMutationsTransactionParser(), "unit_mutation");
@@ -151,7 +147,6 @@ public final class DefaultDataBuilder implements
 
         saveTransactions("weapon_ranged", new TransactionRangedWeaponParser(
                 ruleRepo));
-        saveTransactions("mutation", new TransactionMutationParser());
 
         saveTransactions("unit_mutation", new TransactionUnitMutationsParser(
                 unitRepo, (MutationRepository) repos.get("mutation")));

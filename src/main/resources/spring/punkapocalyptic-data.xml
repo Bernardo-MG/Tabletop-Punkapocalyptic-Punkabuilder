@@ -26,8 +26,6 @@
 		<ref bean="readerModelUnitEnhancement" />
 		<!-- Unit mutations -->
 		<ref bean="readerModelUnitMutation" />
-		<!-- Mutations -->
-		<ref bean="readerModelMutation" />
 	</util:list>
 
 	<util:map id="repositoryMap">
@@ -97,14 +95,6 @@
 		factory-method="getClassPathReader">
 		<constructor-arg type="java.lang.String"
 			value="${model.conf.weapon.ranged.file}" />
-	</bean>
-
-	<!-- MUTATION -->
-
-	<!-- Mutation readers -->
-	<bean id="readerModelMutation" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String" value="${model.conf.mutation.file}" />
 	</bean>
 
 	<!-- FACTION -->

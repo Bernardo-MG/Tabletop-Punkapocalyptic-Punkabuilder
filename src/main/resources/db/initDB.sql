@@ -4,6 +4,7 @@ DROP TABLE armors IF EXISTS;
 DROP TABLE equipment IF EXISTS;
 DROP TABLE weapon_enhancement IF EXISTS;
 DROP TABLE special_rules IF EXISTS;
+DROP TABLE mutations IF EXISTS;
 
 DROP TABLE faction_view_config IF EXISTS;
 
@@ -50,6 +51,19 @@ CREATE TABLE weapon_enhancement (
 	name			VARCHAR(30),
 	cost			INTEGER,
 	firearm			BOOLEAN
+);
+
+CREATE TABLE mutations (
+	id				INTEGER IDENTITY PRIMARY KEY,
+	name			VARCHAR(50),
+	cost			INTEGER,
+	actions			INTEGER,
+	agility			INTEGER,
+	combat			INTEGER,
+	precision		INTEGER,
+	strength		INTEGER,
+	tech			INTEGER,
+	toughness		INTEGER
 );
 
 CREATE TABLE special_rules (

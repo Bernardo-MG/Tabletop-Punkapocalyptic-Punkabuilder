@@ -36,6 +36,30 @@ INSERT INTO equipment (id, name, cost) VALUES (1, 'biohazard_protection', 8);
 
 INSERT INTO weapon_enhancement (id, name, firearm) VALUES (1, 'bayonet', true);
 
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (1, 'able', 20, 1, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (2, 'acid_spit', 5, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (3, 'brutal_charge', 6, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (4, 'claws', 2, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (5, 'extra_limbs', 10, 0, 0, 2, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (6, 'frog', 6, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (7, 'hunk', 10, 0, 0, 0, 0, 2, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (8, 'mimetism', 6, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (9, 'organic_missile', 10, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (10, 'poisoned_claws', 8, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (11, 'prehensile_limb', 5, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (12, 'psychic_echo', 20, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (13, 'resilient', 10, 0, 0, 0, 0, 0, 0, 2);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (14, 'runner', 10, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (15, 'sharp_senses', 8, 0, 2, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (16, 'sharp_tail', 10, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (17, 'sonar', 5, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (18, 'sticky', 10, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (19, 'sure_feet', 6, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (20, 'thorns', 6, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (21, 'tough_skin_1', 5, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (22, 'tough_skin_3', 10, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (23, 'tough_skin_5', 20, 0, 0, 0, 0, 0, 0, 0);
+
 INSERT INTO faction_view_config (id, faction_id, image) VALUES (1, 1, 'images/logo_gangers_small.jpg');
 INSERT INTO faction_view_config (id, faction_id, image) VALUES (2, 2, 'images/logo_mutants_small.jpg');
 

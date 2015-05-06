@@ -1,62 +1,44 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 
 @Component("mutationRepo")
-public final class DesktopMutationRepository implements MutationRepository {
-
-    private final FilteredRepository<Mutation, Predicate<Mutation>> baseRepo;
+public final class DesktopMutationRepository extends JPARepository<Mutation>
+        implements MutationRepository {
 
     public DesktopMutationRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<Mutation>();
-    }
-
-    @Override
-    public final void add(final Mutation entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<Mutation> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData("SELECT mutation FROM Mutation mutation"));
     }
 
     @Override
     public final Collection<Mutation> getByNamesList(
             final Collection<String> names) {
-        return getBaseRepository().getCollection(new Predicate<Mutation>() {
+        final Map<String, Object> params;
+        final StringBuilder namesResult;
 
-            @Override
-            public final boolean apply(final Mutation mutation) {
-                return names.contains(mutation.getName());
+        namesResult = new StringBuilder();
+        for (final String name : names) {
+            if (namesResult.length() > 0) {
+                namesResult.append(", ");
             }
+            namesResult.append(name);
+        }
 
-        });
-    }
+        params = new LinkedHashMap<>();
+        params.put("mutations", namesResult.toString());
 
-    @Override
-    public final void remove(final Mutation entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final Mutation entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final FilteredRepository<Mutation, Predicate<Mutation>>
-            getBaseRepository() {
-        return baseRepo;
+        return getCollection(new DefaultQueryData(
+                "SELECT mutation FROM Mutation mutation WHERE mutation.name = :mutations",
+                params));
     }
 
 }
