@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context 
@@ -9,7 +10,9 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/jdbc
-        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven />
@@ -17,11 +20,11 @@
 	<!-- Loads JPA beans Will automatically be transactional due to @Transactional. 
 		EntityManager will be auto-injected due to @PersistenceContext. PersistenceExceptions 
 		will be auto-translated due to @Repository. -->
-	<context:component-scan base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository" />
+	<context:component-scan
+		base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository" />
 
 	<!-- JPA EntityManagerFactory -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="${jpa.entityManagerFactory.class}">
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="database" value="${jpa.database}" />
@@ -31,7 +34,17 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
 		<property name="packagesToScan" value="${jpa.packagesToScan}" />
+		<property name="jpaProperties" ref="jpaProperties" />
 	</bean>
+
+	<util:map id="jpaProperties">
+		<entry key="hibernate.dialect" value="${hibernate.dialect}" />
+		<entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
+		<entry key="hibernate.ejb.naming_strategy" value="${hibernate.ejb.naming_strategy}" />
+		<entry key="hibernate.ejb.naming_strategy" value="${hibernate.ejb.naming_strategy}" />
+		<entry key="hibernate.show_sql" value="${hibernate.show_sql}" />
+		<entry key="hibernate.format_sql" value="${hibernate.format_sql}" />
+	</util:map>
 
 	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative 
 		to JTA) -->
@@ -49,9 +62,13 @@
 
 	<!-- DataSource configuration for the tomcat jdbc connection pool See here 
 		for more details on commons-dbcp versus tomcat-jdbc: http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/ -->
-	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+	<bean id="dataSource" class="${jdbc.datasource.class}">
+		<constructor-arg ref="dataSourceConfig" />
+	</bean>
+
+	<bean id="dataSourceConfig" class="${jdbc.datasource.config.class}">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
