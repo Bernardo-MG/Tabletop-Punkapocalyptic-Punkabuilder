@@ -4,10 +4,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,23 +28,24 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.Persist
 
 @Entity(name = "UnitTemplate")
 @Table(name = "unit_templates")
+@Access(AccessType.FIELD)
 public final class JPAUnitTemplate implements UnitTemplate, PersistenceEntity {
 
     @Embedded
-    private final AttributesHolder           attributes = new JPAEditableAttributesHolder();
+    private final JPAEditableAttributesHolder attributes = new JPAEditableAttributesHolder();
     @Column(name = "cost")
-    private Integer                          cost;
+    private Integer                           cost;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer                          id         = -1;
+    private Integer                           id         = -1;
     @Column(name = "name")
-    private String                           name;
-    @ManyToMany(cascade = CascadeType.ALL)
+    private String                            name;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "unit_template_rules", joinColumns = { @JoinColumn(
             name = "template_id", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "rule_id",
                     referencedColumnName = "id") })
-    private final Collection<JPASpecialRule> rules      = new LinkedHashSet<JPASpecialRule>();
+    private final Collection<JPASpecialRule>  rules      = new LinkedHashSet<JPASpecialRule>();
 
     public JPAUnitTemplate() {
         super();

@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.FactionUnitsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MeleeWeaponTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MutationTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.RangedWeaponTransactionParser;
@@ -117,8 +116,6 @@ public final class DefaultDataBuilder implements
                 new WeaponEnhancementTransactionParser(), "enhancement");
         buildTransactions(filterDocument(doc, "//mutations/mutation"),
                 new MutationTransactionParser(), "mutation");
-        buildTransactions(filterDocument(doc, "//faction_unit"),
-                new FactionUnitsTransactionParser(), "faction_unit");
         buildTransactions(
                 filterDocument(doc, "//unit_mutations/unit_mutation"),
                 new UnitMutationsTransactionParser(), "unit_mutation");

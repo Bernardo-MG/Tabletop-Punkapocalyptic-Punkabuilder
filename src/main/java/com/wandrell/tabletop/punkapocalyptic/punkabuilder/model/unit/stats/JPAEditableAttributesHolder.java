@@ -1,7 +1,10 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.unit.stats;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
@@ -19,6 +22,7 @@ public final class JPAEditableAttributesHolder implements
     private final ValueBox          actions;
     private final ValueBox          agility;
     private final ValueBox          combat;
+    @Transient
     private final EventListenerList listeners = new EventListenerList();
     private final ValueBox          precision;
     private final ValueBox          strength;
@@ -65,42 +69,49 @@ public final class JPAEditableAttributesHolder implements
     }
 
     @Column(name = "actions")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getActions() {
         return getActionsValueBox().getValue();
     }
 
     @Column(name = "agility")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getAgility() {
         return getAgilityValueBox().getValue();
     }
 
     @Column(name = "combat")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getCombat() {
         return getCombatValueBox().getValue();
     }
 
     @Column(name = "precision")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getPrecision() {
         return getPrecisionValueBox().getValue();
     }
 
     @Column(name = "strength")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getStrength() {
         return getStrengthValueBox().getValue();
     }
 
     @Column(name = "tech")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getTech() {
         return getTechValueBox().getValue();
     }
 
     @Column(name = "toughness")
+    @Access(value = AccessType.PROPERTY)
     @Override
     public final Integer getToughness() {
         return getToughnessValueBox().getValue();

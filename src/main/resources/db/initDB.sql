@@ -7,6 +7,11 @@ DROP TABLE special_rules IF EXISTS;
 DROP TABLE faction_view_config IF EXISTS;
 
 DROP TABLE armor_rules IF EXISTS;
+DROP TABLE unit_template_rules IF EXISTS;
+
+DROP TABLE faction_units IF EXISTS;
+DROP TABLE faction_unit_constraints IF EXISTS;
+DROP TABLE constraints_data IF EXISTS;
 
 
 CREATE TABLE factions (
@@ -67,3 +72,24 @@ CREATE TABLE unit_template_rules (
 ALTER TABLE unit_template_rules ADD CONSTRAINT fk_unit_template_rules_template FOREIGN KEY (template_id) REFERENCES unit_templates (id);
 ALTER TABLE unit_template_rules ADD CONSTRAINT fk_unit_template_rules_rule FOREIGN KEY (rule_id) REFERENCES special_rules (id);
 
+
+CREATE TABLE faction_units (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	faction_id		INTEGER NOT NULL,
+	template_id		INTEGER NOT NULL
+);
+ALTER TABLE faction_units ADD CONSTRAINT fk_faction_units_faction FOREIGN KEY (faction_id) REFERENCES factions (id);
+ALTER TABLE faction_units ADD CONSTRAINT fk_faction_units_template FOREIGN KEY (template_id) REFERENCES unit_templates (id);
+
+CREATE TABLE constraints_data (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	name			VARCHAR(30),
+	context			VARCHAR(50)
+);
+
+CREATE TABLE faction_unit_constraints (
+	faction_unit_id	INTEGER NOT NULL,
+  	constraint_id	INTEGER NOT NULL
+);
+ALTER TABLE faction_unit_constraints ADD CONSTRAINT fk_faction_unit_constraints_faction_unit FOREIGN KEY (faction_unit_id) REFERENCES faction_units (id);
+ALTER TABLE faction_unit_constraints ADD CONSTRAINT fk_faction_unit_constraints_constraint FOREIGN KEY (constraint_id) REFERENCES constraints_data (id);

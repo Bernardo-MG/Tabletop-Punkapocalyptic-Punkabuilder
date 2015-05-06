@@ -45,3 +45,23 @@ INSERT INTO unit_template_rules (template_id, rule_id) VALUES (1, 9);
 INSERT INTO unit_template_rules (template_id, rule_id) VALUES (7, 10);
 INSERT INTO unit_template_rules (template_id, rule_id) VALUES (7, 11);
 INSERT INTO unit_template_rules (template_id, rule_id) VALUES (9, 12);
+
+
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (1, 1, 3);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (2, 1, 4);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (3, 1, 5);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (4, 1, 6);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (5, 1, 10);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (6, 2, 1);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (7, 2, 8);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (8, 2, 2);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (9, 2, 7);
+INSERT INTO faction_units (id, faction_id, template_id) VALUES (10, 2, 9);
+
+INSERT INTO constraints_data (id, name, context) VALUES (1, 'unique', '');
+INSERT INTO constraints_data (id, name, context) VALUES (2, 'up_to_half_points', '');
+INSERT INTO constraints_data (id, name, context) VALUES (3, 'dependant', 'bobblehead,2');
+
+INSERT INTO faction_unit_constraints (faction_unit_id, constraint_id) VALUES (1, 1);
+INSERT INTO faction_unit_constraints (faction_unit_id, constraint_id) VALUES (5, 2);
+INSERT INTO faction_unit_constraints (faction_unit_id, constraint_id) VALUES (6, 3);

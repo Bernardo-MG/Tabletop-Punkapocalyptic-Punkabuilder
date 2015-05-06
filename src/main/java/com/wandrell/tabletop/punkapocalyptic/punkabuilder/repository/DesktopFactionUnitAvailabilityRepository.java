@@ -1,66 +1,52 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.FactionUnitAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 
 @Component("factionUnitRepo")
-public final class DesktopFactionUnitAvailabilityRepository implements
+public final class DesktopFactionUnitAvailabilityRepository extends
+        JPARepository<FactionUnitAvailability> implements
         FactionUnitAvailabilityRepository {
 
-    private final FilteredRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>> baseRepo;
-
     public DesktopFactionUnitAvailabilityRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<FactionUnitAvailability>();
-    }
-
-    @Override
-    public final void add(final FactionUnitAvailability entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<FactionUnitAvailability> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData(
+                "SELECT ava FROM FactionUnitAvailability ava"));
     }
 
     @Override
     public final Collection<FactionUnitAvailability>
             getAvailabilitiesForFaction(final String faction) {
-        return getBaseRepository().getCollection(
-                new Predicate<FactionUnitAvailability>() {
+        final Map<String, Object> params;
 
-                    @Override
-                    public boolean apply(FactionUnitAvailability input) {
-                        return input.getFaction().getNameToken()
-                                .equals(faction);
-                    }
+        params = new LinkedHashMap<>();
+        params.put("faction", faction);
 
-                });
+        return getCollection(new DefaultQueryData(
+                "SELECT ava FROM FactionUnitAvailability ava WHERE ava.faction.nameToken = :faction",
+                params));
     }
 
     @Override
     public final FactionUnitAvailability getAvailabilityForUnit(
             final String unit) {
-        return getBaseRepository().getEntity(
-                new Predicate<FactionUnitAvailability>() {
+        final Map<String, Object> params;
 
-                    @Override
-                    public boolean apply(FactionUnitAvailability input) {
-                        return input.getUnit().getNameToken().equals(unit);
-                    }
+        params = new LinkedHashMap<>();
+        params.put("unit", unit);
 
-                });
+        return getEntity(new DefaultQueryData(
+                "SELECT ava FROM FactionUnitAvailability ava WHERE ava.unitTemplate.nameToken = :unit",
+                params));
     }
 
     @Override
@@ -68,6 +54,8 @@ public final class DesktopFactionUnitAvailabilityRepository implements
             final String faction) {
         final Collection<UnitTemplate> result;
         final Collection<FactionUnitAvailability> avas;
+
+        // TODO: This maybe can be done somehow else
 
         avas = getAvailabilitiesForFaction(faction);
 
@@ -77,22 +65,6 @@ public final class DesktopFactionUnitAvailabilityRepository implements
         }
 
         return result;
-    }
-
-    @Override
-    public final void remove(final FactionUnitAvailability entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(FactionUnitAvailability entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final
-            FilteredRepository<FactionUnitAvailability, Predicate<FactionUnitAvailability>>
-            getBaseRepository() {
-        return baseRepo;
     }
 
 }
