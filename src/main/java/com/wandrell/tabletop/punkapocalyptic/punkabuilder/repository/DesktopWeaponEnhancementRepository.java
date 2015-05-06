@@ -1,66 +1,45 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 
 @Component("enhancementRepo")
-public final class DesktopWeaponEnhancementRepository implements
-        WeaponEnhancementRepository {
-
-    private final FilteredRepository<WeaponEnhancement, Predicate<WeaponEnhancement>> baseRepo;
+public final class DesktopWeaponEnhancementRepository extends
+        JPARepository<WeaponEnhancement> implements WeaponEnhancementRepository {
 
     public DesktopWeaponEnhancementRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<WeaponEnhancement>();
-    }
-
-    @Override
-    public final void add(final WeaponEnhancement entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<WeaponEnhancement> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData(
+                "SELECT enhancement FROM WeaponEnhancement enhancement"));
     }
 
     @Override
     public final Collection<WeaponEnhancement> getByNamesList(
             final Collection<String> names) {
-        return getBaseRepository().getCollection(
-                new Predicate<WeaponEnhancement>() {
+        final Map<String, Object> params;
+        final StringBuilder namesResult;
 
-                    @Override
-                    public final boolean apply(
-                            final WeaponEnhancement enhancement) {
-                        return names.contains(enhancement.getName());
-                    }
+        namesResult = new StringBuilder();
+        for (final String name : names) {
+            if (namesResult.length() > 0) {
+                namesResult.append(", ");
+            }
+            namesResult.append(name);
+        }
 
-                });
-    }
+        params = new LinkedHashMap<>();
+        params.put("enhancements", namesResult.toString());
 
-    @Override
-    public final void remove(final WeaponEnhancement entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final WeaponEnhancement entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final
-            FilteredRepository<WeaponEnhancement, Predicate<WeaponEnhancement>>
-            getBaseRepository() {
-        return baseRepo;
+        return getCollection(new DefaultQueryData(
+                "SELECT enhancement FROM WeaponEnhancement enhancement WHERE enhancement.name in (:enhancements)",
+                params));
     }
 
 }

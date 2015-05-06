@@ -34,6 +34,8 @@ INSERT INTO armors (id, name, armor) VALUES (6, 'metal_plate', 5);
 
 INSERT INTO equipment (id, name, cost) VALUES (1, 'biohazard_protection', 8);
 
+INSERT INTO weapon_enhancement (id, name, firearm) VALUES (1, 'bayonet', true);
+
 INSERT INTO faction_view_config (id, faction_id, image) VALUES (1, 1, 'images/logo_gangers_small.jpg');
 INSERT INTO faction_view_config (id, faction_id, image) VALUES (2, 2, 'images/logo_mutants_small.jpg');
 

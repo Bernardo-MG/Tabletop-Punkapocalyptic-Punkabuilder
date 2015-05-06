@@ -2,6 +2,7 @@ DROP TABLE factions IF EXISTS;
 DROP TABLE unit_templates IF EXISTS;
 DROP TABLE armors IF EXISTS;
 DROP TABLE equipment IF EXISTS;
+DROP TABLE weapon_enhancement IF EXISTS;
 DROP TABLE special_rules IF EXISTS;
 
 DROP TABLE faction_view_config IF EXISTS;
@@ -42,6 +43,13 @@ CREATE TABLE equipment (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(30),
 	cost			INTEGER
+);
+
+CREATE TABLE weapon_enhancement (
+	id				INTEGER IDENTITY PRIMARY KEY,
+	name			VARCHAR(30),
+	cost			INTEGER,
+	firearm			BOOLEAN
 );
 
 CREATE TABLE special_rules (

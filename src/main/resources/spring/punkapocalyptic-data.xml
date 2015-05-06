@@ -14,8 +14,6 @@
 		<ref bean="readerModelWeaponMelee" />
 		<!-- Ranged weapons -->
 		<ref bean="readerModelWeaponRanged" />
-		<!-- Weapon enhancements -->
-		<ref bean="readerModelWeaponEnhancement" />
 		<!-- Faction weapon enhancements -->
 		<ref bean="readerModelFactionWeaponEnhancement" />
 		<!-- Unit armors -->
@@ -99,12 +97,6 @@
 		factory-method="getClassPathReader">
 		<constructor-arg type="java.lang.String"
 			value="${model.conf.weapon.ranged.file}" />
-	</bean>
-
-	<!-- Weapon enhancement readers -->
-	<bean id="readerModelWeaponEnhancement" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String" value="${model.conf.enhancement.file}" />
 	</bean>
 
 	<!-- MUTATION -->

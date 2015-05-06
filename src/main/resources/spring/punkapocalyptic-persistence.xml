@@ -60,8 +60,6 @@
 
 	<!-- ========================= DATASOURCE DEFINITION ========================= -->
 
-	<!-- DataSource configuration for the tomcat jdbc connection pool See here 
-		for more details on commons-dbcp versus tomcat-jdbc: http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/ -->
 	<bean id="dataSource" class="${jdbc.datasource.class}">
 		<constructor-arg ref="dataSourceConfig" />
 	</bean>
@@ -75,7 +73,6 @@
 
 	<!-- Database initializer. If any of the script fails, the initialization 
 		stops. -->
-	<!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
 	<jdbc:initialize-database data-source="dataSource">
 		<jdbc:script location="${jdbc.initLocation}" />
 		<jdbc:script location="${jdbc.dataLocation}" />
