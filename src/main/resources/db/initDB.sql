@@ -24,6 +24,8 @@ DROP TABLE unit_armor_options IF EXISTS;
 DROP TABLE unit_equipment_equipment IF EXISTS;
 DROP TABLE unit_equipment IF EXISTS;
 
+DROP TABLE unit_mutations_mutations IF EXISTS;
+DROP TABLE unit_mutations IF EXISTS;
 
 CREATE TABLE factions (
 	id				INTEGER IDENTITY PRIMARY KEY,
@@ -191,3 +193,18 @@ CREATE TABLE unit_equipment_equipment (
 );
 ALTER TABLE unit_equipment_equipment ADD CONSTRAINT fk_unit_equipment_equipment_unit_equipment FOREIGN KEY (unit_equipment_id) REFERENCES unit_equipment (id);
 ALTER TABLE unit_equipment_equipment ADD CONSTRAINT fk_unit_equipment_equipment_equipment FOREIGN KEY (equipment_id) REFERENCES equipment (id);
+
+
+CREATE TABLE unit_mutations (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	unit			INTEGER NOT NULL,
+  	max				INTEGER
+);
+ALTER TABLE unit_mutations ADD CONSTRAINT fk_unit_mutations_unit FOREIGN KEY (unit) REFERENCES unit_templates (id);
+
+CREATE TABLE unit_mutations_mutations (
+	unit_mutation_id	INTEGER NOT NULL,
+  	mutation_id			INTEGER NOT NULL
+);
+ALTER TABLE unit_mutations_mutations ADD CONSTRAINT fk_unit_mutations_mutations_unit_mutation FOREIGN KEY (unit_mutation_id) REFERENCES unit_mutations (id);
+ALTER TABLE unit_mutations_mutations ADD CONSTRAINT fk_unit_unit_mutations_mutations_mutation FOREIGN KEY (mutation_id) REFERENCES mutations (id);

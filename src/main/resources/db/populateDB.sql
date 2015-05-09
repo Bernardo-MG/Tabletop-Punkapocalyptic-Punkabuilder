@@ -184,3 +184,14 @@ INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (2
 INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (3, 1);
 INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (4, 1);
 INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (5, 1);
+
+
+INSERT INTO unit_mutations (id, unit, max) VALUES (1, 8, 3);
+INSERT INTO unit_mutations (id, unit, max) VALUES (2, 9, 1);
+
+INSERT INTO unit_mutations_mutations (unit_mutation_id, mutation_id) VALUES (2, 2);
+INSERT INTO unit_mutations_mutations (unit_mutation_id, mutation_id) VALUES (2, 3);
+INSERT INTO unit_mutations_mutations (unit_mutation_id, mutation_id) VALUES (2, 5);
+INSERT INTO unit_mutations_mutations (unit_mutation_id, mutation_id) VALUES (2, 10);
+INSERT INTO unit_mutations_mutations (unit_mutation_id, mutation_id) VALUES (2, 19);
+INSERT INTO unit_mutations_mutations (unit_mutation_id, mutation_id) VALUES (2, 20);

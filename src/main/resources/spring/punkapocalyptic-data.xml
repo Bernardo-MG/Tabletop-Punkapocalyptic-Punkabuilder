@@ -16,8 +16,6 @@
 		<ref bean="readerModelUnitWeapon" />
 		<!-- Unit weapon enhancements -->
 		<ref bean="readerModelUnitEnhancement" />
-		<!-- Unit mutations -->
-		<ref bean="readerModelUnitMutation" />
 	</util:list>
 
 	<util:map id="repositoryMap">
@@ -96,13 +94,6 @@
 		factory-method="getClassPathReader">
 		<constructor-arg type="java.lang.String"
 			value="${model.conf.availability.enhancement.unit.file}" />
-	</bean>
-
-	<!-- Unit mutation readers -->
-	<bean id="readerModelUnitMutation" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.availability.mutation.unit.file}" />
 	</bean>
 
 </beans>

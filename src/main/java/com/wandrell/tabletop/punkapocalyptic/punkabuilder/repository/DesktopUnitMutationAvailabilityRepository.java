@@ -1,64 +1,35 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
-import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitMutationAvailabilityRepository;
 
 @Component("unitMutationRepo")
-public final class DesktopUnitMutationAvailabilityRepository implements
+public final class DesktopUnitMutationAvailabilityRepository extends
+        JPARepository<UnitMutationAvailability> implements
         UnitMutationAvailabilityRepository {
 
-    private final FilteredRepository<UnitMutationAvailability, Predicate<UnitMutationAvailability>> baseRepo;
-
     public DesktopUnitMutationAvailabilityRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<UnitMutationAvailability>();
-    }
-
-    @Override
-    public final void add(final UnitMutationAvailability entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<UnitMutationAvailability> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData(
+                "SELECT ava FROM UnitMutationAvailability ava"));
     }
 
     @Override
     public final UnitMutationAvailability getAvailabilityForUnit(String unit) {
-        return getBaseRepository().getEntity(
-                new Predicate<UnitMutationAvailability>() {
+        final Map<String, Object> params;
 
-                    @Override
-                    public boolean apply(UnitMutationAvailability input) {
-                        return input.getUnit().getNameToken().equals(unit);
-                    }
+        params = new LinkedHashMap<>();
+        params.put("unit", unit);
 
-                });
-    }
-
-    @Override
-    public final void remove(final UnitMutationAvailability entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final UnitMutationAvailability entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final
-            FilteredRepository<UnitMutationAvailability, Predicate<UnitMutationAvailability>>
-            getBaseRepository() {
-        return baseRepo;
+        return getEntity(new DefaultQueryData(
+                "SELECT ava FROM UnitMutationAvailability ava WHERE ava.unit.name = :unit",
+                params));
     }
 
 }

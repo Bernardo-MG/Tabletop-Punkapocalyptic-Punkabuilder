@@ -21,12 +21,9 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitMutationsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitWeaponsParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitMutationsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitWeaponsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFileCombinerParser;
-import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
@@ -93,9 +90,6 @@ public final class DefaultDataBuilder implements
     }
 
     private final void buildTransactions(final Document doc) {
-        buildTransactions(
-                filterDocument(doc, "//unit_mutations/unit_mutation"),
-                new UnitMutationsTransactionParser(), "unit_mutation");
         buildTransactions(filterDocument(doc, "//unit_weapon"),
                 new UnitWeaponsTransactionParser(), "unit_weapon");
     }
@@ -121,8 +115,6 @@ public final class DefaultDataBuilder implements
 
         unitRepo = (UnitTemplateRepository) repos.get("unit");
 
-        saveTransactions("unit_mutation", new TransactionUnitMutationsParser(
-                unitRepo, (MutationRepository) repos.get("mutation")));
         saveTransactions("unit_weapon", new TransactionUnitWeaponsParser(
                 unitRepo, (WeaponRepository) repos.get("weapon"),
                 (WeaponEnhancementRepository) repos.get("enhancement")));

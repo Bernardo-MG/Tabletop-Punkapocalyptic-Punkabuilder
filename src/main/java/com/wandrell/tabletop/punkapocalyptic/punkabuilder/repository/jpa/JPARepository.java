@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -61,6 +62,7 @@ public class JPARepository<V> implements FilteredRepository<V, QueryData> {
     @Override
     public final V getEntity(final QueryData filter) {
         final Query query;
+        V result;
 
         query = getEntityManager().createQuery(filter.getQuery());
 
@@ -69,7 +71,13 @@ public class JPARepository<V> implements FilteredRepository<V, QueryData> {
             query.setParameter(entry.getKey(), entry.getValue());
         }
 
-        return (V) query.getSingleResult();
+        try {
+            result = (V) query.getSingleResult();
+        } catch (final NoResultException exception) {
+            result = null;
+        }
+
+        return result;
     }
 
     @Override
