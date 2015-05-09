@@ -24,7 +24,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.inventory.Armor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
@@ -176,7 +176,7 @@ public final class DefaultModelService implements ModelService {
     }
 
     @Override
-    public final WeaponOption getWeaponOption(final UnitWeapon weapon,
+    public final WeaponOption getWeaponOption(final Weapon weapon,
             final Collection<WeaponEnhancement> enhancements) {
         return getFactory().getWeaponOption(weapon, enhancements);
     }

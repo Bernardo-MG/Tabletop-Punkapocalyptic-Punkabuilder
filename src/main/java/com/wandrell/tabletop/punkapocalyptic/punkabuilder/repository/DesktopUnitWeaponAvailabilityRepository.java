@@ -11,6 +11,7 @@ import com.wandrell.pattern.repository.CollectionRepository;
 import com.wandrell.pattern.repository.FilteredRepository;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultUnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
@@ -62,7 +63,7 @@ public final class DesktopUnitWeaponAvailabilityRepository implements
         weaponOptions = new LinkedList<>();
         if (ava != null) {
             for (final WeaponOption option : ava.getWeaponOptions()) {
-                weaponOptions.add(option.getWeapon());
+                weaponOptions.add(new DefaultUnitWeapon(option.getWeapon()));
             }
         }
 
@@ -87,8 +88,8 @@ public final class DesktopUnitWeaponAvailabilityRepository implements
                                 @Override
                                 public final boolean apply(
                                         final WeaponOption input) {
-                                    return input.getWeapon().getTemplate()
-                                            .getName().equals(weapon);
+                                    return input.getWeapon().getName()
+                                            .equals(weapon);
                                 }
 
                             }).iterator().next();
