@@ -21,10 +21,6 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.MeleeWeaponTransactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.RangedWeaponTransactionParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionMeleeWeaponParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionRangedWeaponParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitArmorsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitMutationsParser;
@@ -37,7 +33,6 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFi
 import com.wandrell.tabletop.punkapocalyptic.repository.ArmorRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
-import com.wandrell.tabletop.punkapocalyptic.repository.SpecialRuleRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponRepository;
@@ -104,10 +99,6 @@ public final class DefaultDataBuilder implements
     }
 
     private final void buildTransactions(final Document doc) {
-        buildTransactions(filterDocument(doc, "//weapon_melee_profile"),
-                new MeleeWeaponTransactionParser(), "weapon_melee");
-        buildTransactions(filterDocument(doc, "//weapon_ranged_profile"),
-                new RangedWeaponTransactionParser(), "weapon_ranged");
         buildTransactions(
                 filterDocument(doc, "//unit_mutations/unit_mutation"),
                 new UnitMutationsTransactionParser(), "unit_mutation");
@@ -136,17 +127,9 @@ public final class DefaultDataBuilder implements
     }
 
     private final void saveTransactions() {
-        final SpecialRuleRepository ruleRepo;
         final UnitTemplateRepository unitRepo;
 
-        ruleRepo = (SpecialRuleRepository) repos.get("rule");
         unitRepo = (UnitTemplateRepository) repos.get("unit");
-
-        saveTransactions("weapon_melee", new TransactionMeleeWeaponParser(
-                ruleRepo));
-
-        saveTransactions("weapon_ranged", new TransactionRangedWeaponParser(
-                ruleRepo));
 
         saveTransactions("unit_mutation", new TransactionUnitMutationsParser(
                 unitRepo, (MutationRepository) repos.get("mutation")));

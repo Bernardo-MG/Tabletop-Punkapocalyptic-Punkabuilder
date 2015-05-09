@@ -32,6 +32,43 @@ INSERT INTO armors (id, name, armor) VALUES (4, 'bulletproof_vest', 3);
 INSERT INTO armors (id, name, armor) VALUES (5, 'metallic_armor', 4);
 INSERT INTO armors (id, name, armor) VALUES (6, 'metal_plate', 5);
 
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (1, 'melee', 'claws_and_teeth', 0, false, 0, 2, 0);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (2, 'melee', 'heavy_blade', 8, true, 0, 4, 3);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (3, 'melee', 'heavy_mace', 6, true, -1, 2, 4);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (4, 'melee', 'improvised_weapon', 0, false, -1, 0, 0);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (5, 'melee', 'light_mace', 3, false, 0, 0, 1);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (6, 'melee', 'mace', 5, false, 0, 1, 2);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (7, 'melee', 'medium_blade', 10, false, 1, 3, 2);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (8, 'melee', 'shield', 6, true, 0, 0, 0);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (9, 'melee', 'small_blade', 5, false, 0, 2, 1);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, combat, penetration, strength) 
+	VALUES (10, 'melee', 'unarmed', 0, false, -2, 0, 0);
+
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (11, 'ranged', 'automatic_rifle', 10, true, true, 30, 60, 90, 12, 24, 36, 5, 5, 5, 6, 6, 6);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (12, 'ranged', 'bow', 10, true, false, 20, 40, 60, 8, 16, 24, 2, 2, 2, 3, 3, 3);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (13, 'ranged', 'crossbow', 8, true, false, 15, 30, 45, 6, 12, 18, 3, 3, 3, 4, 4, 4);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (14, 'ranged', 'pistol', 5, false, true, 15, 30, 45, 6, 12, 18, 4, 4, 4, 6, 6, 6);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (15, 'ranged', 'rifle', 8, true, true, 30, 60, 90, 12, 24, 36, 5, 5, 5, 6, 6, 6);
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (16, 'ranged', 'shotgun', 6, true, true, 10, 20, 30, 4, 8, 12, 3, 3, 3, 7, 6, 5);
+
+INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm, medium_cm, long_cm, short_inches, medium_inches, long_inches, short_penetration, medium_penetration, long_penetration, short_strength, medium_strength, long_strength) 
+	VALUES (17, 'ranged_strength', 'throwing_knife', 3, false, false, 5, 10, 15, 2, 4, 6, 2, 1, 0, 0, -1, -2);
+
 INSERT INTO equipment (id, name, cost) VALUES (1, 'biohazard_protection', 8);
 
 INSERT INTO weapon_enhancement (id, name, firearm) VALUES (1, 'bayonet', true);
@@ -65,6 +102,21 @@ INSERT INTO faction_view_config (id, faction_id, image) VALUES (2, 2, 'images/lo
 
 
 INSERT INTO armor_rules (armor_id, rule_id) VALUES (6, 1);
+
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (2, 1);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (2, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (3, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (8, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (12, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (12, 5);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (12, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (12, 6);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (13, 4);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (14, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (14, 4);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (15, 2);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (15, 4);
+INSERT INTO weapon_rules (weapon_id, rule_id) VALUES (15, 7);
 
 INSERT INTO unit_template_rules (template_id, rule_id) VALUES (1, 8);
 INSERT INTO unit_template_rules (template_id, rule_id) VALUES (1, 9);

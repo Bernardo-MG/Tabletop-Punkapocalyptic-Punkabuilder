@@ -10,10 +10,6 @@
 		base-package="com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util" />
 
 	<util:list id="dataSources" value-type="java.io.Reader">
-		<!-- Melee weapons -->
-		<ref bean="readerModelWeaponMelee" />
-		<!-- Ranged weapons -->
-		<ref bean="readerModelWeaponRanged" />
 		<!-- Faction weapon enhancements -->
 		<ref bean="readerModelFactionWeaponEnhancement" />
 		<!-- Unit armors -->
@@ -80,22 +76,6 @@
 	</util:map>
 
 	<!-- MODEL SERVICE READERS -->
-
-	<!-- INVENTORY -->
-
-	<!-- Melee weapon readers -->
-	<bean id="readerModelWeaponMelee" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.weapon.melee.file}" />
-	</bean>
-
-	<!-- Ranged weapon readers -->
-	<bean id="readerModelWeaponRanged" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.weapon.ranged.file}" />
-	</bean>
 
 	<!-- FACTION -->
 

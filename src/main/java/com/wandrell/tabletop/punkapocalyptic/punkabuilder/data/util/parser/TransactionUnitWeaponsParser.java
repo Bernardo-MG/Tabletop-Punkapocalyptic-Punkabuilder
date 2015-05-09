@@ -9,6 +9,8 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.DefaultUnitWeapo
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.DefaultWeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultUnitWeapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
@@ -37,7 +39,7 @@ public final class TransactionUnitWeaponsParser implements
     @Override
     public final UnitWeaponAvailability parse(final Map<String, Object> input) {
         final UnitTemplate unit;
-        final Collection<Weapon> weapons;
+        final Collection<UnitWeapon> weapons;
         final Collection<WeaponEnhancement> enhancements;
         final Collection<String> weaponNames;
         final Collection<String> enhancementNames;
@@ -49,16 +51,19 @@ public final class TransactionUnitWeaponsParser implements
         unit = unitsRepo.getByNameToken(input.get("unit").toString());
 
         weaponNames = (Collection<String>) input.get("weapons");
-        weapons = weaponsRepo.getByNamesList(weaponNames);
+        weapons = new LinkedList<>();
+        for (final Weapon weapon : weaponsRepo.getByNamesList(weaponNames)) {
+            weapons.add(new DefaultUnitWeapon(weapon));
+        }
 
         enhancementNames = (Collection<String>) input.get("enhancements");
         enhancements = enhancementsRepo.getByNamesList(enhancementNames);
 
         options = new LinkedList<>();
-        for (final Weapon weapon : weapons) {
+        for (final UnitWeapon weapon : weapons) {
             validEnhancements = new LinkedList<>();
             for (final WeaponEnhancement enhancement : enhancements) {
-                if (enhancement.isValid(weapon)) {
+                if (enhancement.isValid(weapon.getTemplate())) {
                     validEnhancements.add(enhancement);
                 }
             }

@@ -1,6 +1,7 @@
 DROP TABLE factions IF EXISTS;
 DROP TABLE unit_templates IF EXISTS;
 DROP TABLE armors IF EXISTS;
+DROP TABLE weapons IF EXISTS;
 DROP TABLE equipment IF EXISTS;
 DROP TABLE weapon_enhancement IF EXISTS;
 DROP TABLE special_rules IF EXISTS;
@@ -9,6 +10,7 @@ DROP TABLE mutations IF EXISTS;
 DROP TABLE faction_view_config IF EXISTS;
 
 DROP TABLE armor_rules IF EXISTS;
+DROP TABLE weapon_rules IF EXISTS;
 DROP TABLE unit_template_rules IF EXISTS;
 
 DROP TABLE faction_units IF EXISTS;
@@ -38,6 +40,30 @@ CREATE TABLE armors (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(30),
 	armor			INTEGER
+);
+
+CREATE TABLE weapons (
+	id					INTEGER IDENTITY PRIMARY KEY,
+	weapon_type			VARCHAR(30),
+	name				VARCHAR(30),
+	cost				INTEGER,
+	two_handed			BOOLEAN,
+	firearm				BOOLEAN,
+	combat				INTEGER,
+	penetration			INTEGER,
+	strength			INTEGER,
+	short_cm			INTEGER,
+	medium_cm			INTEGER,
+	long_cm				INTEGER,
+	short_inches		INTEGER,
+	medium_inches		INTEGER,
+	long_inches			INTEGER,
+	short_penetration	INTEGER,
+	medium_penetration	INTEGER,
+	long_penetration	INTEGER,
+	short_strength		INTEGER,
+	medium_strength		INTEGER,
+	long_strength		INTEGER
 );
 
 CREATE TABLE equipment (
@@ -86,6 +112,13 @@ CREATE TABLE armor_rules (
 );
 ALTER TABLE armor_rules ADD CONSTRAINT fk_armor_rules_armor FOREIGN KEY (armor_id) REFERENCES armors (id);
 ALTER TABLE armor_rules ADD CONSTRAINT fk_armor_rules_rule FOREIGN KEY (rule_id) REFERENCES special_rules (id);
+
+CREATE TABLE weapon_rules (
+	weapon_id		INTEGER NOT NULL,
+  	rule_id			INTEGER NOT NULL
+);
+ALTER TABLE weapon_rules ADD CONSTRAINT fk_weapon_rules_weapon FOREIGN KEY (weapon_id) REFERENCES weapons (id);
+ALTER TABLE weapon_rules ADD CONSTRAINT fk_weapon_rules_rule FOREIGN KEY (rule_id) REFERENCES special_rules (id);
 
 CREATE TABLE unit_template_rules (
 	template_id		INTEGER NOT NULL,

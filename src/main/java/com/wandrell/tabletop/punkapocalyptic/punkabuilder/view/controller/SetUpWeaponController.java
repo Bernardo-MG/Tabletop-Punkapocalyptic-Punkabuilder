@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitDependantWeapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
@@ -42,37 +43,37 @@ import com.wandrell.tabletop.punkapocalyptic.util.WeaponUtils;
 public final class SetUpWeaponController {
 
     @FXML
-    private Label                          cmLongLabel;
+    private Label                            cmLongLabel;
     @FXML
-    private Label                          cmMediumLabel;
+    private Label                            cmMediumLabel;
     @FXML
-    private Label                          cmShortLabel;
+    private Label                            cmShortLabel;
     @FXML
-    private Label                          combatLabel;
-    private Weapon                         current;
-    private ObservableList<Node>           enhancementNodes;
+    private Label                            combatLabel;
+    private UnitWeapon                       current;
+    private ObservableList<Node>             enhancementNodes;
     @FXML
-    private Pane                           enhancementPane;
+    private Pane                             enhancementPane;
     @FXML
-    private Label                          inchLongLabel;
+    private Label                            inchLongLabel;
     @FXML
-    private Label                          inchMediumLabel;
+    private Label                            inchMediumLabel;
     @FXML
-    private Label                          inchShortLabel;
+    private Label                            inchShortLabel;
     @FXML
-    private Label                          penetrationLabel;
+    private Label                            penetrationLabel;
     @FXML
-    private Button                         pickButton;
+    private Button                           pickButton;
     @FXML
-    private ListView<SpecialRule>          specialRulesList;
+    private ListView<SpecialRule>            specialRulesList;
     @FXML
-    private Label                          strengthLabel;
-    private Unit                           unit;
-    private final UnitConfigurationManager unitConfigManager;
+    private Label                            strengthLabel;
+    private Unit                             unit;
+    private final UnitConfigurationManager   unitConfigManager;
     @FXML
-    private ComboBox<Weapon>               weaponCombo;
-    private final ObservableList<Weapon>   weapons = FXCollections
-                                                           .observableArrayList();
+    private ComboBox<UnitWeapon>             weaponCombo;
+    private final ObservableList<UnitWeapon> weapons = FXCollections
+                                                             .observableArrayList();
 
     @Autowired
     public SetUpWeaponController(
@@ -214,11 +215,11 @@ public final class SetUpWeaponController {
         return unitConfigManager;
     }
 
-    private final ComboBox<Weapon> getWeaponComboBox() {
+    private final ComboBox<UnitWeapon> getWeaponComboBox() {
         return weaponCombo;
     }
 
-    private final ObservableList<Weapon> getWeapons() {
+    private final ObservableList<UnitWeapon> getWeapons() {
         return weapons;
     }
 
@@ -235,7 +236,7 @@ public final class SetUpWeaponController {
                 .addListener(
                         (observable, oldValue, newValue) -> {
                             if (newValue != null) {
-                                final Weapon weapon;
+                                final UnitWeapon weapon;
 
                                 weapon = newValue;
                                 if (newValue instanceof UnitDependantWeapon) {
@@ -254,36 +255,42 @@ public final class SetUpWeaponController {
         getWeaponComboBox().setItems(getWeapons());
     }
 
-    private final void loadWeaponData(final Weapon weapon) {
+    private final void loadWeaponData(final UnitWeapon weapon) {
+        final Weapon template;
+
+        template = weapon.getTemplate();
+
         current = weapon;
-        if (weapon instanceof RangedWeapon) {
+        if (template instanceof RangedWeapon) {
             getStrengthLabel().setText(
-                    WeaponUtils.getRangedWeaponStrength((RangedWeapon) weapon));
-        } else {
-            getStrengthLabel().setText(
-                    ((MeleeWeapon) weapon).getStrength().toString());
-        }
-
-        if (weapon instanceof RangedWeapon) {
-            getPenetrationLabel().setText(
                     WeaponUtils
-                            .getRangedWeaponPenetration((RangedWeapon) weapon));
+                            .getRangedWeaponStrength((RangedWeapon) template));
         } else {
-            getPenetrationLabel().setText(
-                    ((MeleeWeapon) weapon).getPenetration().toString());
+            getStrengthLabel().setText(
+                    ((MeleeWeapon) template).getStrength().toString());
         }
 
-        if (weapon instanceof RangedWeapon) {
+        if (template instanceof RangedWeapon) {
+            getPenetrationLabel()
+                    .setText(
+                            WeaponUtils
+                                    .getRangedWeaponPenetration((RangedWeapon) template));
+        } else {
+            getPenetrationLabel().setText(
+                    ((MeleeWeapon) template).getPenetration().toString());
+        }
+
+        if (template instanceof RangedWeapon) {
             getCombatLabel().setText("-");
         } else {
             getCombatLabel().setText(
-                    ((MeleeWeapon) weapon).getCombat().toString());
+                    ((MeleeWeapon) template).getCombat().toString());
         }
 
-        if (weapon instanceof RangedWeapon) {
+        if (template instanceof RangedWeapon) {
             final RangedWeapon w;
 
-            w = (RangedWeapon) weapon;
+            w = (RangedWeapon) template;
             getInchesShortLabel().setText(
                     w.getDistancesImperialUnits().getShortValue().toString());
             getInchesMediumLabel().setText(
@@ -307,7 +314,7 @@ public final class SetUpWeaponController {
             getCMLongLabel().setText("-");
         }
 
-        getSpecialRulesList().getItems().setAll(weapon.getSpecialRules());
+        getSpecialRulesList().getItems().setAll(template.getSpecialRules());
     }
 
     private final void loadWeaponEnhancements(
@@ -344,10 +351,10 @@ public final class SetUpWeaponController {
     }
 
     private final void loadWeapons() {
-        final Comparator<Weapon> comparator;
+        final Comparator<UnitWeapon> comparator;
 
         // TODO: Get the comparator out of here
-        comparator = (Weapon o1, Weapon o2) -> o1.getCost().compareTo(
+        comparator = (UnitWeapon o1, UnitWeapon o2) -> o1.getCost().compareTo(
                 o2.getCost());
 
         getWeapons().setAll(
