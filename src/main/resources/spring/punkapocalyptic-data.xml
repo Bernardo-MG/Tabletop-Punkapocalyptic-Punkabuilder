@@ -12,8 +12,6 @@
 	<util:list id="dataSources" value-type="java.io.Reader">
 		<!-- Faction weapon enhancements -->
 		<ref bean="readerModelFactionWeaponEnhancement" />
-		<!-- Unit armors -->
-		<ref bean="readerModelUnitArmor" />
 		<!-- Unit weapons -->
 		<ref bean="readerModelUnitWeapon" />
 		<!-- Unit equipment -->
@@ -94,13 +92,6 @@
 	</bean>
 
 	<!-- UNIT -->
-
-	<!-- Unit armor readers -->
-	<bean id="readerModelUnitArmor" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.availability.armor.file}" />
-	</bean>
 
 	<!-- Unit weapon readers -->
 	<bean id="readerModelUnitWeapon" class="com.wandrell.util.ResourceUtils"

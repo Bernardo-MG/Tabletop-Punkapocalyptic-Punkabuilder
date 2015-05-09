@@ -17,6 +17,10 @@ DROP TABLE faction_units IF EXISTS;
 DROP TABLE faction_unit_constraints IF EXISTS;
 DROP TABLE constraints_data IF EXISTS;
 
+DROP TABLE unit_armors IF EXISTS;
+DROP TABLE armor_options IF EXISTS;
+DROP TABLE unit_armor_options IF EXISTS;
+
 
 CREATE TABLE factions (
 	id				INTEGER IDENTITY PRIMARY KEY,
@@ -148,3 +152,26 @@ CREATE TABLE faction_unit_constraints (
 );
 ALTER TABLE faction_unit_constraints ADD CONSTRAINT fk_faction_unit_constraints_faction_unit FOREIGN KEY (faction_unit_id) REFERENCES faction_units (id);
 ALTER TABLE faction_unit_constraints ADD CONSTRAINT fk_faction_unit_constraints_constraint FOREIGN KEY (constraint_id) REFERENCES constraints_data (id);
+
+CREATE TABLE unit_armors (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	initial_armor	INTEGER NOT NULL,
+	unit			INTEGER NOT NULL
+);
+ALTER TABLE unit_armors ADD CONSTRAINT fk_unit_armors_armor FOREIGN KEY (initial_armor) REFERENCES armors (id);
+ALTER TABLE unit_armors ADD CONSTRAINT fk_unit_armors_unit FOREIGN KEY (unit) REFERENCES unit_templates (id);
+
+CREATE TABLE armor_options (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	armor			INTEGER NOT NULL,
+	cost			INTEGER
+);
+ALTER TABLE armor_options ADD CONSTRAINT fk_armor_options_armor FOREIGN KEY (armor) REFERENCES armors (id);
+
+CREATE TABLE unit_armor_options (
+	unit_armor_id	INTEGER NOT NULL,
+  	option_id	INTEGER NOT NULL
+);
+ALTER TABLE unit_armor_options ADD CONSTRAINT fk_unit_armor_options_unit_armor FOREIGN KEY (unit_armor_id) REFERENCES unit_armors (id);
+ALTER TABLE unit_armor_options ADD CONSTRAINT fk_unit_armor_options_option FOREIGN KEY (option_id) REFERENCES armor_options (id);
+

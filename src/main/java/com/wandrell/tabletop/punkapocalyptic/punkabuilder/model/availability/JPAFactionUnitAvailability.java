@@ -22,6 +22,7 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,7 +56,7 @@ public final class JPAFactionUnitAvailability implements
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer                             id          = -1;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "faction_unit_constraints", joinColumns = { @JoinColumn(
             name = "faction_unit_id", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "constraint_id",

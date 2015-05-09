@@ -21,16 +21,13 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitArmorsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitMutationsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitWeaponsParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitArmorsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitEquipmentTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitMutationsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitWeaponsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFileCombinerParser;
-import com.wandrell.tabletop.punkapocalyptic.repository.ArmorRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
@@ -104,8 +101,6 @@ public final class DefaultDataBuilder implements
                 new UnitMutationsTransactionParser(), "unit_mutation");
         buildTransactions(filterDocument(doc, "//unit_weapon"),
                 new UnitWeaponsTransactionParser(), "unit_weapon");
-        buildTransactions(filterDocument(doc, "//unit_armor"),
-                new UnitArmorsTransactionParser(), "unit_armor");
         buildTransactions(filterDocument(doc, "//unit_equipment_piece"),
                 new UnitEquipmentTransactionParser(), "unit_equipment");
     }
@@ -136,8 +131,6 @@ public final class DefaultDataBuilder implements
         saveTransactions("unit_weapon", new TransactionUnitWeaponsParser(
                 unitRepo, (WeaponRepository) repos.get("weapon"),
                 (WeaponEnhancementRepository) repos.get("enhancement")));
-        saveTransactions("unit_armor", new TransactionUnitArmorsParser(
-                unitRepo, (ArmorRepository) repos.get("armor")));
         saveTransactions("unit_equipment", new TransactionUnitEquipmentParser(
                 unitRepo, (EquipmentRepository) repos.get("equipment")));
     }

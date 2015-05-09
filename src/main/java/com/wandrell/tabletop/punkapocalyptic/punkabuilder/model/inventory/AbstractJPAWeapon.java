@@ -25,13 +25,14 @@ import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.ruleset.JPASpecialRule;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.PersistenceEntity;
 
 @Entity(name = "Weapon")
 @Inheritance
 @DiscriminatorColumn(name = "weapon_type")
 @DiscriminatorOptions(force = true)
 @Table(name = "weapons")
-public abstract class AbstractJPAWeapon implements Weapon {
+public abstract class AbstractJPAWeapon implements Weapon, PersistenceEntity {
 
     private Integer                          cost;
     @Id
@@ -70,6 +71,11 @@ public abstract class AbstractJPAWeapon implements Weapon {
     }
 
     @Override
+    public final Integer getId() {
+        return id;
+    }
+
+    @Override
     public final String getName() {
         return name;
     }
@@ -95,6 +101,11 @@ public abstract class AbstractJPAWeapon implements Weapon {
 
     public final void setCost(final Integer cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public final void setId(final Integer id) {
+        this.id = id;
     }
 
     public final void setName(final String name) {
