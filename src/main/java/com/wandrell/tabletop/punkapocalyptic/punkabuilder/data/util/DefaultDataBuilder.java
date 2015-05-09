@@ -21,14 +21,11 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.parser.Parser;
 import com.wandrell.pattern.repository.Repository;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitEquipmentParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitMutationsParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.TransactionUnitWeaponsParser;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitEquipmentTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitMutationsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.UnitWeaponsTransactionParser;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.data.util.parser.XMLFileCombinerParser;
-import com.wandrell.tabletop.punkapocalyptic.repository.EquipmentRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitTemplateRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.WeaponEnhancementRepository;
@@ -101,8 +98,6 @@ public final class DefaultDataBuilder implements
                 new UnitMutationsTransactionParser(), "unit_mutation");
         buildTransactions(filterDocument(doc, "//unit_weapon"),
                 new UnitWeaponsTransactionParser(), "unit_weapon");
-        buildTransactions(filterDocument(doc, "//unit_equipment_piece"),
-                new UnitEquipmentTransactionParser(), "unit_equipment");
     }
 
     private final Collection<Element> filterDocument(final Document doc,
@@ -131,8 +126,6 @@ public final class DefaultDataBuilder implements
         saveTransactions("unit_weapon", new TransactionUnitWeaponsParser(
                 unitRepo, (WeaponRepository) repos.get("weapon"),
                 (WeaponEnhancementRepository) repos.get("enhancement")));
-        saveTransactions("unit_equipment", new TransactionUnitEquipmentParser(
-                unitRepo, (EquipmentRepository) repos.get("equipment")));
     }
 
     @SuppressWarnings("unchecked")

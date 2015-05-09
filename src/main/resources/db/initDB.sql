@@ -21,6 +21,9 @@ DROP TABLE unit_armors IF EXISTS;
 DROP TABLE armor_options IF EXISTS;
 DROP TABLE unit_armor_options IF EXISTS;
 
+DROP TABLE unit_equipment_equipment IF EXISTS;
+DROP TABLE unit_equipment IF EXISTS;
+
 
 CREATE TABLE factions (
 	id				INTEGER IDENTITY PRIMARY KEY,
@@ -170,8 +173,21 @@ ALTER TABLE armor_options ADD CONSTRAINT fk_armor_options_armor FOREIGN KEY (arm
 
 CREATE TABLE unit_armor_options (
 	unit_armor_id	INTEGER NOT NULL,
-  	option_id	INTEGER NOT NULL
+  	option_id		INTEGER NOT NULL
 );
 ALTER TABLE unit_armor_options ADD CONSTRAINT fk_unit_armor_options_unit_armor FOREIGN KEY (unit_armor_id) REFERENCES unit_armors (id);
 ALTER TABLE unit_armor_options ADD CONSTRAINT fk_unit_armor_options_option FOREIGN KEY (option_id) REFERENCES armor_options (id);
 
+
+CREATE TABLE unit_equipment (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	unit			INTEGER NOT NULL
+);
+ALTER TABLE unit_equipment ADD CONSTRAINT fk_unit_equipment_unit FOREIGN KEY (unit) REFERENCES unit_templates (id);
+
+CREATE TABLE unit_equipment_equipment (
+	unit_equipment_id	INTEGER NOT NULL,
+  	equipment_id		INTEGER NOT NULL
+);
+ALTER TABLE unit_equipment_equipment ADD CONSTRAINT fk_unit_equipment_equipment_unit_equipment FOREIGN KEY (unit_equipment_id) REFERENCES unit_equipment (id);
+ALTER TABLE unit_equipment_equipment ADD CONSTRAINT fk_unit_equipment_equipment_equipment FOREIGN KEY (equipment_id) REFERENCES equipment (id);

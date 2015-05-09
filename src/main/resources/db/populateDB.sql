@@ -171,3 +171,16 @@ INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (4, 4);
 INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (5, 5);
 INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (5, 6);
 INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (6, 7);
+
+
+INSERT INTO unit_equipment (id, unit) VALUES (1, 3);
+INSERT INTO unit_equipment (id, unit) VALUES (2, 4);
+INSERT INTO unit_equipment (id, unit) VALUES (3, 5);
+INSERT INTO unit_equipment (id, unit) VALUES (4, 6);
+INSERT INTO unit_equipment (id, unit) VALUES (5, 10);
+
+INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (1, 1);
+INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (2, 1);
+INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (3, 1);
+INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (4, 1);
+INSERT INTO unit_equipment_equipment (unit_equipment_id, equipment_id) VALUES (5, 1);

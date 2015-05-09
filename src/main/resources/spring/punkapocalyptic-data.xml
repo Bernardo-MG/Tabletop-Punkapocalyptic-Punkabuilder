@@ -14,8 +14,6 @@
 		<ref bean="readerModelFactionWeaponEnhancement" />
 		<!-- Unit weapons -->
 		<ref bean="readerModelUnitWeapon" />
-		<!-- Unit equipment -->
-		<ref bean="readerModelUnitEquipment" />
 		<!-- Unit weapon enhancements -->
 		<ref bean="readerModelUnitEnhancement" />
 		<!-- Unit mutations -->
@@ -84,13 +82,6 @@
 			value="${model.conf.availability.enhancement.faction.file}" />
 	</bean>
 
-	<!-- Faction equipment readers -->
-	<bean id="readerModelFactionEquipment" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.availability.equipment.faction.file}" />
-	</bean>
-
 	<!-- UNIT -->
 
 	<!-- Unit weapon readers -->
@@ -98,13 +89,6 @@
 		factory-method="getClassPathReader">
 		<constructor-arg type="java.lang.String"
 			value="${model.conf.availability.weapon.file}" />
-	</bean>
-
-	<!-- Unit equipment readers -->
-	<bean id="readerModelUnitEquipment" class="com.wandrell.util.ResourceUtils"
-		factory-method="getClassPathReader">
-		<constructor-arg type="java.lang.String"
-			value="${model.conf.availability.equipment.unit.file}" />
 	</bean>
 
 	<!-- Unit weapon enhancement readers -->
