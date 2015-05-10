@@ -25,8 +25,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.RangedWeapon;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.PersistenceEntity;
 
@@ -42,8 +40,6 @@ public final class JPAWeaponEnhancement implements WeaponEnhancement,
     private Integer id = -1;
     @Column(name = "name")
     private String  name;
-    @Column(name = "firearm")
-    private Boolean requiresFirearm;
 
     public JPAWeaponEnhancement() {
         super();
@@ -74,26 +70,6 @@ public final class JPAWeaponEnhancement implements WeaponEnhancement,
         return name;
     }
 
-    public final Boolean getRequiresFirearm() {
-        return requiresFirearm;
-    }
-
-    @Override
-    public final Boolean isValid(final Weapon weapon) {
-        final Boolean valid;
-
-        checkNotNull(weapon, "Received a null pointer as weapon");
-
-        if ((getRequiresFirearm()) && (weapon instanceof RangedWeapon)
-                && (((RangedWeapon) weapon).isFirearm())) {
-            valid = true;
-        } else {
-            valid = false;
-        }
-
-        return valid;
-    }
-
     public final void setCost(final Integer cost) {
         this.cost = cost;
     }
@@ -105,10 +81,6 @@ public final class JPAWeaponEnhancement implements WeaponEnhancement,
 
     public final void setName(final String name) {
         this.name = name;
-    }
-
-    public final void setRequiresFirearm(final Boolean firearm) {
-        requiresFirearm = firearm;
     }
 
     @Override
