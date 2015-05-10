@@ -15,8 +15,8 @@ import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOpt
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultUnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
+import com.wandrell.util.persistence.JPARepository;
 
 @Component("unitWeaponRepo")
 public final class DesktopUnitWeaponAvailabilityRepository extends

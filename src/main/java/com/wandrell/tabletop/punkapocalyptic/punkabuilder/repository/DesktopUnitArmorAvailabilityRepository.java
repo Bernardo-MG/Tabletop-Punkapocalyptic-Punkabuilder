@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitArmorAvailability;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRepository;
+import com.wandrell.util.persistence.JPARepository;
 
 @Component("unitArmorRepo")
 public final class DesktopUnitArmorAvailabilityRepository extends

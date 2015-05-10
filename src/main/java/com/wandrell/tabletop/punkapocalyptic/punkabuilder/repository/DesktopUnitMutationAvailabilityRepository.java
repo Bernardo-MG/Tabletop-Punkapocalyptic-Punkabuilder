@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitMutationAvailability;
-import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitMutationAvailabilityRepository;
+import com.wandrell.util.persistence.JPARepository;
 
 @Component("unitMutationRepo")
 public final class DesktopUnitMutationAvailabilityRepository extends

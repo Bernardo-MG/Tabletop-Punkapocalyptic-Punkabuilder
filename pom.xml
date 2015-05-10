@@ -122,7 +122,7 @@
 		<controlsfx.version>8.0.6_20</controlsfx.version>
 		<dynamicreports.version>3.2.1</dynamicreports.version>
 		<h2.version>1.4.187</h2.version>
-		<hibernate.version>4.3.8.Final</hibernate.version>
+		<hibernate.version>4.3.9.Final</hibernate.version>
 		<hikari.version>2.3.7</hikari.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<snakeyaml.version>1.14</snakeyaml.version>
