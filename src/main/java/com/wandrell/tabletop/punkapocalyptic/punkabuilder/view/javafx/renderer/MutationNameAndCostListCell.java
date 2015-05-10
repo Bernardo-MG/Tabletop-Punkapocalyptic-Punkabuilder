@@ -20,7 +20,8 @@ public final class MutationNameAndCostListCell extends ListCell<Mutation> {
             setText(" ");
             setStyle("");
         } else {
-            setText(String.format(template, item.getName(), item.getCost()));
+            setText(String
+                    .format(template, item.getNameToken(), item.getCost()));
         }
     }
 

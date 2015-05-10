@@ -12,7 +12,7 @@ public final class MutationNameComparator implements Comparator<Mutation> {
 
     @Override
     public final int compare(final Mutation unit1, final Mutation unit2) {
-        return unit1.getName().compareTo(unit2.getName());
+        return unit1.getNameToken().compareTo(unit2.getNameToken());
     }
 
 }

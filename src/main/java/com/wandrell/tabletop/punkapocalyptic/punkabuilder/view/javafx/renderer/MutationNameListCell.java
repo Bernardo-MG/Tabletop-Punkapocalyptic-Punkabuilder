@@ -18,7 +18,7 @@ public final class MutationNameListCell extends ListCell<Mutation> {
             setText(" ");
             setStyle("");
         } else {
-            setText(item.getName());
+            setText(item.getNameToken());
         }
     }
 }
