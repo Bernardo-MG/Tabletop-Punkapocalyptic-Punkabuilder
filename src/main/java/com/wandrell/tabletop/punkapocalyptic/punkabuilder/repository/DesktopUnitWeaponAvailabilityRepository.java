@@ -80,7 +80,7 @@ public final class DesktopUnitWeaponAvailabilityRepository extends
                                 @Override
                                 public final boolean apply(
                                         final WeaponOption input) {
-                                    return input.getWeapon().getName()
+                                    return input.getWeapon().getNameToken()
                                             .equals(weapon);
                                 }
 

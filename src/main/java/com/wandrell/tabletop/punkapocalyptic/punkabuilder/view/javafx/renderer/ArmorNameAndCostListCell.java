@@ -21,7 +21,7 @@ public final class ArmorNameAndCostListCell extends ListCell<ArmorOption> {
             setText(" ");
             setStyle("");
         } else {
-            setText(String.format(template, item.getArmor().getName(),
+            setText(String.format(template, item.getArmor().getNameToken(),
                     item.getCost()));
         }
     }

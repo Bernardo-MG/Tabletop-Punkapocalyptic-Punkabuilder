@@ -327,7 +327,7 @@ public final class SetUpWeaponController {
         for (final WeaponEnhancement enhancement : enhancements) {
             final CheckBox check;
 
-            name = String.format(template, enhancement.getName(),
+            name = String.format(template, enhancement.getNameToken(),
                     enhancement.getCost());
 
             check = new CheckBox(name);
