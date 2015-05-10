@@ -33,7 +33,7 @@ public final class ContextFactory {
         config = FileUtils.getProperties(ResourceUtils
                 .getClassPathInputStream(SpringConf.PROPERTIES));
 
-        context = SpringUtils.getClassPathContext(config, SpringConf.FILE_DATA,
+        context = SpringUtils.getClassPathContext(config,
                 SpringConf.FILE_SERVICE, SpringConf.FILE_REPOSITORY,
                 SpringConf.FILE_PERSISTENCE, SpringConf.FILE_PROCEDURE,
                 SpringConf.FILE_CONTROLLER, SpringConf.FILE_LOCALIZATION,

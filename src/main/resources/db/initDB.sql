@@ -27,6 +27,11 @@ DROP TABLE unit_equipment IF EXISTS;
 DROP TABLE unit_mutations_mutations IF EXISTS;
 DROP TABLE unit_mutations IF EXISTS;
 
+DROP TABLE weapon_options_enhancements IF EXISTS;
+DROP TABLE weapon_options IF EXISTS;
+DROP TABLE unit_weapons_options IF EXISTS;
+DROP TABLE unit_weapons IF EXISTS;
+
 CREATE TABLE factions (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(30)
@@ -208,3 +213,32 @@ CREATE TABLE unit_mutations_mutations (
 );
 ALTER TABLE unit_mutations_mutations ADD CONSTRAINT fk_unit_mutations_mutations_unit_mutation FOREIGN KEY (unit_mutation_id) REFERENCES unit_mutations (id);
 ALTER TABLE unit_mutations_mutations ADD CONSTRAINT fk_unit_unit_mutations_mutations_mutation FOREIGN KEY (mutation_id) REFERENCES mutations (id);
+
+
+CREATE TABLE unit_weapons (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	unit			INTEGER NOT NULL,
+  	max				INTEGER,
+  	min				INTEGER
+);
+ALTER TABLE unit_weapons ADD CONSTRAINT fk_unit_weapons_unit FOREIGN KEY (unit) REFERENCES unit_templates (id);
+
+CREATE TABLE weapon_options (
+	id				INTEGER IDENTITY PRIMARY KEY,
+  	weapon			INTEGER NOT NULL
+);
+ALTER TABLE weapon_options ADD CONSTRAINT fk_weapon_options_weapon FOREIGN KEY (weapon) REFERENCES weapons (id);
+
+CREATE TABLE weapon_options_enhancements (
+	weapon_option_id	INTEGER NOT NULL,
+  	enhancement_id		INTEGER NOT NULL
+);
+ALTER TABLE weapon_options_enhancements ADD CONSTRAINT fk_weapon_options_enhancements_weapon_option FOREIGN KEY (weapon_option_id) REFERENCES weapon_options (id);
+ALTER TABLE weapon_options_enhancements ADD CONSTRAINT fk_weapon_options_enhancements_enhancement FOREIGN KEY (enhancement_id) REFERENCES weapon_enhancement (id);
+
+CREATE TABLE unit_weapons_options (
+	unit_weapon_id		INTEGER NOT NULL,
+  	option_id			INTEGER NOT NULL
+);
+ALTER TABLE unit_weapons_options ADD CONSTRAINT fk_unit_weapons_options_unit_weapon FOREIGN KEY (unit_weapon_id) REFERENCES unit_weapons (id);
+ALTER TABLE unit_weapons_options ADD CONSTRAINT fk_unit_weapons_options_option FOREIGN KEY (option_id) REFERENCES weapon_options (id);

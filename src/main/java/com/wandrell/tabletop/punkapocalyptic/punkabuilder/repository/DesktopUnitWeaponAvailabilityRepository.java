@@ -1,55 +1,45 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.FilteredRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultUnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
+import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.jpa.JPARepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
 
 @Component("unitWeaponRepo")
-public final class DesktopUnitWeaponAvailabilityRepository implements
+public final class DesktopUnitWeaponAvailabilityRepository extends
+        JPARepository<UnitWeaponAvailability> implements
         UnitWeaponAvailabilityRepository {
 
-    private final FilteredRepository<UnitWeaponAvailability, Predicate<UnitWeaponAvailability>> baseRepo;
-
     public DesktopUnitWeaponAvailabilityRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<UnitWeaponAvailability>();
-    }
-
-    @Override
-    public final void add(final UnitWeaponAvailability entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<UnitWeaponAvailability> getAll() {
-        return getBaseRepository().getAll();
+        super(
+                new DefaultQueryData(
+                        "SELECT ava FROM UnitWeaponAvailability ava"));
     }
 
     @Override
     public final UnitWeaponAvailability
             getAvailabilityForUnit(final String unit) {
-        return getBaseRepository().getEntity(
-                new Predicate<UnitWeaponAvailability>() {
+        final Map<String, Object> params;
 
-                    @Override
-                    public boolean apply(UnitWeaponAvailability input) {
-                        return input.getUnit().getNameToken().equals(unit);
-                    }
+        params = new LinkedHashMap<>();
+        params.put("unit", unit);
 
-                });
+        return getEntity(new DefaultQueryData(
+                "SELECT ava FROM UnitWeaponAvailability ava WHERE ava.unit.name = :unit",
+                params));
     }
 
     @Override
@@ -58,6 +48,7 @@ public final class DesktopUnitWeaponAvailabilityRepository implements
         final UnitWeaponAvailability ava;
         final Collection<UnitWeapon> weaponOptions;
 
+        // TODO: Use a query
         ava = getAvailabilityForUnit(unit);
 
         weaponOptions = new LinkedList<>();
@@ -77,6 +68,7 @@ public final class DesktopUnitWeaponAvailabilityRepository implements
         final Collection<WeaponEnhancement> enhancements;
         final WeaponOption option;
 
+        // TODO: Use a query
         ava = getAvailabilityForUnit(unit);
 
         enhancements = new LinkedList<>();
@@ -98,22 +90,6 @@ public final class DesktopUnitWeaponAvailabilityRepository implements
         }
 
         return enhancements;
-    }
-
-    @Override
-    public final void remove(final UnitWeaponAvailability entity) {
-        getBaseRepository().remove(entity);
-    }
-
-    @Override
-    public final void update(final UnitWeaponAvailability entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final
-            FilteredRepository<UnitWeaponAvailability, Predicate<UnitWeaponAvailability>>
-            getBaseRepository() {
-        return baseRepo;
     }
 
 }

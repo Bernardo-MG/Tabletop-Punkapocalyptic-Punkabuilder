@@ -5,7 +5,6 @@ public final class SpringConf {
     public static final String CONTROLLER_FACTION          = "factionSelectionController";
     public static final String CONTROLLER_MAIN             = "mainPaneController";
     public static final String FILE_CONTROLLER             = "spring/punkapocalyptic-controller.xml";
-    public static final String FILE_DATA                   = "spring/punkapocalyptic-data.xml";
     public static final String FILE_LOCALIZATION           = "spring/punkapocalyptic-localization.xml";
     public static final String FILE_LOG                    = "spring/punkapocalyptic-log.xml";
     public static final String FILE_PERSISTENCE            = "spring/punkapocalyptic-persistence.xml";
