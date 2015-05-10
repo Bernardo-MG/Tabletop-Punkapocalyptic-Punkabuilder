@@ -10,6 +10,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.procedure.DefaultUnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationOptions;
+import com.wandrell.tabletop.punkapocalyptic.repository.MutationRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitArmorAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitEquipmentAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitMutationAvailabilityRepository;
@@ -24,6 +25,7 @@ public final class DesktopUnitConfigurationManager implements
     @Autowired
     public DesktopUnitConfigurationManager(
             @Qualifier("missingCompWeaponMessage") final String constraintMessage,
+            final MutationRepository mutationRepo,
             final UnitArmorAvailabilityRepository armorAvaRepo,
             final UnitEquipmentAvailabilityRepository equipAvaRepo,
             final UnitMutationAvailabilityRepository mutationAvaRepo,
@@ -31,7 +33,8 @@ public final class DesktopUnitConfigurationManager implements
         super();
 
         baseManager = new DefaultUnitConfigurationManager(constraintMessage,
-                armorAvaRepo, equipAvaRepo, mutationAvaRepo, weaponAvaRepo);
+                mutationRepo, armorAvaRepo, equipAvaRepo, mutationAvaRepo,
+                weaponAvaRepo);
     }
 
     @Override

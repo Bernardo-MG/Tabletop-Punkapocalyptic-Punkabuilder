@@ -19,7 +19,7 @@ public final class SpecialRuleListCell extends ListCell<SpecialRule> {
             setText(" ");
             setStyle("");
         } else {
-            setText(item.getName());
+            setText(item.getNameToken());
         }
     }
 }

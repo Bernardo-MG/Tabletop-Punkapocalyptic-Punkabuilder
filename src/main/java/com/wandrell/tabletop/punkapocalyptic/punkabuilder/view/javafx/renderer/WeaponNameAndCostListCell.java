@@ -2,9 +2,9 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer;
 
 import javafx.scene.control.ListCell;
 
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 
-public final class WeaponNameAndCostListCell extends ListCell<Weapon> {
+public final class WeaponNameAndCostListCell extends ListCell<UnitWeapon> {
 
     private final String patternWeapon = "%s (%d)";
 
@@ -13,15 +13,15 @@ public final class WeaponNameAndCostListCell extends ListCell<Weapon> {
     }
 
     @Override
-    protected final void updateItem(final Weapon item, final boolean empty) {
+    protected final void updateItem(final UnitWeapon item, final boolean empty) {
         super.updateItem(item, empty);
 
         if (item == null || empty) {
             setText(" ");
             setStyle("");
         } else {
-            setText(String
-                    .format(patternWeapon, item.getName(), item.getCost()));
+            setText(String.format(patternWeapon, item.getTemplate().getName(),
+                    item.getCost()));
         }
     }
 

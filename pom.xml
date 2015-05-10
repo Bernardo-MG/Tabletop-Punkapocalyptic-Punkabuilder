@@ -121,7 +121,9 @@
 		<aspectj.version>1.8.4</aspectj.version>
 		<controlsfx.version>8.0.6_20</controlsfx.version>
 		<dynamicreports.version>3.2.1</dynamicreports.version>
-		<hibernate.version>4.3.8.Final</hibernate.version>
+		<h2.version>1.4.187</h2.version>
+		<hibernate.version>4.3.9.Final</hibernate.version>
+		<hikari.version>2.3.7</hikari.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<snakeyaml.version>1.14</snakeyaml.version>
 		<spring.version>4.1.5.RELEASE</spring.version>
@@ -182,6 +184,12 @@
 			<version>${dynamicreports.version}</version>
 		</dependency>
 		<dependency>
+			<!-- H2 Database -->
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+		</dependency>
+		<dependency>
 			<!-- Hibernate Ehcache -->
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
@@ -192,6 +200,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Hikari CP -->
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${hikari.version}</version>
 		</dependency>
 		<dependency>
 			<!-- SLF4J API -->

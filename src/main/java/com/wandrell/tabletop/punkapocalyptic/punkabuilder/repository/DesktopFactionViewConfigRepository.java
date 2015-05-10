@@ -1,56 +1,33 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository;
 
-import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Predicate;
-import com.wandrell.pattern.repository.CollectionRepository;
-import com.wandrell.pattern.repository.QueryableRepository;
+import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
+import com.wandrell.util.persistence.JPARepository;
 
 @Component("factionViewRepo")
-public final class DesktopFactionViewConfigRepository implements
-        FactionViewConfigRepository {
-
-    private final QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>> baseRepo;
+public final class DesktopFactionViewConfigRepository extends
+        JPARepository<FactionViewConfig> implements FactionViewConfigRepository {
 
     public DesktopFactionViewConfigRepository() {
-        super();
-
-        baseRepo = new CollectionRepository<FactionViewConfig>();
-    }
-
-    @Override
-    public final void add(final FactionViewConfig entity) {
-        getBaseRepository().add(entity);
-    }
-
-    @Override
-    public final Collection<FactionViewConfig> getAll() {
-        return getBaseRepository().getAll();
+        super(new DefaultQueryData(
+                "SELECT config FROM FactionViewConfig config"));
     }
 
     @Override
     public final FactionViewConfig getConfigForFaction(final String faction) {
-        return getBaseRepository().getEntity(
-                f -> f.getFaction().getName().equals(faction));
-    }
+        final Map<String, Object> params;
 
-    @Override
-    public final void remove(final FactionViewConfig entity) {
-        getBaseRepository().remove(entity);
-    }
+        params = new LinkedHashMap<>();
+        params.put("faction", faction);
 
-    @Override
-    public final void update(final FactionViewConfig entity) {
-        getBaseRepository().update(entity);
-    }
-
-    private final
-            QueryableRepository<FactionViewConfig, Predicate<FactionViewConfig>>
-            getBaseRepository() {
-        return baseRepo;
+        return getEntity(new DefaultQueryData(
+                "SELECT config FROM FactionViewConfig config WHERE config.faction.nameToken = :faction",
+                params));
     }
 
 }
