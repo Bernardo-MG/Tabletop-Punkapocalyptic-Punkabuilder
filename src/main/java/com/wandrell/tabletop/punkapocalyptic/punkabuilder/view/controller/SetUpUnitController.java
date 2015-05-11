@@ -38,8 +38,6 @@ import com.wandrell.tabletop.procedure.DefaultValueHandler;
 import com.wandrell.tabletop.procedure.ValueHandler;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
-import com.wandrell.tabletop.punkapocalyptic.model.availability.option.DefaultArmorOption;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultArmor;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.GroupedUnit;
@@ -475,23 +473,13 @@ public final class SetUpUnitController {
     }
 
     private final void initializeArmorComboBox() {
-        getArmorComboBox()
-                .getSelectionModel()
-                .selectedItemProperty()
+        getArmorComboBox().getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         getUnit().setArmor(newValue);
-                    } else {
-                        // TODO: Do not instantiate manually
-                        getUnit()
-                                .setArmor(
-                                        new DefaultArmorOption(
-                                                new DefaultArmor("unarmored",
-                                                        0, new LinkedList<>()),
-                                                0));
-                    }
 
-                    loadArmorData(getUnit().getArmor());
+                        loadArmorData(getUnit().getArmor());
+                    }
                 });
 
         getArmorComboBox().setCellFactory(column -> {

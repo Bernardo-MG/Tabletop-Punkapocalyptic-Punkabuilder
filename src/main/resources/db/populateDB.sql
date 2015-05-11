@@ -145,32 +145,35 @@ INSERT INTO faction_unit_constraints (faction_unit_id, constraint_id) VALUES (5,
 INSERT INTO faction_unit_constraints (faction_unit_id, constraint_id) VALUES (6, 3);
 
 
+INSERT INTO armor_options (id, armor, cost) VALUES (1, 1, 0);
+INSERT INTO armor_options (id, armor, cost) VALUES (2, 4, 10);
+INSERT INTO armor_options (id, armor, cost) VALUES (3, 5, 10);
+INSERT INTO armor_options (id, armor, cost) VALUES (4, 3, 5);
+INSERT INTO armor_options (id, armor, cost) VALUES (5, 5, 15);
+INSERT INTO armor_options (id, armor, cost) VALUES (6, 5, 10);
+INSERT INTO armor_options (id, armor, cost) VALUES (7, 6, 15);
+INSERT INTO armor_options (id, armor, cost) VALUES (8, 3, 5);
+INSERT INTO armor_options (id, armor, cost) VALUES (9, 2, 0);
+INSERT INTO armor_options (id, armor, cost) VALUES (10, 3, 0);
+
 INSERT INTO unit_armors (id, initial_armor, unit) VALUES (1, 1, 1);
 INSERT INTO unit_armors (id, initial_armor, unit) VALUES (2, 1, 2);
-INSERT INTO unit_armors (id, initial_armor, unit) VALUES (3, 3, 3);
-INSERT INTO unit_armors (id, initial_armor, unit) VALUES (4, 2, 4);
-INSERT INTO unit_armors (id, initial_armor, unit) VALUES (5, 3, 5);
-INSERT INTO unit_armors (id, initial_armor, unit) VALUES (6, 2, 6);
+INSERT INTO unit_armors (id, initial_armor, unit) VALUES (3, 10, 3);
+INSERT INTO unit_armors (id, initial_armor, unit) VALUES (4, 9, 4);
+INSERT INTO unit_armors (id, initial_armor, unit) VALUES (5, 10, 5);
+INSERT INTO unit_armors (id, initial_armor, unit) VALUES (6, 9, 6);
 INSERT INTO unit_armors (id, initial_armor, unit) VALUES (7, 1, 7);
 INSERT INTO unit_armors (id, initial_armor, unit) VALUES (8, 1, 8);
 INSERT INTO unit_armors (id, initial_armor, unit) VALUES (9, 1, 9);
-INSERT INTO unit_armors (id, initial_armor, unit) VALUES (10, 2, 10);
+INSERT INTO unit_armors (id, initial_armor, unit) VALUES (10, 9, 10);
 
-INSERT INTO armor_options (id, armor, cost) VALUES (1, 4, 10);
-INSERT INTO armor_options (id, armor, cost) VALUES (2, 5, 10);
-INSERT INTO armor_options (id, armor, cost) VALUES (3, 3, 5);
-INSERT INTO armor_options (id, armor, cost) VALUES (4, 5, 15);
-INSERT INTO armor_options (id, armor, cost) VALUES (5, 5, 10);
-INSERT INTO armor_options (id, armor, cost) VALUES (6, 6, 15);
-INSERT INTO armor_options (id, armor, cost) VALUES (7, 3, 5);
-
-INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (3, 1);
 INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (3, 2);
-INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (4, 3);
+INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (3, 3);
 INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (4, 4);
-INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (5, 5);
+INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (4, 5);
 INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (5, 6);
-INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (6, 7);
+INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (5, 7);
+INSERT INTO unit_armor_options (unit_armor_id, option_id) VALUES (6, 8);
 
 
 INSERT INTO unit_equipment (id, unit) VALUES (1, 3);
