@@ -45,7 +45,7 @@ public final class DesktopFactionUnitAvailabilityRepository extends
         params.put("unit", unit);
 
         return getEntity(new DefaultQueryData(
-                "SELECT ava FROM FactionUnitAvailability ava WHERE ava.unitTemplate.nameToken = :unit",
+                "SELECT ava FROM FactionUnitAvailability ava WHERE ava.availUnit.name = :unit",
                 params));
     }
 
