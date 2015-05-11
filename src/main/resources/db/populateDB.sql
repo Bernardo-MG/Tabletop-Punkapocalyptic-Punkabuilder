@@ -71,7 +71,7 @@ INSERT INTO weapons (id, weapon_type, name, cost, two_handed, firearm, short_cm,
 
 INSERT INTO equipment (id, name, cost) VALUES (1, 'biohazard_protection', 8);
 
-INSERT INTO weapon_enhancement (id, name, firearm) VALUES (1, 'bayonet', true);
+INSERT INTO weapon_enhancement (id, name) VALUES (1, 'bayonet');
 
 INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (1, 'able', 20, 1, 0, 0, 0, 0, 0, 0);
 INSERT INTO mutations (id, name, cost, actions, agility, combat, precision, strength, tech, toughness) VALUES (2, 'acid_spit', 5, 0, 0, 0, 0, 0, 0, 0);

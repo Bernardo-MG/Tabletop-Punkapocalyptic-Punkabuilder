@@ -89,8 +89,7 @@ CREATE TABLE equipment (
 CREATE TABLE weapon_enhancement (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(30),
-	cost			INTEGER,
-	firearm			BOOLEAN
+	cost			INTEGER
 );
 
 CREATE TABLE mutations (
