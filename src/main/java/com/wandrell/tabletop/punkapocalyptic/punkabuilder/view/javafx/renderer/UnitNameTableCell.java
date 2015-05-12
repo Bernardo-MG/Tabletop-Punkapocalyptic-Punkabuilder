@@ -4,11 +4,16 @@ import javafx.scene.control.TableCell;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.GroupedUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 
 public final class UnitNameTableCell extends TableCell<Unit, Unit> {
 
-    public UnitNameTableCell() {
+    private final ModelLocalizationService localizationService;
+
+    public UnitNameTableCell(final ModelLocalizationService localizationService) {
         super();
+
+        this.localizationService = localizationService;
     }
 
     @Override
@@ -21,7 +26,7 @@ public final class UnitNameTableCell extends TableCell<Unit, Unit> {
             setText(null);
             setStyle("");
         } else {
-            text = item.getName();
+            text = localizationService.getUnitNameString(item.getName());
 
             if (item instanceof GroupedUnit) {
                 text = String.format("%dx %s", ((GroupedUnit) item)

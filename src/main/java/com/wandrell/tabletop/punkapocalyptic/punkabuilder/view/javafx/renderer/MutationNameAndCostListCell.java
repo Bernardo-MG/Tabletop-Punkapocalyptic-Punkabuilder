@@ -3,13 +3,18 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer;
 import javafx.scene.control.ListCell;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 
 public final class MutationNameAndCostListCell extends ListCell<Mutation> {
 
-    private final String template = "%s (%d)";
+    private final ModelLocalizationService localizationService;
+    private final String                   template = "%s (%d)";
 
-    public MutationNameAndCostListCell() {
+    public MutationNameAndCostListCell(
+            final ModelLocalizationService localizationService) {
         super();
+
+        this.localizationService = localizationService;
     }
 
     @Override
@@ -21,7 +26,9 @@ public final class MutationNameAndCostListCell extends ListCell<Mutation> {
             setStyle("");
         } else {
             setText(String
-                    .format(template, item.getNameToken(), item.getCost()));
+                    .format(template, localizationService
+                            .getMutationNameString(item.getNameToken()), item
+                            .getCost()));
         }
     }
 

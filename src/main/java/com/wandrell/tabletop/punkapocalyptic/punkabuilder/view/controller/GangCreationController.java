@@ -30,6 +30,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusCh
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameTableCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitValorationTableCell;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
@@ -37,23 +38,24 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 public final class GangCreationController {
 
     @FXML
-    private Button                   addBulletButton;
-    private final ValueHandler       bulletsHandler = new DefaultValueHandler();
+    private Button                         addBulletButton;
+    private final ValueHandler             bulletsHandler = new DefaultValueHandler();
     @FXML
-    private Label                    bulletsLabel;
+    private Label                          bulletsLabel;
     @FXML
-    private ListView<String>         errorsList;
-    private final GangBuilderManager gangBuilderManager;
-    private final GangListener       gangListener;
+    private ListView<String>               errorsList;
+    private final GangBuilderManager       gangBuilderManager;
+    private final GangListener             gangListener;
+    private final ModelLocalizationService localizationService;
     @FXML
-    private Label                    maxUnitsLabel;
+    private Label                          maxUnitsLabel;
     @FXML
-    private Button                   removeBulletButton;
-    private Stage                    setUpUnitDialog;
+    private Button                         removeBulletButton;
+    private Stage                          setUpUnitDialog;
     @FXML
-    private Label                    totalPointsLabel;
+    private Label                          totalPointsLabel;
     @FXML
-    private TableView<Unit>          unitsTable;
+    private TableView<Unit>                unitsTable;
 
     {
         bulletsHandler.setInterval(0, Integer.MAX_VALUE);
@@ -90,13 +92,18 @@ public final class GangCreationController {
     }
 
     @Autowired
-    public GangCreationController(final GangBuilderManager gangBuilderManager) {
+    public GangCreationController(final GangBuilderManager gangBuilderManager,
+            final ModelLocalizationService localizationService) {
         super();
 
         checkNotNull(gangBuilderManager,
                 "Received a null pointer as the army builder procedure controller");
+        checkNotNull(localizationService,
+                "Received a null pointer as the army builder model localization service");
 
         this.gangBuilderManager = gangBuilderManager;
+
+        this.localizationService = localizationService;
 
         setMaxUnitsListener();
         setUnitChangedListeners();
@@ -204,7 +211,7 @@ public final class GangCreationController {
                 .getColumns().get(1);
 
         nameColumn.setCellFactory((column -> {
-            return new UnitNameTableCell();
+            return new UnitNameTableCell(localizationService);
         }));
 
         valorationColumn.setCellFactory((column -> {

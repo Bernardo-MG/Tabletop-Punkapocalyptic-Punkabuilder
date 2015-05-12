@@ -19,6 +19,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.repository.FactionViewConfigRepository;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionRepository;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 
 @Component
@@ -28,6 +29,7 @@ public final class FactionSelectionController {
     private final FactionViewConfigRepository factionViewRepo;
     private final GangBuilderManager          gangBuilderManager;
     private final Pane                        gangCreationPane;
+    private final ModelLocalizationService    localizationService;
     private final MainPaneController          mainPaneController;
     private final ModelService                modelService;
     @FXML
@@ -36,6 +38,7 @@ public final class FactionSelectionController {
     @Autowired
     public FactionSelectionController(final FactionRepository factionRepo,
             final ModelService modelService,
+            final ModelLocalizationService localizationService,
             final GangBuilderManager gangBuilderManager,
             @Qualifier("gangCreationPane") final Object gangCreationPane,
             final MainPaneController mainController,
@@ -48,6 +51,8 @@ public final class FactionSelectionController {
                 "Received a null pointer as the faction repository");
         checkNotNull(modelService,
                 "Received a null pointer as the model service");
+        checkNotNull(localizationService,
+                "Received a null pointer as the localization service");
         checkNotNull(factionViewRepo,
                 "Received a null pointer as faction view config repo");
         checkNotNull(mainController,
@@ -56,6 +61,8 @@ public final class FactionSelectionController {
                 "Received a null pointer as the gang creation pane");
 
         this.modelService = modelService;
+        this.localizationService = localizationService;
+
         this.factionRepo = factionRepo;
         this.gangBuilderManager = gangBuilderManager;
         this.gangCreationPane = (Pane) gangCreationPane;
@@ -71,7 +78,8 @@ public final class FactionSelectionController {
             icon = new ImageView(factionViewRepo.getConfigForFaction(
                     faction.getNameToken()).getImage());
 
-            button = new Button(faction.getNameToken(), icon);
+            button = new Button(getModelLocalizationService()
+                    .getFactionNameString(faction.getNameToken()), icon);
             button.setContentDisplay(ContentDisplay.TOP);
 
             button.setOnAction(new EventHandler<ActionEvent>() {
@@ -106,6 +114,10 @@ public final class FactionSelectionController {
 
     private final MainPaneController getMainPaneController() {
         return mainPaneController;
+    }
+
+    private final ModelLocalizationService getModelLocalizationService() {
+        return localizationService;
     }
 
     private final ModelService getModelService() {

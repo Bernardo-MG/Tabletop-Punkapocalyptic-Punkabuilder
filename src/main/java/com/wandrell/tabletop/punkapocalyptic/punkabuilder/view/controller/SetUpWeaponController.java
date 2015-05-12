@@ -36,6 +36,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.procedure.UnitConfigurationManager;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.WeaponNameAndCostListCell;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.util.WeaponUtils;
 
 @Component
@@ -60,6 +61,7 @@ public final class SetUpWeaponController {
     private Label                            inchMediumLabel;
     @FXML
     private Label                            inchShortLabel;
+    private final ModelLocalizationService   localizationService;
     @FXML
     private Label                            penetrationLabel;
     @FXML
@@ -77,10 +79,12 @@ public final class SetUpWeaponController {
 
     @Autowired
     public SetUpWeaponController(
-            final UnitConfigurationManager unitConfigManager) {
+            final UnitConfigurationManager unitConfigManager,
+            final ModelLocalizationService localizationService) {
         super();
 
         this.unitConfigManager = unitConfigManager;
+        this.localizationService = localizationService;
     }
 
     public final void addOnPickEventHandler(
@@ -118,7 +122,7 @@ public final class SetUpWeaponController {
         initializeWeaponComboBox();
 
         getSpecialRulesList().setCellFactory(column -> {
-            return new SpecialRuleListCell();
+            return new SpecialRuleListCell(localizationService);
         });
 
         handler = new EventHandler<ActionEvent>() {
@@ -224,10 +228,11 @@ public final class SetUpWeaponController {
     }
 
     private final void initializeWeaponComboBox() {
-        getWeaponComboBox().setButtonCell(new WeaponNameAndCostListCell());
+        getWeaponComboBox().setButtonCell(
+                new WeaponNameAndCostListCell(localizationService));
 
         getWeaponComboBox().setCellFactory(column -> {
-            return new WeaponNameAndCostListCell();
+            return new WeaponNameAndCostListCell(localizationService);
         });
 
         getWeaponComboBox()

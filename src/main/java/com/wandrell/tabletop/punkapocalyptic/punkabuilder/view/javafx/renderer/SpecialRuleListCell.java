@@ -3,11 +3,17 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer;
 import javafx.scene.control.ListCell;
 
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 
 public final class SpecialRuleListCell extends ListCell<SpecialRule> {
 
-    public SpecialRuleListCell() {
+    private final ModelLocalizationService localizationService;
+
+    public SpecialRuleListCell(
+            final ModelLocalizationService localizationService) {
         super();
+
+        this.localizationService = localizationService;
     }
 
     @Override
@@ -19,7 +25,8 @@ public final class SpecialRuleListCell extends ListCell<SpecialRule> {
             setText(" ");
             setStyle("");
         } else {
-            setText(item.getNameToken());
+            setText(localizationService.getSpecialRuleNameString(item
+                    .getNameToken()));
         }
     }
 }

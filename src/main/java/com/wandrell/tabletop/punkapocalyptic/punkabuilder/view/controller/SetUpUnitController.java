@@ -61,6 +61,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.M
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.MutationNameListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameListCell;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
 import com.wandrell.tabletop.valuebox.ValueBox;
@@ -112,6 +113,7 @@ public final class SetUpUnitController {
     private Label                                   labelTech;
     @FXML
     private Label                                   labelToughness;
+    private final ModelLocalizationService          localizationService;
     @FXML
     private ComboBox<Mutation>                      mutationCombo;
     @FXML
@@ -200,17 +202,23 @@ public final class SetUpUnitController {
     @Autowired
     public SetUpUnitController(final GangBuilderManager gangBuilderManager,
             final UnitConfigurationManager unitConfigManager,
-            final RulesetService rulesetService) {
+            final RulesetService rulesetService,
+            final ModelLocalizationService localizationService) {
         super();
 
         checkNotNull(rulesetService,
                 "Received a null pointer as ruleset service");
+        checkNotNull(localizationService,
+                "Received a null pointer as localization service");
+
         checkNotNull(gangBuilderManager,
                 "Received a null pointer as gang builder manager");
         checkNotNull(unitConfigManager,
                 "Received a null pointer as unit configuration manager");
 
         this.rulesetService = rulesetService;
+        this.localizationService = localizationService;
+
         this.gangBuilderManager = gangBuilderManager;
         this.unitConfigManager = unitConfigManager;
 
@@ -483,14 +491,15 @@ public final class SetUpUnitController {
                 });
 
         getArmorComboBox().setCellFactory(column -> {
-            return new ArmorNameAndCostListCell();
+            return new ArmorNameAndCostListCell(localizationService);
         });
-        getArmorComboBox().setButtonCell(new ArmorNameAndCostListCell());
+        getArmorComboBox().setButtonCell(
+                new ArmorNameAndCostListCell(localizationService));
     }
 
     private final void initializeArmorRulesList() {
         getArmorRulesList().setCellFactory(column -> {
-            return new SpecialRuleListCell();
+            return new SpecialRuleListCell(localizationService);
         });
     }
 
@@ -499,26 +508,27 @@ public final class SetUpUnitController {
                 .addListener((observable, oldValue, newValue) -> {});
 
         getMutationsComboBox().setCellFactory(column -> {
-            return new MutationNameAndCostListCell();
+            return new MutationNameAndCostListCell(localizationService);
         });
-        getMutationsComboBox().setButtonCell(new MutationNameAndCostListCell());
+        getMutationsComboBox().setButtonCell(
+                new MutationNameAndCostListCell(localizationService));
     }
 
     private final void initializeMutationsList() {
         getMutationsList().setCellFactory(column -> {
-            return new MutationNameListCell();
+            return new MutationNameListCell(localizationService);
         });
     }
 
     private final void initializeSpecialRulesList() {
         getSpecialRulesList().setCellFactory(column -> {
-            return new SpecialRuleListCell();
+            return new SpecialRuleListCell(localizationService);
         });
     }
 
     private final void initializeUnitsList() {
         getUnitsList().setCellFactory(view -> {
-            return new UnitNameListCell();
+            return new UnitNameListCell(localizationService);
         });
 
         getUnitsList()

@@ -3,11 +3,16 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer;
 import javafx.scene.control.ListCell;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 
 public final class UnitNameListCell extends ListCell<Unit> {
 
-    public UnitNameListCell() {
+    private final ModelLocalizationService localizationService;
+
+    public UnitNameListCell(final ModelLocalizationService localizationService) {
         super();
+
+        this.localizationService = localizationService;
     }
 
     @Override
@@ -18,7 +23,7 @@ public final class UnitNameListCell extends ListCell<Unit> {
             setText(null);
             setStyle("");
         } else {
-            setText(item.getName());
+            setText(localizationService.getUnitNameString(item.getName()));
         }
     }
 }

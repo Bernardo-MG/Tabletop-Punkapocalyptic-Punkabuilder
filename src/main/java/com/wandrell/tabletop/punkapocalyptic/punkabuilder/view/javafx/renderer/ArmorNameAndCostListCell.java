@@ -3,13 +3,18 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer;
 import javafx.scene.control.ListCell;
 
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 
 public final class ArmorNameAndCostListCell extends ListCell<ArmorOption> {
 
-    private final String template = "%s (%d)";
+    private final ModelLocalizationService localizationService;
+    private final String                   template = "%s (%d)";
 
-    public ArmorNameAndCostListCell() {
+    public ArmorNameAndCostListCell(
+            final ModelLocalizationService localizationService) {
         super();
+
+        this.localizationService = localizationService;
     }
 
     @Override
@@ -21,8 +26,9 @@ public final class ArmorNameAndCostListCell extends ListCell<ArmorOption> {
             setText(" ");
             setStyle("");
         } else {
-            setText(String.format(template, item.getArmor().getNameToken(),
-                    item.getCost()));
+            setText(String.format(template, localizationService
+                    .getArmorNameString(item.getArmor().getNameToken()), item
+                    .getCost()));
         }
     }
 
