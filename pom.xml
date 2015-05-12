@@ -118,7 +118,6 @@
 		<file.name.exe>punkabuilder.exe</file.name.exe>
 		<file.name.jar.shaded.classifier>shaded</file.name.jar.shaded.classifier>
 		<!-- Dependencies versions -->
-		<aspectj.version>1.8.4</aspectj.version>
 		<controlsfx.version>8.0.6_20</controlsfx.version>
 		<dynamicreports.version>3.2.1</dynamicreports.version>
 		<h2.version>1.4.187</h2.version>
@@ -165,12 +164,6 @@
 	</repositories>
 
 	<dependencies>
-		<dependency>
-			<!-- AspectJ -->
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
 		<dependency>
 			<!-- ControlsFX -->
 			<groupId>org.controlsfx</groupId>
