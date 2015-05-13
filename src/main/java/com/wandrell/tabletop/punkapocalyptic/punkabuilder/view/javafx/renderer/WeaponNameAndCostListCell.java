@@ -26,8 +26,8 @@ public final class WeaponNameAndCostListCell extends ListCell<UnitWeapon> {
             setStyle("");
         } else {
             setText(String.format(patternWeapon, localizationService
-                    .getWeaponNameString(item.getTemplate().getNameToken()),
-                    item.getCost()));
+                    .getWeaponNameString(item.getWeaponTemplate()
+                            .getNameToken()), item.getCost()));
         }
     }
 

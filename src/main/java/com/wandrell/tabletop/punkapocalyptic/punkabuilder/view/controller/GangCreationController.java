@@ -1,9 +1,6 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.EventObject;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,7 +62,7 @@ public final class GangCreationController {
         gangListener = new GangListener() {
 
             @Override
-            public final void bulletsChanged(final EventObject e) {
+            public final void bulletsChanged(final ValueChangeEvent e) {
                 getBulletsLabel().setText(
                         getGangBuilderManager().getGang().getBullets()
                                 .toString());
@@ -82,7 +79,7 @@ public final class GangCreationController {
             }
 
             @Override
-            public void valorationChanged(EventObject e) {
+            public void valorationChanged(final ValueChangeEvent e) {
                 getTotalPointsLabel().setText(
                         getGangBuilderManager().getGang().getValoration()
                                 .toString());

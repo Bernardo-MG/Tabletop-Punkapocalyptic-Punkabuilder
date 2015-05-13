@@ -263,7 +263,7 @@ public final class SetUpWeaponController {
     private final void loadWeaponData(final UnitWeapon weapon) {
         final Weapon template;
 
-        template = weapon.getTemplate();
+        template = weapon.getWeaponTemplate();
 
         current = weapon;
         if (template instanceof RangedWeapon) {

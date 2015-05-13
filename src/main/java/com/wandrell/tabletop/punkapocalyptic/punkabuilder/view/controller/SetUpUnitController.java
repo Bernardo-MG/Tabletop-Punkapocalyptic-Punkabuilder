@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,6 +44,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.UnitTemplate;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitEvent;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitListener;
+import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitListenerAdapter;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.MutantUnit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
@@ -144,7 +144,7 @@ public final class SetUpUnitController {
     private Pane                                    weaponsPane;
 
     {
-        unitListener = new UnitListener() {
+        unitListener = new UnitListenerAdapter() {
 
             @Override
             public final void actionsChanged(final ValueChangeEvent e) {
@@ -163,9 +163,6 @@ public final class SetUpUnitController {
                 labelCombat.setText(getUnit().getAttributes().getCombat()
                         .toString());
             }
-
-            @Override
-            public final void mutationChanged(final EventObject e) {}
 
             @Override
             public final void precisionChanged(final ValueChangeEvent e) {
@@ -192,7 +189,7 @@ public final class SetUpUnitController {
             }
 
             @Override
-            public final void valorationChanged(final EventObject e) {
+            public final void valorationChanged(final ValueChangeEvent e) {
                 loadPointsLabels();
             }
 
