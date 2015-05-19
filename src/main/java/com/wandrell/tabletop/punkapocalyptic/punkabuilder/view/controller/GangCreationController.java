@@ -15,10 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.procedure.DefaultValueHandler;
-import com.wandrell.tabletop.procedure.ValueHandler;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.GangListener;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.event.UnitEvent;
@@ -28,15 +24,19 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameTableCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitValorationTableCell;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
-import com.wandrell.tabletop.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.valuebox.ValueBox;
+import com.wandrell.tabletop.stat.controller.DefaultValueController;
+import com.wandrell.tabletop.stat.controller.ValueController;
+import com.wandrell.tabletop.stat.event.ValueChangeEvent;
+import com.wandrell.tabletop.stat.event.ValueChangeListener;
+import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stat.valuebox.ValueBox;
 
 @Component
 public final class GangCreationController {
 
     @FXML
     private Button                         addBulletButton;
-    private final ValueHandler             bulletsHandler = new DefaultValueHandler();
+    private final ValueController          bulletsController = new DefaultValueController();
     @FXML
     private Label                          bulletsLabel;
     @FXML
@@ -55,7 +55,7 @@ public final class GangCreationController {
     private TableView<Unit>                unitsTable;
 
     {
-        bulletsHandler.setInterval(0, Integer.MAX_VALUE);
+        bulletsController.setInterval(0, Integer.MAX_VALUE);
     }
 
     {
@@ -109,7 +109,7 @@ public final class GangCreationController {
 
     @FXML
     public final void handleAddBulletAction(final ActionEvent event) {
-        getBulletsHandler().increaseValue();
+        getBulletsController().increaseValue();
 
         setBulletButtonsStatus();
     }
@@ -132,7 +132,7 @@ public final class GangCreationController {
 
     @FXML
     public final void handleRemoveBulletAction(final ActionEvent event) {
-        getBulletsHandler().decreaseValue();
+        getBulletsController().decreaseValue();
 
         setBulletButtonsStatus();
     }
@@ -157,8 +157,8 @@ public final class GangCreationController {
         return addBulletButton;
     }
 
-    private final ValueHandler getBulletsHandler() {
-        return bulletsHandler;
+    private final ValueController getBulletsController() {
+        return bulletsController;
     }
 
     private final Label getBulletsLabel() {
@@ -236,10 +236,10 @@ public final class GangCreationController {
     }
 
     private final void setBulletButtonsStatus() {
-        getAddBulletButton()
-                .setDisable(!getBulletsHandler().isAbleToIncrease());
+        getAddBulletButton().setDisable(
+                !getBulletsController().isAbleToIncrease());
         getRemoveBulletButton().setDisable(
-                !getBulletsHandler().isAbleToDecrease());
+                !getBulletsController().isAbleToDecrease());
     }
 
     private final void setGangChangedListeners() {
@@ -265,7 +265,7 @@ public final class GangCreationController {
                 bullets = getGangBuilderManager().getGang().getBullets();
 
                 valueBox = new DefaultValueBox(bullets);
-                getBulletsHandler().setValueBox(valueBox);
+                getBulletsController().setValueBox(valueBox);
 
                 setBulletButtonsStatus();
 

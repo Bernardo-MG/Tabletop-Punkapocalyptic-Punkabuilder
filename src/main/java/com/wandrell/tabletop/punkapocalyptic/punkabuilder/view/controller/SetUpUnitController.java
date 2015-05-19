@@ -30,11 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.interval.Interval;
-import com.wandrell.tabletop.procedure.DefaultValueHandler;
-import com.wandrell.tabletop.procedure.ValueHandler;
 import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
@@ -64,7 +60,11 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.U
 import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
-import com.wandrell.tabletop.valuebox.ValueBox;
+import com.wandrell.tabletop.stat.controller.DefaultValueController;
+import com.wandrell.tabletop.stat.controller.ValueController;
+import com.wandrell.tabletop.stat.event.ValueChangeEvent;
+import com.wandrell.tabletop.stat.event.ValueChangeListener;
+import com.wandrell.tabletop.stat.valuebox.ValueBox;
 
 @Component
 public final class SetUpUnitController {
@@ -94,7 +94,7 @@ public final class SetUpUnitController {
     private Pane                                    groupBox;
     @FXML
     private Pane                                    groupPane;
-    private final ValueHandler                      groupSizeHandler       = new DefaultValueHandler();
+    private final ValueController                   groupSizeController    = new DefaultValueController();
     @FXML
     private Label                                   groupSizeLabel;
     @FXML
@@ -277,7 +277,7 @@ public final class SetUpUnitController {
     @FXML
     public final void handleDecreaseGroupAction(final ActionEvent event) {
         if (getUnit() instanceof GroupedUnit) {
-            getGroupSizeHandler().decreaseValue();
+            getGroupSizeController().decreaseValue();
 
             setGroupButtonsStatus();
         }
@@ -286,7 +286,7 @@ public final class SetUpUnitController {
     @FXML
     public final void handleIncreaseGroupAction(final ActionEvent event) {
         if (getUnit() instanceof GroupedUnit) {
-            getGroupSizeHandler().increaseValue();
+            getGroupSizeController().increaseValue();
 
             setGroupButtonsStatus();
         }
@@ -321,7 +321,8 @@ public final class SetUpUnitController {
         initializeArmorRulesList();
         initializeSpecialRulesList();
 
-        groupSizeHandler.setInterval(0, getRulesetService().getPackMaxSize());
+        groupSizeController
+                .setInterval(0, getRulesetService().getPackMaxSize());
     }
 
     @Autowired
@@ -391,8 +392,8 @@ public final class SetUpUnitController {
         return groupPane;
     }
 
-    private final ValueHandler getGroupSizeHandler() {
-        return groupSizeHandler;
+    private final ValueController getGroupSizeController() {
+        return groupSizeController;
     }
 
     private final Label getGroupSizeLabel() {
@@ -784,9 +785,9 @@ public final class SetUpUnitController {
 
     private final void setGroupButtonsStatus() {
         getDecreaseGroupButton().setDisable(
-                !getGroupSizeHandler().isAbleToDecrease());
+                !getGroupSizeController().isAbleToDecrease());
         getIncreaseGroupButton().setDisable(
-                !getGroupSizeHandler().isAbleToIncrease());
+                !getGroupSizeController().isAbleToIncrease());
     }
 
     private final void setUnit(final Unit unit) {
@@ -822,12 +823,16 @@ public final class SetUpUnitController {
 
             if (getUnit() instanceof GroupedUnit) {
                 group = ((GroupedUnit) getUnit()).getGroupSize();
-                getDecreaseGroupButton().setDisable(
-                        group.getValue() == groupSizeHandler.getLowerLimit());
-                getIncreaseGroupButton().setDisable(
-                        group.getValue() == groupSizeHandler.getUpperLimit());
+                getDecreaseGroupButton()
+                        .setDisable(
+                                group.getValue() == groupSizeController
+                                        .getLowerLimit());
+                getIncreaseGroupButton()
+                        .setDisable(
+                                group.getValue() == groupSizeController
+                                        .getUpperLimit());
 
-                getGroupSizeHandler().setValueBox(group);
+                getGroupSizeController().setValueBox(group);
             }
         }
     }
