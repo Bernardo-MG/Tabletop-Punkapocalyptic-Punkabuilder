@@ -24,12 +24,12 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangChangedEvent;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameTableCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitValorationTableCell;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
-import com.wandrell.tabletop.stat.controller.DefaultValueController;
-import com.wandrell.tabletop.stat.controller.ValueController;
-import com.wandrell.tabletop.stat.event.ValueChangeEvent;
-import com.wandrell.tabletop.stat.event.ValueChangeListener;
-import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.stat.valuebox.ValueBox;
+import com.wandrell.tabletop.stats.controller.DefaultValueController;
+import com.wandrell.tabletop.stats.controller.ValueController;
+import com.wandrell.tabletop.stats.event.ValueChangeEvent;
+import com.wandrell.tabletop.stats.event.ValueChangeListener;
+import com.wandrell.tabletop.stats.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stats.valuebox.ValueBox;
 
 @Component
 public final class GangCreationController {

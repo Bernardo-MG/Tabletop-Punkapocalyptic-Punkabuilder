@@ -13,7 +13,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusCh
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
-import com.wandrell.tabletop.stat.valuebox.ValueBox;
+import com.wandrell.tabletop.stats.valuebox.ValueBox;
 
 @Component("gangBuilderManager")
 public final class DesktopGangBuilderManager implements GangBuilderManager {

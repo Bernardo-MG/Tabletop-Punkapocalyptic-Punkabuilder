@@ -60,11 +60,11 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.U
 import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
-import com.wandrell.tabletop.stat.controller.DefaultValueController;
-import com.wandrell.tabletop.stat.controller.ValueController;
-import com.wandrell.tabletop.stat.event.ValueChangeEvent;
-import com.wandrell.tabletop.stat.event.ValueChangeListener;
-import com.wandrell.tabletop.stat.valuebox.ValueBox;
+import com.wandrell.tabletop.stats.controller.DefaultValueController;
+import com.wandrell.tabletop.stats.controller.ValueController;
+import com.wandrell.tabletop.stats.event.ValueChangeEvent;
+import com.wandrell.tabletop.stats.event.ValueChangeListener;
+import com.wandrell.tabletop.stats.valuebox.ValueBox;
 
 @Component
 public final class SetUpUnitController {
