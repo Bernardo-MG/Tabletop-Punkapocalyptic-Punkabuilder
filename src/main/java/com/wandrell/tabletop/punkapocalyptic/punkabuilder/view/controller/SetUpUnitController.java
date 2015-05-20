@@ -637,7 +637,8 @@ public final class SetUpUnitController {
                 .getOptions().getEquipmentOptions()) {
             final CheckBox check;
 
-            name = String.format(template, equipment.getNameToken(),
+            name = String.format(template, localizationService
+                    .getEquipmentNameString(equipment.getNameToken()),
                     equipment.getCost());
 
             check = new CheckBox(name);

@@ -15,6 +15,7 @@ public final class DefaultDesktopLocalizationService implements
     private final ResourceBundle bundleMessage;
     private final ResourceBundle bundleReport;
     private final ResourceBundle bundleView;
+    private final ResourceBundle equipmentBundle;
     private final ResourceBundle factionNameBundle;
     private final ResourceBundle mutationNameBundle;
     private final ResourceBundle specialRuleBundle;
@@ -29,7 +30,9 @@ public final class DefaultDesktopLocalizationService implements
             final ResourceBundle unitNameBundle,
             final ResourceBundle specialRuleBundle,
             final ResourceBundle mutationNameBundle,
-            final ResourceBundle armorBundle, final ResourceBundle weaponBundle) {
+            final ResourceBundle armorBundle,
+            final ResourceBundle weaponBundle,
+            final ResourceBundle equipmentBundle) {
         super();
 
         checkNotNull(messageBundle, "Received a null pointer as message bundle");
@@ -48,6 +51,8 @@ public final class DefaultDesktopLocalizationService implements
                 "Received a null pointer as the armor name bundle");
         checkNotNull(weaponBundle,
                 "Received a null pointer as the weapon name bundle");
+        checkNotNull(equipmentBundle,
+                "Received a null pointer as the equipment name bundle");
 
         this.bundleMessage = messageBundle;
         this.bundleReport = reportBundle;
@@ -59,11 +64,17 @@ public final class DefaultDesktopLocalizationService implements
         this.mutationNameBundle = mutationNameBundle;
         this.armorBundle = armorBundle;
         this.weaponBundle = weaponBundle;
+        this.equipmentBundle = equipmentBundle;
     }
 
     @Override
     public final String getArmorNameString(final String name) {
         return getValue(name, armorBundle);
+    }
+
+    @Override
+    public final String getEquipmentNameString(final String name) {
+        return getValue(name, equipmentBundle);
     }
 
     @Override
