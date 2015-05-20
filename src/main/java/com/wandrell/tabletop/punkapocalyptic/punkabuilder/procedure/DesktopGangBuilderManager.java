@@ -11,7 +11,7 @@ import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderManager;
 import com.wandrell.tabletop.punkapocalyptic.procedure.GangBuilderOptions;
 import com.wandrell.tabletop.punkapocalyptic.procedure.event.GangBuilderStatusChangedListener;
 import com.wandrell.tabletop.punkapocalyptic.repository.FactionUnitAvailabilityRepository;
-import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.stats.valuebox.ValueBox;
 
@@ -23,12 +23,11 @@ public final class DesktopGangBuilderManager implements GangBuilderManager {
     @Autowired
     public DesktopGangBuilderManager(
             final FactionUnitAvailabilityRepository unitAvaRepository,
-            final RulesetService rulesetService,
-            final LocalizationService localizationService) {
+            final RulesetService rulesetService, final ModelService modelService) {
         super();
 
         baseManager = new DefaultGangBuilderManager(unitAvaRepository,
-                rulesetService, localizationService);
+                rulesetService, modelService);
     }
 
     @Override

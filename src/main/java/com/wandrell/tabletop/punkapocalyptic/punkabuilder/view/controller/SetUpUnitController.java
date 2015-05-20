@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.wandrell.tabletop.interval.Interval;
-import com.wandrell.tabletop.punkapocalyptic.conf.factory.ModelFactory;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
 import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
@@ -58,6 +57,7 @@ import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.M
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.SpecialRuleListCell;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.view.javafx.renderer.UnitNameListCell;
 import com.wandrell.tabletop.punkapocalyptic.service.ModelLocalizationService;
+import com.wandrell.tabletop.punkapocalyptic.service.ModelService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.tabletop.punkapocalyptic.util.ArmorUtils;
 import com.wandrell.tabletop.stats.controller.DefaultValueController;
@@ -113,7 +113,6 @@ public final class SetUpUnitController {
     private Label                                   labelTech;
     @FXML
     private Label                                   labelToughness;
-    private final ModelLocalizationService          localizationService;
     @FXML
     private ComboBox<Mutation>                      mutationCombo;
     @FXML
@@ -124,9 +123,11 @@ public final class SetUpUnitController {
     private Pane                                    mutationsPane;
     @FXML
     private Pane                                    rulesBox;
-    private final RulesetService                    rulesetService;
     @FXML
     private Pane                                    rulesPane;
+    private final ModelLocalizationService          serviceLocalization;
+    private final ModelService                      serviceModel;
+    private final RulesetService                    serviceRuleset;
     private Stage                                   setUpUnitDialog;
     private final LinkedList<SetUpWeaponController> setUpWeaponControllers = new LinkedList<>();
     private final List<Pane>                        setUpWeaponPanes       = new LinkedList<>();
@@ -200,21 +201,24 @@ public final class SetUpUnitController {
     public SetUpUnitController(final GangBuilderManager gangBuilderManager,
             final UnitConfigurationManager unitConfigManager,
             final RulesetService rulesetService,
-            final ModelLocalizationService localizationService) {
+            final ModelLocalizationService localizationService,
+            final ModelService modelService) {
         super();
 
         checkNotNull(rulesetService,
                 "Received a null pointer as ruleset service");
         checkNotNull(localizationService,
                 "Received a null pointer as localization service");
+        checkNotNull(modelService, "Received a null pointer as model service");
 
         checkNotNull(gangBuilderManager,
                 "Received a null pointer as gang builder manager");
         checkNotNull(unitConfigManager,
                 "Received a null pointer as unit configuration manager");
 
-        this.rulesetService = rulesetService;
-        this.localizationService = localizationService;
+        serviceRuleset = rulesetService;
+        serviceLocalization = localizationService;
+        serviceModel = modelService;
 
         this.gangBuilderManager = gangBuilderManager;
         this.unitConfigManager = unitConfigManager;
@@ -404,6 +408,10 @@ public final class SetUpUnitController {
         return increaseGroupButton;
     }
 
+    private final ModelService getModelService() {
+        return serviceModel;
+    }
+
     private final Pane getMutationsBox() {
         return mutationsBox;
     }
@@ -421,7 +429,7 @@ public final class SetUpUnitController {
     }
 
     private final RulesetService getRulesetService() {
-        return rulesetService;
+        return serviceRuleset;
     }
 
     private final LinkedList<SetUpWeaponController> getSetUpWeaponControllers() {
@@ -457,14 +465,11 @@ public final class SetUpUnitController {
     }
 
     private final List<Unit> getUnits(final Collection<UnitTemplate> templates) {
-        final ModelFactory factory;
         final List<Unit> units;
-
-        factory = ModelFactory.getInstance();
 
         units = new LinkedList<>();
         for (final UnitTemplate template : templates) {
-            units.add(factory.getUnit(template, getRulesetService()));
+            units.add(getModelService().getUnit(template));
         }
 
         return units;
@@ -489,15 +494,15 @@ public final class SetUpUnitController {
                 });
 
         getArmorComboBox().setCellFactory(column -> {
-            return new ArmorNameAndCostListCell(localizationService);
+            return new ArmorNameAndCostListCell(serviceLocalization);
         });
         getArmorComboBox().setButtonCell(
-                new ArmorNameAndCostListCell(localizationService));
+                new ArmorNameAndCostListCell(serviceLocalization));
     }
 
     private final void initializeArmorRulesList() {
         getArmorRulesList().setCellFactory(column -> {
-            return new SpecialRuleListCell(localizationService);
+            return new SpecialRuleListCell(serviceLocalization);
         });
     }
 
@@ -506,27 +511,27 @@ public final class SetUpUnitController {
                 .addListener((observable, oldValue, newValue) -> {});
 
         getMutationsComboBox().setCellFactory(column -> {
-            return new MutationNameAndCostListCell(localizationService);
+            return new MutationNameAndCostListCell(serviceLocalization);
         });
         getMutationsComboBox().setButtonCell(
-                new MutationNameAndCostListCell(localizationService));
+                new MutationNameAndCostListCell(serviceLocalization));
     }
 
     private final void initializeMutationsList() {
         getMutationsList().setCellFactory(column -> {
-            return new MutationNameListCell(localizationService);
+            return new MutationNameListCell(serviceLocalization);
         });
     }
 
     private final void initializeSpecialRulesList() {
         getSpecialRulesList().setCellFactory(column -> {
-            return new SpecialRuleListCell(localizationService);
+            return new SpecialRuleListCell(serviceLocalization);
         });
     }
 
     private final void initializeUnitsList() {
         getUnitsList().setCellFactory(view -> {
-            return new UnitNameListCell(localizationService);
+            return new UnitNameListCell(serviceLocalization);
         });
 
         getUnitsList()
@@ -637,7 +642,7 @@ public final class SetUpUnitController {
                 .getOptions().getEquipmentOptions()) {
             final CheckBox check;
 
-            name = String.format(template, localizationService
+            name = String.format(template, serviceLocalization
                     .getEquipmentNameString(equipment.getNameToken()),
                     equipment.getCost());
 
