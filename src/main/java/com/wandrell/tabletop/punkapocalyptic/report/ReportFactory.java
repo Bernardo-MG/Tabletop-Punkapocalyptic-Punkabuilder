@@ -16,8 +16,6 @@ import net.sf.dynamicreports.report.builder.style.Styles;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.constant.WhenNoDataType;
 
-import com.wandrell.tabletop.punkapocalyptic.conf.ReportBundleConf;
-import com.wandrell.tabletop.punkapocalyptic.conf.ReportConf;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.ArmorOption;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.Equipment;
@@ -27,6 +25,8 @@ import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Unit;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.mutation.Mutation;
+import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportBundleConf;
+import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportConf;
 import com.wandrell.tabletop.punkapocalyptic.report.datatype.ArmorOptionDataType;
 import com.wandrell.tabletop.punkapocalyptic.report.datatype.EquipmentDataType;
 import com.wandrell.tabletop.punkapocalyptic.report.datatype.FactionDataType;

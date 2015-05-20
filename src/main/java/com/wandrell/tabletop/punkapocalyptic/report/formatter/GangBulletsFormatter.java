@@ -4,8 +4,8 @@ import net.sf.dynamicreports.report.base.expression.AbstractValueFormatter;
 import net.sf.dynamicreports.report.constant.Constants;
 import net.sf.dynamicreports.report.definition.ReportParameters;
 
-import com.wandrell.tabletop.punkapocalyptic.conf.ReportBundleConf;
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
+import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportBundleConf;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 
 public final class GangBulletsFormatter extends
