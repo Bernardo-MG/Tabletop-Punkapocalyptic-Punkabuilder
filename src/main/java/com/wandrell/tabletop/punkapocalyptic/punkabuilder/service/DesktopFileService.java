@@ -34,8 +34,6 @@ public final class DesktopFileService implements FileService {
     private final ApplicationInfoService appInfoService;
     private final Properties             fileProp;
     private final LocalizationService    localizationService;
-    private final ReportFactory          reportFactory   = ReportFactory
-                                                                 .getInstance();
     private final RulesetService         rulesetService;
 
     @Autowired
@@ -90,7 +88,7 @@ public final class DesktopFileService implements FileService {
         checkNotNull(gang, "Received a null pointer as gang");
         checkNotNull(file, "Received a null pointer as file");
 
-        report = reportFactory.getGangReport(getApplicationInfoService()
+        report = ReportFactory.getGangReport(getApplicationInfoService()
                 .getApplicationName(),
                 getApplicationInfoService().getVersion(),
                 getApplicationInfoService().getProjectURI().toString(),

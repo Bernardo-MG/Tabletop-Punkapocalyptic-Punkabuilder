@@ -8,13 +8,14 @@ import net.sf.dynamicreports.report.definition.expression.DRIValueFormatter;
 
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 
-public final class WeaponDataType extends
+public final class UnitWeaponDataType extends
         AbstractDataType<UnitWeapon, UnitWeapon> {
 
     private static final long                           serialVersionUID = 1L;
     private final DRIValueFormatter<String, UnitWeapon> formatter;
 
-    public WeaponDataType(final DRIValueFormatter<String, UnitWeapon> formatter) {
+    public UnitWeaponDataType(
+            final DRIValueFormatter<String, UnitWeapon> formatter) {
         super();
 
         this.formatter = formatter;
