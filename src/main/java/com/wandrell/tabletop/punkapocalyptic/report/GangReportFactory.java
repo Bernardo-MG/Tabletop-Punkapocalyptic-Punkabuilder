@@ -6,7 +6,6 @@ import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
 import net.sf.dynamicreports.report.builder.component.Components;
-import net.sf.dynamicreports.report.builder.component.SubreportBuilder;
 import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
 import net.sf.dynamicreports.report.builder.style.Styles;
 
@@ -21,7 +20,7 @@ import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.util.ResourceUtils;
 
-public final class ReportFactory {
+public final class GangReportFactory {
 
     private static final DynamicReportsFactory factory = DynamicReportsFactory
                                                                .getInstance();
@@ -30,30 +29,20 @@ public final class ReportFactory {
             final String version, final String URL, final String imagePath,
             final LocalizationService localizationService,
             final RulesetService rulesetService) {
-        return buildReport(appName, version, URL, imagePath,
-                localizationService, rulesetService);
-    }
-
-    private static final JasperReportBuilder buildReport(final String appName,
-            final String version, final String URL, final String imagePath,
-            final LocalizationService localizationService,
-            final RulesetService rulesetService) {
         final JasperReportBuilder report;
-        final ComponentBuilder<?, ?> title;
-        final ComponentBuilder<?, ?> footer;
-        final SubreportBuilder subreport;
 
+        // Report template
         report = DynamicReports.report();
         report.setTemplate(getDynamicReportsFactory().getReportTemplate());
 
-        title = getGangReportTitle(appName, version, URL, imagePath,
-                localizationService, rulesetService);
-        subreport = UnitFactory.getUnitsSubreport(localizationService);
-        footer = getDynamicReportsFactory().getReportFooter();
-
-        report.title(title);
-        report.detailFooter(subreport);
-        report.pageFooter(footer);
+        // Title
+        report.title(getGangReportTitle(appName, version, URL, imagePath,
+                localizationService, rulesetService));
+        // Units report
+        report.detailFooter(UnitReportFactory
+                .getUnitsSubreport(localizationService));
+        // Footer
+        report.pageFooter(getDynamicReportsFactory().getReportFooter());
 
         return report;
     }
@@ -102,7 +91,7 @@ public final class ReportFactory {
                 Components.line(), Components.verticalGap(10));
     }
 
-    private ReportFactory() {
+    private GangReportFactory() {
         super();
     }
 

@@ -2,7 +2,7 @@ package com.wandrell.tabletop.punkapocalyptic.punkabuilder.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public final class DefaultModelService implements ModelService {
 
     @Override
     public final Constraint getConstraint(final Gang gang, final String name,
-            final String unit, final List<String> context) {
+            final String unit, final Collection<String> context) {
         return getFactory().getConstraint(gang, name, unit, context,
                 getLocalizationService());
     }

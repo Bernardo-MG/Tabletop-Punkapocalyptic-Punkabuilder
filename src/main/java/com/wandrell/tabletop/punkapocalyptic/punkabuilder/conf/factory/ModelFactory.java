@@ -1,7 +1,7 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.conf.factory;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -38,10 +38,13 @@ public final class ModelFactory {
     }
 
     public final Constraint getConstraint(final Gang gang, final String name,
-            final String unit, final List<String> context,
+            final String unit, final Collection<String> context,
             final LocalizationService service) {
         final Constraint constraint;
         final String message;
+        final Iterator<String> itrContext;
+        final String context1;
+        final String context2;
         // TODO: The localization service should not be required in here
 
         switch (name) {
@@ -63,12 +66,17 @@ public final class ModelFactory {
                         message);
                 break;
             case ConstraintsConf.DEPENDANT:
+                itrContext = context.iterator();
+
+                context1 = itrContext.next();
+                context2 = itrContext.next();
+
                 message = String.format(service
                         .getMessageString(MessageBundleKey.DEPENDS_ON_UNIT),
-                        unit, context.get(0), Integer.parseInt(context.get(1)));
+                        unit, context1, Integer.parseInt(context2));
 
-                constraint = new DependantUnitConstraint(gang, context.get(0),
-                        unit, Integer.parseInt(context.get(1)), message);
+                constraint = new DependantUnitConstraint(gang, context1, unit,
+                        Integer.parseInt(context2), message);
                 break;
             default:
                 constraint = null;
