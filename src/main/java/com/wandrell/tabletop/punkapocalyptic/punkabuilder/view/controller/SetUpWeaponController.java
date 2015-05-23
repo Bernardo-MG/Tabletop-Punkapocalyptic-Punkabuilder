@@ -244,8 +244,9 @@ public final class SetUpWeaponController {
                                 final UnitWeapon weapon;
 
                                 weapon = newValue;
-                                if (newValue instanceof UnitDependantWeapon) {
-                                    ((UnitDependantWeapon) weapon)
+                                if (newValue.getWeaponTemplate() instanceof UnitDependantWeapon) {
+                                    ((UnitDependantWeapon) weapon
+                                            .getWeaponTemplate())
                                             .setUnit(getUnitConfigurationManager()
                                                     .getUnit());
                                 }
