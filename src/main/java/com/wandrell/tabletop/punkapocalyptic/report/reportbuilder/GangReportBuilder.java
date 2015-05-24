@@ -15,15 +15,6 @@ public final class GangReportBuilder extends JasperReportBuilder {
 
     private static final long serialVersionUID = 1781720918143793266L;
 
-    private final SubreportBuilder getUnitsSubreport(
-            final LocalizationService localizationService) {
-        return Components
-                .subreport(new UnitsReportBuilder(localizationService))
-                .setDataSource(
-                        Expressions
-                                .subDatasourceBeanCollection(ReportConf.UNITS));
-    }
-
     public GangReportBuilder(final String appName, final String version,
             final String URL, final String imagePath,
             final LocalizationService localizationService,
@@ -43,6 +34,15 @@ public final class GangReportBuilder extends JasperReportBuilder {
         detailFooter(getUnitsSubreport(localizationService));
         // Footer
         pageFooter(factory.getReportFooter());
+    }
+
+    private final SubreportBuilder getUnitsSubreport(
+            final LocalizationService localizationService) {
+        return Components
+                .subreport(new UnitsReportBuilder(localizationService))
+                .setDataSource(
+                        Expressions
+                                .subDatasourceBeanCollection(ReportConf.UNITS));
     }
 
 }

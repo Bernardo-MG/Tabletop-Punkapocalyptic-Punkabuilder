@@ -38,14 +38,15 @@ public final class DesktopFactionUnitAvailabilityRepository extends
 
     @Override
     public final FactionUnitAvailability getAvailabilityForUnit(
-            final String unit) {
+            final String faction, final String unit) {
         final Map<String, Object> params;
 
         params = new LinkedHashMap<>();
+        params.put("faction", faction);
         params.put("unit", unit);
 
         return getEntity(new DefaultQueryData(
-                "SELECT ava FROM FactionUnitAvailability ava WHERE ava.availUnit.name = :unit",
+                "SELECT ava FROM FactionUnitAvailability ava WHERE ava.faction.nameToken = :faction AND ava.availUnit.name = :unit",
                 params));
     }
 
