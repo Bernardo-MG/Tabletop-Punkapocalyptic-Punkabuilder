@@ -15,7 +15,7 @@ public final class GangReportBuilder extends JasperReportBuilder {
 
     private static final long serialVersionUID = 1781720918143793266L;
 
-    private static final SubreportBuilder getUnitsSubreport(
+    private final SubreportBuilder getUnitsSubreport(
             final LocalizationService localizationService) {
         return Components
                 .subreport(new UnitsReportBuilder(localizationService))

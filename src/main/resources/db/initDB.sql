@@ -96,13 +96,13 @@ CREATE TABLE mutations (
 	id				INTEGER IDENTITY PRIMARY KEY,
 	name			VARCHAR(50),
 	cost			INTEGER,
-	actions			INTEGER,
-	agility			INTEGER,
-	combat			INTEGER,
-	precision		INTEGER,
-	strength		INTEGER,
-	tech			INTEGER,
-	toughness		INTEGER
+	actions_bonus	INTEGER,
+	agility_bonus	INTEGER,
+	combat_bonus	INTEGER,
+	precision_bonus	INTEGER,
+	strength_bonus	INTEGER,
+	tech_bonus		INTEGER,
+	toughness_bonus	INTEGER
 );
 
 CREATE TABLE special_rules (
