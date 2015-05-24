@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wandrell.tabletop.punkapocalyptic.model.unit.Gang;
-import com.wandrell.tabletop.punkapocalyptic.report.GangReportFactory;
+import com.wandrell.tabletop.punkapocalyptic.report.reportbuilder.GangReportBuilder;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.util.service.application.ApplicationInfoService;
@@ -88,7 +88,7 @@ public final class DesktopFileService implements FileService {
         checkNotNull(gang, "Received a null pointer as gang");
         checkNotNull(file, "Received a null pointer as file");
 
-        report = GangReportFactory.getGangReport(getApplicationInfoService()
+        report = new GangReportBuilder(getApplicationInfoService()
                 .getApplicationName(),
                 getApplicationInfoService().getVersion(),
                 getApplicationInfoService().getProjectURI().toString(),
