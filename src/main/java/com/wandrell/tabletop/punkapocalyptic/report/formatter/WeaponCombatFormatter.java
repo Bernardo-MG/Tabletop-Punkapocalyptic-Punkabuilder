@@ -5,10 +5,10 @@ import net.sf.dynamicreports.report.constant.Constants;
 import net.sf.dynamicreports.report.definition.ReportParameters;
 
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.MeleeWeapon;
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 
 public final class WeaponCombatFormatter extends
-        AbstractValueFormatter<String, UnitWeapon> {
+        AbstractValueFormatter<String, Weapon> {
 
     private static final long serialVersionUID = Constants.SERIAL_VERSION_UID;
 
@@ -17,7 +17,7 @@ public final class WeaponCombatFormatter extends
     }
 
     @Override
-    public String format(final UnitWeapon value,
+    public String format(final Weapon value,
             final ReportParameters reportParameters) {
         final String result;
 

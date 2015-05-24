@@ -5,7 +5,7 @@ import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
 
 import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportBundleConf;
 import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportConf;
-import com.wandrell.tabletop.punkapocalyptic.report.field.UnitWeaponField;
+import com.wandrell.tabletop.punkapocalyptic.report.field.WeaponField;
 import com.wandrell.tabletop.punkapocalyptic.report.formatter.WeaponCombatFormatter;
 import com.wandrell.tabletop.punkapocalyptic.report.formatter.WeaponDistanceImperialFormatter;
 import com.wandrell.tabletop.punkapocalyptic.report.formatter.WeaponDistanceMetricFormatter;
@@ -22,32 +22,32 @@ public final class WeaponAttributesComponentBuilder extends VerticalListBuilder 
             final LocalizationService localizationService) {
         super();
 
-        add(Components.text(new UnitWeaponField(ReportConf.CURRENT,
+        add(Components.text(new WeaponField(ReportConf.CURRENT,
                 new WeaponNameFormatter())));
         add(Components.horizontalList(Components.horizontalGap(10), Components
                 .text(localizationService
                         .getReportString(ReportBundleConf.COMBAT)), Components
-                .text(new UnitWeaponField(ReportConf.CURRENT,
+                .text(new WeaponField(ReportConf.CURRENT,
                         new WeaponCombatFormatter()))));
         add(Components.horizontalList(Components.horizontalGap(10), Components
                 .text(localizationService
                         .getReportString(ReportBundleConf.STRENGTH)),
-                Components.text(new UnitWeaponField(ReportConf.CURRENT,
+                Components.text(new WeaponField(ReportConf.CURRENT,
                         new WeaponStrengthFormatter()))));
         add(Components.horizontalList(Components.horizontalGap(10), Components
                 .text(localizationService
                         .getReportString(ReportBundleConf.PENETRATION)),
-                Components.text(new UnitWeaponField(ReportConf.CURRENT,
+                Components.text(new WeaponField(ReportConf.CURRENT,
                         new WeaponPenetrationFormatter()))));
         add(Components.horizontalList(Components.horizontalGap(10), Components
                 .text(localizationService
                         .getReportString(ReportBundleConf.DISTANCE_METRIC)),
-                Components.text(new UnitWeaponField(ReportConf.CURRENT,
+                Components.text(new WeaponField(ReportConf.CURRENT,
                         new WeaponDistanceMetricFormatter()))));
         add(Components.horizontalList(Components.horizontalGap(10), Components
                 .text(localizationService
                         .getReportString(ReportBundleConf.DISTANCE_IMPERIAL)),
-                Components.text(new UnitWeaponField(ReportConf.CURRENT,
+                Components.text(new WeaponField(ReportConf.CURRENT,
                         new WeaponDistanceImperialFormatter()))));
     }
 

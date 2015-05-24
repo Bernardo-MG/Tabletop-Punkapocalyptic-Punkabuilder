@@ -4,10 +4,10 @@ import net.sf.dynamicreports.report.base.expression.AbstractValueFormatter;
 import net.sf.dynamicreports.report.constant.Constants;
 import net.sf.dynamicreports.report.definition.ReportParameters;
 
-import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
+import com.wandrell.tabletop.punkapocalyptic.model.inventory.Weapon;
 
 public final class WeaponNameFormatter extends
-        AbstractValueFormatter<String, UnitWeapon> {
+        AbstractValueFormatter<String, Weapon> {
 
     private static final long serialVersionUID = Constants.SERIAL_VERSION_UID;
 
@@ -16,9 +16,9 @@ public final class WeaponNameFormatter extends
     }
 
     @Override
-    public final String format(final UnitWeapon value,
+    public final String format(final Weapon value,
             final ReportParameters reportParameters) {
-        return value.getWeaponTemplate().getNameToken();
+        return value.getNameToken();
     }
 
 }

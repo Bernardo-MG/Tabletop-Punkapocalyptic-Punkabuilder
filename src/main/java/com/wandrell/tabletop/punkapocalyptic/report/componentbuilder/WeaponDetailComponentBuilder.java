@@ -2,6 +2,7 @@ package com.wandrell.tabletop.punkapocalyptic.report.componentbuilder;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.base.DRField;
+import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
 import net.sf.dynamicreports.report.builder.component.Components;
 import net.sf.dynamicreports.report.builder.component.HorizontalListBuilder;
@@ -13,6 +14,7 @@ import com.wandrell.tabletop.punkapocalyptic.model.ruleset.SpecialRule;
 import com.wandrell.tabletop.punkapocalyptic.report.DynamicReportsFactory;
 import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportBundleConf;
 import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportConf;
+import com.wandrell.tabletop.punkapocalyptic.report.expression.CurrentObjectDatasourceExpression;
 import com.wandrell.tabletop.punkapocalyptic.report.field.SpecialRuleField;
 import com.wandrell.tabletop.punkapocalyptic.report.field.WeaponEnhancementField;
 import com.wandrell.tabletop.punkapocalyptic.report.reportbuilder.OptionalListReportBuilder;
@@ -37,7 +39,7 @@ public final class WeaponDetailComponentBuilder extends HorizontalListBuilder {
         subReport = Components.subreport(report);
 
         subReport.setDataSource(Expressions
-                .subDatasourceBeanCollection(ReportConf.SPECIAL_RULES));
+                .subDatasourceBeanCollection(ReportConf.WEAPON_ENHANCEMENTS));
         subReport.setHeight(10);
 
         return subReport;
@@ -54,7 +56,9 @@ public final class WeaponDetailComponentBuilder extends HorizontalListBuilder {
         report = new OptionalListReportBuilder(field,
                 localizationService.getReportString(ReportBundleConf.RULES));
 
-        subReport = Components.subreport(report);
+        subReport = Components.subreport(report).setDataSource(
+                new CurrentObjectDatasourceExpression(
+                        ReportConf.WEAPON_TEMPLATE));
 
         subReport.setDataSource(Expressions
                 .subDatasourceBeanCollection(ReportConf.WEAPON_ENHANCEMENTS));
@@ -70,13 +74,20 @@ public final class WeaponDetailComponentBuilder extends HorizontalListBuilder {
         final SubreportBuilder rules;
         final ComponentBuilder<?, ?> enhancements;
         final DynamicReportsFactory factory;
+        final SubreportBuilder subReport;
 
         factory = DynamicReportsFactory.getInstance();
         rules = getWeaponRulesSubreport(localizationService);
         enhancements = factory
                 .getBorderedCellComponentThin(getWeaponEnhancementsSubreport(localizationService));
 
-        add(new WeaponAttributesComponentBuilder(localizationService));
+        subReport = Components.subreport(DynamicReports.report().detail(
+                new WeaponAttributesComponentBuilder(localizationService)));
+
+        subReport.setDataSource(new CurrentObjectDatasourceExpression(
+                ReportConf.WEAPON_TEMPLATE));
+
+        add(subReport);
         add(factory.getBorderedCellComponentThin(Components.verticalList(rules,
                 enhancements)));
     }
