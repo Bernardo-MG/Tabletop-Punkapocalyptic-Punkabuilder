@@ -6,7 +6,9 @@ import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.component.ComponentBuilder;
 import net.sf.dynamicreports.report.builder.component.Components;
+import net.sf.dynamicreports.report.builder.component.SubreportBuilder;
 import net.sf.dynamicreports.report.builder.component.VerticalListBuilder;
+import net.sf.dynamicreports.report.builder.expression.Expressions;
 import net.sf.dynamicreports.report.builder.style.Styles;
 
 import com.wandrell.tabletop.punkapocalyptic.report.conf.ReportConf;
@@ -16,6 +18,7 @@ import com.wandrell.tabletop.punkapocalyptic.report.formatter.FactionNameFormatt
 import com.wandrell.tabletop.punkapocalyptic.report.formatter.GangBulletsFormatter;
 import com.wandrell.tabletop.punkapocalyptic.report.formatter.GangUnitsRangeFormatter;
 import com.wandrell.tabletop.punkapocalyptic.report.formatter.GangValorationFormatter;
+import com.wandrell.tabletop.punkapocalyptic.report.reportbuilder.UnitsReportBuilder;
 import com.wandrell.tabletop.punkapocalyptic.service.LocalizationService;
 import com.wandrell.tabletop.punkapocalyptic.service.RulesetService;
 import com.wandrell.util.ResourceUtils;
@@ -39,8 +42,7 @@ public final class GangReportFactory {
         report.title(getGangReportTitle(appName, version, URL, imagePath,
                 localizationService, rulesetService));
         // Units report
-        report.detailFooter(UnitReportFactory
-                .getUnitsSubreport(localizationService));
+        report.detailFooter(getUnitsSubreport(localizationService));
         // Footer
         report.pageFooter(getDynamicReportsFactory().getReportFooter());
 
@@ -89,6 +91,15 @@ public final class GangReportFactory {
                 Components.horizontalList().add(brand,
                         Components.horizontalGap(5), gangData),
                 Components.line(), Components.verticalGap(10));
+    }
+
+    private static final SubreportBuilder getUnitsSubreport(
+            final LocalizationService localizationService) {
+        return Components
+                .subreport(new UnitsReportBuilder(localizationService))
+                .setDataSource(
+                        Expressions
+                                .subDatasourceBeanCollection(ReportConf.UNITS));
     }
 
     private GangReportFactory() {
