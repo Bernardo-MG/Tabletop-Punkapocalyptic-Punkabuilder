@@ -20,9 +20,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.wandrell.persistence.PersistenceEntity;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.JPAFaction;
-import com.wandrell.util.persistence.PersistenceEntity;
 
 @Entity(name = "FactionViewConfig")
 @Table(name = "faction_view_config")

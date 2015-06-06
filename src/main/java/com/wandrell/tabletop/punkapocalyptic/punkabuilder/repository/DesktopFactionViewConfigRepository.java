@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.wandrell.jpa.JPARepository;
 import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config.FactionViewConfig;
-import com.wandrell.util.persistence.JPARepository;
 
 @Component("factionViewRepo")
 public final class DesktopFactionViewConfigRepository extends

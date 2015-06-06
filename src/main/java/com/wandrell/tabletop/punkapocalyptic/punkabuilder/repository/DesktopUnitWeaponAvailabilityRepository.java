@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.wandrell.jpa.JPARepository;
 import com.wandrell.pattern.repository.DefaultQueryData;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.UnitWeaponAvailability;
 import com.wandrell.tabletop.punkapocalyptic.model.availability.option.WeaponOption;
@@ -16,7 +17,6 @@ import com.wandrell.tabletop.punkapocalyptic.model.inventory.DefaultUnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.UnitWeapon;
 import com.wandrell.tabletop.punkapocalyptic.model.inventory.WeaponEnhancement;
 import com.wandrell.tabletop.punkapocalyptic.repository.UnitWeaponAvailabilityRepository;
-import com.wandrell.util.persistence.JPARepository;
 
 @Component("unitWeaponRepo")
 public final class DesktopUnitWeaponAvailabilityRepository extends

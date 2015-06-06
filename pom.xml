@@ -129,6 +129,7 @@
 		<spring.jpa.version>1.7.1.RELEASE</spring.jpa.version>
 		<tabletop.version>0.1.0-SNAPSHOT</tabletop.version>
 		<testng.version>6.8.8</testng.version>
+		<wandrell.utils.version>0.1.0-SNAPSHOT</wandrell.utils.version>
 		<!-- Plugins versions -->
 		<plugin.assembly.version>2.5.2</plugin.assembly.version>
 		<plugin.checkstyle.version>2.13</plugin.checkstyle.version>
@@ -199,6 +200,12 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>${hikari.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Java Utils -->
+			<groupId>com.wandrell</groupId>
+			<artifactId>java-utils</artifactId>
+			<version>${wandrell.utils.version}</version>
 		</dependency>
 		<dependency>
 			<!-- SLF4J API -->
