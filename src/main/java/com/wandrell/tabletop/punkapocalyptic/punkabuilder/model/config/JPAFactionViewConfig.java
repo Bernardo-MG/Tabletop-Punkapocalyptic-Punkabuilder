@@ -1,5 +1,13 @@
 package com.wandrell.tabletop.punkapocalyptic.punkabuilder.model.config;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import javafx.scene.image.Image;
 
 import javax.persistence.Column;
@@ -14,7 +22,6 @@ import javax.persistence.Transient;
 
 import com.wandrell.tabletop.punkapocalyptic.model.faction.Faction;
 import com.wandrell.tabletop.punkapocalyptic.model.faction.JPAFaction;
-import com.wandrell.util.ResourceUtils;
 import com.wandrell.util.persistence.PersistenceEntity;
 
 @Entity(name = "FactionViewConfig")
@@ -50,8 +57,7 @@ public final class JPAFactionViewConfig implements FactionViewConfig,
     @Override
     public final Image getImage() {
         if (image == null) {
-            image = new Image(
-                    ResourceUtils.getClassPathInputStream(getImagePath()));
+            image = new Image(getClassPathInputStream(getImagePath()));
         }
 
         return image;
@@ -72,6 +78,49 @@ public final class JPAFactionViewConfig implements FactionViewConfig,
 
     public final void setImagePath(final String path) {
         imagePath = path;
+    }
+
+    /**
+     * Creates an {@code InputStream} pointing to the file specified by the
+     * path, if it exists.
+     * <p>
+     * If any problem occurs during this process a {@code RuntimeException} is
+     * thrown, or an {@code IllegalArgumentException} if the file is not found.
+     * 
+     * @param path
+     *            the path to transform
+     * @return an {@code InputStream} pointing to the path
+     */
+    private final InputStream getClassPathInputStream(final String path) {
+        final URL url;                  // URL parsed from the path
+        final InputStream stream;       // Stream for the file
+
+        url = getClassPathURL(path);
+
+        checkArgument(url != null,
+                String.format("The path %s is invalid", path));
+
+        try {
+            stream = new BufferedInputStream(url.openStream());
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return stream;
+    }
+
+    /**
+     * Creates an {@code URL} pointing to the file specified by the path, if it
+     * exists.
+     * 
+     * @param path
+     *            the path to transform
+     * @return an URL pointing inside the class path
+     */
+    private final URL getClassPathURL(final String path) {
+        checkNotNull(path, "Received a null pointer as path");
+
+        return this.getClass().getClassLoader().getResource(path);
     }
 
 }

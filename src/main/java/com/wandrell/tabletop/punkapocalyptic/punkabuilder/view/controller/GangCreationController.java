@@ -70,6 +70,9 @@ public final class GangCreationController {
 
             @Override
             public final void unitAdded(final UnitEvent e) {
+                // TODO: This is being done before actually adding the unit
+                // Maybe the listener should be listening to the gang builder
+                // manager
                 validate();
             }
 
