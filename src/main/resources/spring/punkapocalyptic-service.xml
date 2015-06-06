@@ -22,6 +22,10 @@
 		<constructor-arg value="${service.application.info.file}" />
 	</bean>
 
+	<bean id="applicationInfoResource" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="${service.application.info.file}" />
+	</bean>
+
 	<!-- FILE SERVICE -->
 
 	<util:properties id="fileConfig" location="${service.file.config.file}" />
